@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_texi_tracker/app_config/app_config.dart';
 import 'package:flutter_texi_tracker/generated/assets.dart';
 import 'package:flutter_texi_tracker/screens/wrapper/location_wrapper.dart';
 
@@ -47,12 +48,12 @@ class SplashScreenState extends State<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: CustomColors().mainColor(1),
       body: FadeTransition(
         opacity: _animation,
         child: Center(
           child: SizedBox(
-            height: 200.0,
+            height: 300.0,
             child: Image.asset(Assets.logoLauncherIconDark),
           ),
         ),

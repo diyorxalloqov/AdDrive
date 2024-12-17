@@ -10,7 +10,7 @@ class AppTheme {
     cardColor: const Color(0xffE7E8EA),
     canvasColor: Colors.black,
     cardTheme: const CardTheme(color: Color(0xffE7E8EA)),
-    scaffoldBackgroundColor: const Color(0xffF0F1F3),
+    scaffoldBackgroundColor: const Color(0xffFFFFFF),
     appBarTheme: AppBarTheme(color: CustomColors().mainColor(1)),
     primarySwatch: const MaterialColor(
       0xFF041E48,

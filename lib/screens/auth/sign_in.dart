@@ -5,7 +5,6 @@ import 'package:flutter_texi_tracker/generated/assets.dart';
 import 'package:flutter_texi_tracker/language/language_screen.dart';
 import 'package:flutter_texi_tracker/screens/auth/forget_password/forget_password_screen.dart';
 import 'package:flutter_texi_tracker/controller/sign_in_controller.dart';
-import 'package:flutter_texi_tracker/screens/auth/sign_up.dart';
 import 'package:flutter_texi_tracker/widgets/loading.dart';
 import 'package:get/get.dart';
 
@@ -23,6 +22,7 @@ class UserSignInState extends State<UserSignIn> {
   String email = '';
   String password = '';
   bool isLoading = false;
+  bool obscureText = true;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +47,9 @@ class UserSignInState extends State<UserSignIn> {
                               children: [
                                 Image.asset(Assets.logoLauncherIcon, scale: 4),
                                 const SizedBox(height: 20),
-                                Text(
-                                  'Sign_in'.tr,
-                                  style: Get.textTheme.titleLarge,
-                                ),
-                                const SizedBox(
-                                  height: 20,
-                                ),
+                                Text('Sign_in'.tr,
+                                    style: Get.textTheme.titleLarge),
+                                const SizedBox(height: 20),
                                 TextFormField(
                                   textAlignVertical: TextAlignVertical.bottom,
                                   validator: (val) => val!.isEmpty
@@ -66,12 +62,8 @@ class UserSignInState extends State<UserSignIn> {
                                         borderSide:
                                             BorderSide(color: Colors.black)),
                                     prefixIcon: const Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        Icons.person,
-                                        size: 25,
-                                      ),
-                                    ),
+                                        padding: EdgeInsets.only(right: 20),
+                                        child: Icon(Icons.person, size: 25)),
                                     hintText: 'email_or_phone'.tr,
                                     hintStyle: const TextStyle(
                                         color: Colors.grey,
@@ -89,7 +81,7 @@ class UserSignInState extends State<UserSignIn> {
                                 ),
                                 TextFormField(
                                   textAlignVertical: TextAlignVertical.bottom,
-                                  obscureText: true,
+                                  obscureText: obscureText,
                                   validator: (val) => val!.isEmpty
                                       ? 'enter_password_please'.tr
                                       : null,
@@ -99,12 +91,18 @@ class UserSignInState extends State<UserSignIn> {
                                     focusedBorder: const UnderlineInputBorder(
                                         borderSide:
                                             BorderSide(color: Colors.black)),
+                                    suffixIcon: IconButton(
+                                        onPressed: () {
+                                          obscureText = !obscureText;
+                                          setState(() {});
+                                        },
+                                        icon: Icon(obscureText
+                                            ? Icons.visibility
+                                            : Icons.visibility_off)),
                                     prefixIcon: const Padding(
                                       padding: EdgeInsets.only(right: 20),
-                                      child: Icon(
-                                        CupertinoIcons.padlock_solid,
-                                        size: 25,
-                                      ),
+                                      child: Icon(CupertinoIcons.padlock_solid,
+                                          size: 25),
                                     ),
                                     hintText: 'password'.tr,
                                     hintStyle: const TextStyle(

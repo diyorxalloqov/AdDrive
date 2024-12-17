@@ -43,7 +43,7 @@ class _InboxScreenState extends State<InboxScreen>
                   automaticIndicatorColorAdjustment: true,
                   tabs: [
                     Tab(
-                      text: 'message'.tr,
+                      text: 'message'.tr
                     ),
                     Tab(
                       text: 'notifications'.tr,

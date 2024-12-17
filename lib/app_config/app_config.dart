@@ -35,7 +35,7 @@ class App {
 
 class CustomColors {
 
-  final Color _mainColor = const Color(0xFFf78137);
+  final Color _mainColor = const Color(0xff4285F4);
   final Color _mainDarkColor = const Color(0xFFC55D1C);
   final Color _secondColor = const Color(0xFFfb412a);
   final Color _secondDarkColor = const Color(0xFFcb3421);

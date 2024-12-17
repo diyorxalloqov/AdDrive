@@ -26,7 +26,7 @@ class UserAuthenticateState extends State<UserAuthenticate> {
       init: SignInUpController(),
       initState: (_) => SignInUpController(),
       builder: (controller) {
-        return showSignIn
+        return !showSignIn
             ? UserSignUp(toggleView: toggleView)
             : UserSignIn(toggleView: toggleView);
       },
