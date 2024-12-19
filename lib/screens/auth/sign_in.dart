@@ -1,17 +1,8 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/app_config/utils.dart';
-import 'package:flutter_texi_tracker/generated/assets.dart';
-import 'package:flutter_texi_tracker/language/language_screen.dart';
-import 'package:flutter_texi_tracker/screens/auth/forget_password/forget_password_screen.dart';
-import 'package:flutter_texi_tracker/controller/sign_in_controller.dart';
-import 'package:flutter_texi_tracker/widgets/loading.dart';
-import 'package:get/get.dart';
+import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:flutter_texi_tracker/screens/auth/sign_up.dart';
 
 class UserSignIn extends StatefulWidget {
-  final Function toggleView;
-
-  const UserSignIn({super.key, required this.toggleView});
+  const UserSignIn({super.key});
 
   @override
   UserSignInState createState() => UserSignInState();
@@ -23,6 +14,15 @@ class UserSignInState extends State<UserSignIn> {
   String password = '';
   bool isLoading = false;
   bool obscureText = true;
+  late TextEditingController _phoneController;
+  late TextEditingController _passwordController;
+
+  @override
+  void initState() {
+    _phoneController = TextEditingController();
+    _passwordController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,165 +32,148 @@ class UserSignInState extends State<UserSignIn> {
             ? const Loading()
             : Scaffold(
                 body: SafeArea(
-                  child: Stack(
-                    children: [
-                      Image.asset(shapeLoginFlow,
-                          width: double.infinity, fit: BoxFit.cover),
-                      Padding(
-                        padding:
-                            const EdgeInsets.only(left: 22, right: 22, top: 80),
-                        child: Form(
-                          key: _formKey,
-                          child: SingleChildScrollView(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Padding(
+                    padding:
+                        const EdgeInsets.only(left: 22, right: 22, top: 40),
+                    child: Form(
+                      key: _formKey,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            Image.asset(Assets.logoLauncherIcon,
+                                color: CustomColors().mainColor(1),
+                                scale: 2.5,
+                                alignment: Alignment.center),
+                            const SpaceHeight(height: 20),
+                            Text('Sign_in'.tr,
+                                style: Get.textTheme.labelMedium),
+                            const SpaceHeight(height: 20),
+                            TextFormFieldWidget(
+                              controller: _phoneController,
+                              validator: (val) =>
+                                  val!.isEmpty ? 'enter_email_please'.tr : null,
+                              prefixIconName: Assets.iconsPhone,
+                              hintText: 'email_or_phone'.tr,
+                              onChanged: (val) {
+                                setState(() {
+                                  email = val;
+                                });
+                              },
+                            ),
+                            const SpaceHeight(height: 20),
+                            TextFormFieldWidget(
+                              controller: _passwordController,
+                              obscureText: obscureText,
+                              suffixs: GestureDetector(
+                                  onTap: () {
+                                    obscureText = !obscureText;
+                                    setState(() {});
+                                  },
+                                  child: Icon(
+                                      obscureText
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: CustomColors().mainColor(1))),
+                              validator: (val) => val!.isEmpty
+                                  ? 'enter_password_please'.tr
+                                  : null,
+                              prefixIconName: Assets.iconsSecurity,
+                              hintText: 'password'.tr,
+                              onChanged: (val) {
+                                setState(() {
+                                  password = val;
+                                });
+                              },
+                            ),
+                            const SpaceHeight(height: 8.0),
+                            Align(
+                              alignment: Alignment.centerRight,
+                              child: InkWell(
+                                  onTap: () => Get.to(const ForgetPassScreen()),
+                                  child: Text('forgot_password'.tr,
+                                      style: context
+                                          .theme.textTheme.headlineLarge)),
+                            ),
+                            const SpaceHeight(height: 30.0),
+                            CustomButton(
+                                padding: EdgeInsets.zero,
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    setState(() {
+                                      isLoading = true;
+                                    });
+                                    signInController.userLogin(
+                                        email: email, password: password);
+                                    setState(() {
+                                      isLoading = false;
+                                    });
+                                  }
+                                },
+                                title: "enter".tr),
+                            const SpaceHeight(height: 20.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Image.asset(Assets.logoLauncherIcon, scale: 4),
-                                const SizedBox(height: 20),
-                                Text('Sign_in'.tr,
-                                    style: Get.textTheme.titleLarge),
-                                const SizedBox(height: 20),
-                                TextFormField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  validator: (val) => val!.isEmpty
-                                      ? 'enter_email_please'.tr
-                                      : null,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 16.0),
-                                  decoration: InputDecoration(
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black)),
-                                    prefixIcon: const Padding(
-                                        padding: EdgeInsets.only(right: 20),
-                                        child: Icon(Icons.person, size: 25)),
-                                    hintText: 'email_or_phone'.tr,
-                                    hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      email = val;
-                                    });
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                TextFormField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  obscureText: obscureText,
-                                  validator: (val) => val!.isEmpty
-                                      ? 'enter_password_please'.tr
-                                      : null,
-                                  style: const TextStyle(
-                                      color: Colors.black, fontSize: 16.0),
-                                  decoration: InputDecoration(
-                                    focusedBorder: const UnderlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: Colors.black)),
-                                    suffixIcon: IconButton(
-                                        onPressed: () {
-                                          obscureText = !obscureText;
-                                          setState(() {});
-                                        },
-                                        icon: Icon(obscureText
-                                            ? Icons.visibility
-                                            : Icons.visibility_off)),
-                                    prefixIcon: const Padding(
-                                      padding: EdgeInsets.only(right: 20),
-                                      child: Icon(CupertinoIcons.padlock_solid,
-                                          size: 25),
-                                    ),
-                                    hintText: 'password'.tr,
-                                    hintStyle: const TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  onChanged: (val) {
-                                    setState(() {
-                                      password = val;
-                                    });
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 20.0,
-                                ),
                                 Container(
-                                    alignment: Alignment.centerRight,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 16.0),
-                                    child: InkWell(
-                                        onTap: () =>
-                                            Get.to(const ForgetPassScreen()),
-                                        child: Text(
-                                          'forgot_password'.tr,
-                                          style: Get.textTheme.bodySmall,
-                                        ))),
-                                const SizedBox(height: 20.0),
-                                GestureDetector(
-                                  onTap: () async {
-                                    if (_formKey.currentState!.validate()) {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                      signInController.userLogin(
-                                          email: email, password: password);
-                                      setState(() {
-                                        isLoading = false;
-                                      });
-                                    }
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 15.0),
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(25),
-                                        color: const Color(0xFF041E48)),
-                                    child: Center(
-                                        child: Text(
-                                      'Sign_in'.tr,
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 18),
-                                    )),
-                                  ),
-                                ),
-                                const SizedBox(height: 20.0),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text('don`t_have_account'.tr),
-                                    TextButton(
-                                        onPressed: () => widget.toggleView(),
-                                        child: Text('sign_up'.tr,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .displaySmall))
-                                  ],
-                                )
+                                    height: 1,
+                                    width: 10,
+                                    color: CustomColors().mainColor(1)),
+                                const SpaceWidth(width: 20),
+                                Text('or'.tr,
+                                    style: context.theme.textTheme.labelMedium
+                                        ?.copyWith(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w400)),
+                                const SpaceWidth(width: 20),
+                                Container(
+                                    height: 1,
+                                    width: 10,
+                                    color: CustomColors().mainColor(1))
                               ],
                             ),
-                          ),
+                            const SpaceHeight(height: 20.0),
+                            GestureDetector(
+                              onTap: () => googleSignIn(context),
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: context.theme.dividerColor
+                                          .withOpacity(0.1),
+                                      width: 1),
+                                ),
+                                child:
+                                    Image.asset(Assets.imagesGoogle, width: 30),
+                              ),
+                            ),
+                            const SpaceHeight(height: 20.0),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'don`t_have_account'.tr,
+                                  style: context.theme.textTheme.labelMedium
+                                      ?.copyWith(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w400),
+                                ),
+                                TextButton(
+                                    onPressed: () => Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                const UserSignUp())),
+                                    child: Text('sign_up'.tr,
+                                        style: context
+                                            .theme.textTheme.headlineLarge
+                                            ?.copyWith(fontSize: 14)))
+                              ],
+                            )
+                          ],
                         ),
                       ),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: OutlinedButton(
-                            onPressed: () => Get.to(const LanguageScreen()),
-                            style: OutlinedButton.styleFrom(
-                                shape: const StadiumBorder()),
-                            child: Text(
-                              'language'.tr,
-                              style: Get.textTheme.titleMedium!
-                                  .copyWith(color: const Color(0xFF041E48)),
-                            )),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               );
@@ -198,3 +181,16 @@ class UserSignInState extends State<UserSignIn> {
     );
   }
 }
+// Positioned(
+// right: 10,
+// top: 10,
+// child: OutlinedButton(
+// onPressed: () => Get.to(const LanguageScreen()),
+// style: OutlinedButton.styleFrom(
+// shape: const StadiumBorder()),
+// child: Text(
+// 'language'.tr,
+// style: Get.textTheme.titleMedium!
+//     .copyWith(color: const Color(0xFF041E48)),
+// )),
+// ),

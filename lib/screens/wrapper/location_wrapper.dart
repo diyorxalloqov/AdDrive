@@ -2,6 +2,7 @@ import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/controller/location_controller.dart';
+import 'package:flutter_texi_tracker/screens/auth/sign_in.dart';
 import 'package:flutter_texi_tracker/screens/auth/user_authenticate.dart';
 import 'package:flutter_texi_tracker/screens/bottom_navigation/bottom_nav_screen.dart';
 import 'package:flutter_texi_tracker/services/location_service.dart';
@@ -27,9 +28,9 @@ class LocationWrapperState extends State<LocationWrapper>
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (authController) {
-      return authController.getUser() != null
+      return authController.getUser() == null
           ? const BottomNavScreen()
-          : const UserAuthenticate();
+          : const UserSignIn();
     });
   }
 

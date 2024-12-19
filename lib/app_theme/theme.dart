@@ -9,6 +9,18 @@ class AppTheme {
     brightness: Brightness.light,
     cardColor: const Color(0xffE7E8EA),
     canvasColor: Colors.black,
+    colorScheme: const ColorScheme(
+        brightness: Brightness.light,
+        primary: Colors.white,
+        onPrimary: Colors.transparent,
+        secondary: Colors.transparent,
+        onSecondary: Colors.transparent,
+        error: Colors.transparent,
+        onError: Colors.transparent,
+        surface: Colors.transparent,
+        onSurface: Colors.transparent),
+    shadowColor: const Color(0xffC7C7CC),
+    dividerColor: const Color(0xff004646),
     cardTheme: const CardTheme(color: Color(0xffE7E8EA)),
     scaffoldBackgroundColor: const Color(0xffFFFFFF),
     appBarTheme: AppBarTheme(color: CustomColors().mainColor(1)),
@@ -31,13 +43,19 @@ class AppTheme {
     primaryIconTheme: IconThemeData(
       color: CustomColors().mainColor(1),
     ),
+    fontFamily: "Inter",
     hintColor: config.CustomColors().secondColor(1),
     textTheme: TextTheme(
       displayLarge: TextStyle(
-        fontSize: 22.0,
-        color: config.CustomColors().mainColor(1),
-        fontWeight: FontWeight.w700,
-      ),
+          fontSize: 22.0,
+          color: config.CustomColors().mainColor(1),
+          fontWeight: FontWeight.w700),
+      headlineSmall: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w400,
+          color: const Color(0xff3c3c43).withOpacity(0.6)),
+      bodyLarge: const TextStyle(
+          fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
       displayMedium: TextStyle(
           fontSize: 20.0,
           fontWeight: FontWeight.w600,
@@ -62,18 +80,32 @@ class AppTheme {
           fontSize: 13.0,
           fontWeight: FontWeight.w600,
           color: config.CustomColors().secondColor(1)),
+      labelMedium: TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w500,
+          color: config.CustomColors().greyColor(1)),
       bodySmall: TextStyle(
           fontSize: 12.0, color: config.CustomColors().accentColor(1)),
     ),
   );
 
   final darkTheme = ThemeData(
-    fontFamily: 'NunitoSans',
+    fontFamily: 'Inter',
     primaryColor: const Color(0xFF252525),
     iconTheme: const IconThemeData(color: Colors.white),
     brightness: Brightness.dark,
     cardColor: const Color(0xff3D3D3D),
     canvasColor: Colors.white,
+    colorScheme: const ColorScheme(
+        brightness: Brightness.dark,
+        primary: Colors.white,
+        onPrimary: Colors.transparent,
+        secondary: Colors.transparent,
+        onSecondary: Colors.transparent,
+        error: Colors.transparent,
+        onError: Colors.transparent,
+        surface: Colors.transparent,
+        onSurface: Colors.transparent),
     cardTheme: const CardTheme(color: Color(0xff3D3D3D)),
     scaffoldBackgroundColor: const Color(0xFF2C2C2C),
     hintColor: config.CustomColors().secondDarkColor(1),
@@ -81,6 +113,10 @@ class AppTheme {
     textTheme: TextTheme(
       displayLarge: TextStyle(
           fontSize: 20.0, color: config.CustomColors().secondDarkColor(1)),
+      headlineSmall: const TextStyle(
+          fontSize: 16, fontWeight: FontWeight.w400, color: Color(0xff3c3c43)),
+      bodyLarge: const TextStyle(
+          fontSize: 24, fontWeight: FontWeight.w600, color: Colors.white),
       displayMedium: TextStyle(
           fontSize: 18.0,
           fontWeight: FontWeight.w600,

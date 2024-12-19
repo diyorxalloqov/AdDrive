@@ -10,10 +10,12 @@ class App {
   App(context) {
     _context = context;
     MediaQueryData queryData = MediaQuery.of(_context);
-    _height = queryData.size.height / 100.0;
-    _width = queryData.size.width / 100.0;
-    _heightPadding = _height - ((queryData.padding.top + queryData.padding.bottom) / 100.0);
-    _widthPadding = _width - (queryData.padding.left + queryData.padding.right) / 100.0;
+    _height = queryData.size.height / 932.0;
+    _width = queryData.size.width / 430.0;
+    _heightPadding =
+        _height - ((queryData.padding.top + queryData.padding.bottom) / 932.0);
+    _widthPadding =
+        _width - (queryData.padding.left + queryData.padding.right) / 430.0;
   }
 
   double appHeight(double v) {
@@ -34,7 +36,6 @@ class App {
 }
 
 class CustomColors {
-
   final Color _mainColor = const Color(0xff4285F4);
   final Color _mainDarkColor = const Color(0xFFC55D1C);
   final Color _secondColor = const Color(0xFFfb412a);
@@ -42,9 +43,19 @@ class CustomColors {
   final Color _accentColor = const Color(0xFF8C98A8);
   final Color _accentDarkColor = const Color(0xFF9999aa);
   final Color _scaffoldColor = const Color(0xFFFAFAFA);
+  final Color _blackColor = const Color(0xff00001a);
+  final Color _greyColor = const Color(0xff474747);
 
   Color mainColor(double opacity) {
     return _mainColor.withOpacity(opacity);
+  }
+
+  Color blackColor(double opacity) {
+    return _blackColor.withOpacity(opacity);
+  }
+
+  Color greyColor(double opacity) {
+    return _greyColor.withOpacity(opacity);
   }
 
   Color secondColor(double opacity) {

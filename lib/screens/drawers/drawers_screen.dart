@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
+import 'package:flutter_texi_tracker/global/language_dialog.dart';
 import 'package:flutter_texi_tracker/routes/app_routes.dart';
+import 'package:flutter_texi_tracker/widgets/space_widget.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -58,7 +60,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
       DrawerProfileList(
           iconData: 'asset/icons/drawer_icon/language.svg',
           title: 'language'.tr,
-          onPressed: () => Get.toNamed(AppRoutes.languagePage)),
+          onPressed: () => showLanguageDialog(context)),
     };
 
     final supportLegalList = {
@@ -73,7 +75,6 @@ class _DrawerScreenState extends State<DrawerScreen> {
     };
 
     return Scaffold(
-      backgroundColor: const Color(0x00ffffff),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
@@ -119,7 +120,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       Text(controller.getUser()?.name ?? "",
                           style: Get.textTheme.headlineMedium?.copyWith(
                               fontWeight: FontWeight.w600, height: 2)),
-                      Text('${controller.getUser()?.phone}'),
+                      Text('${controller.getUser()?.phone}',
+                          style: context.theme.textTheme.headlineSmall),
                     ],
                   ),
                 ),
@@ -130,7 +132,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     .map((e) => ListTile(
                         onTap: e.onPressed!,
                         dense: true,
-                        title: Text('${e.title}'),
+                        title: Text('${e.title}',
+                            style: context.theme.textTheme.headlineSmall),
                         leading: SvgPicture.asset('${e.iconData}')))
                     .toList(),
               ),
@@ -140,7 +143,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     .map((e) => ListTile(
                         onTap: e.onPressed,
                         dense: true,
-                        title: Text('${e.title}'),
+                        title: Text('${e.title}',
+                            style: context.theme.textTheme.headlineSmall),
                         leading: SvgPicture.asset('${e.iconData}')))
                     .toList(),
               ),
@@ -164,14 +168,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                           mode: LaunchMode.externalApplication),
                                       child: Column(
                                         children: [
-                                          const Icon(
-                                            Icons.mail,
-                                            size: 30,
-                                            color: Colors.white,
-                                          ),
-                                          const SizedBox(
-                                            height: 6,
-                                          ),
+                                          const Icon(Icons.mail,
+                                              size: 30, color: Colors.white),
+                                          const SpaceHeight(height: 6),
                                           Text('E-mail',
                                               style: Get.textTheme.titleMedium
                                                   ?.copyWith(
@@ -220,7 +219,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         )),
                       ),
                   dense: true,
-                  title: Text('emergency_call'.tr),
+                  title: Text('emergency_call'.tr,
+                      style: context.theme.textTheme.headlineSmall),
                   leading: SvgPicture.asset(
                       'asset/icons/drawer_icon/emergency.svg')),
               Column(
@@ -228,14 +228,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
                     .map((e) => ListTile(
                         onTap: e.onPressed,
                         dense: true,
-                        title: Text('${e.title}'),
+                        title: Text('${e.title}',
+                            style: context.theme.textTheme.headlineSmall),
                         leading: SvgPicture.asset('${e.iconData}')))
                     .toList(),
               ),
               const SizedBox(height: 15),
               ListTile(
                 dense: true,
-                title: Text('logout'.tr),
+                title: Text('logout'.tr,
+                    style: context.theme.textTheme.headlineSmall),
                 leading: SvgPicture.asset('asset/icons/drawer_icon/logout.svg'),
                 onTap: () {
                   ///logout dialog alert
@@ -258,23 +260,21 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   Get.back();
                                 },
                                 child: Text('yes'.tr,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodyMedium)),
+                                    style:
+                                        context.theme.textTheme.headlineSmall)),
                             TextButton(
                                 onPressed: () {
                                   Get.back();
                                 },
                                 child: Text('no'.tr,
-                                    style: Get.textTheme.bodyMedium)),
+                                    style:
+                                        context.theme.textTheme.headlineSmall)),
                           ],
                         );
                       });
                 },
               ),
-              const SizedBox(
-                height: 15,
-              ),
+              const SpaceHeight(height: 15),
             ],
           ),
         ),

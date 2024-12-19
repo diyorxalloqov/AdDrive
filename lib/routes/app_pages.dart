@@ -25,11 +25,6 @@ class AppPages {
         binding: AuthBinding(),
         transition: Transition.cupertino),
     GetPage(
-        name: AppRoutes.authPage,
-        page: () => const UserAuthenticate(),
-        binding: AuthBinding(),
-        transition: Transition.cupertino),
-    GetPage(
         name: AppRoutes.signUp,
         page: () => const UserSignUp(),
         binding: AuthBinding(),

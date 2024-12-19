@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void storeLocalData({required String? key, required String value}) async {
@@ -13,10 +12,29 @@ void setValue(String key, String? value) async {
   } catch (_) {}
 }
 
+void setBool(String key, bool? value) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  try {
+    if (value != null) {
+      prefs.setBool(key, value);
+    }
+  } catch (_) {}
+}
+
 Future<String?> getValue(String key) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   try {
     var value = prefs.getString(key);
+    return value;
+  } catch (error) {
+    return null;
+  }
+}
+
+Future<bool?> getBool(String key) async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  try {
+    var value = prefs.getBool(key);
     return value;
   } catch (error) {
     return null;

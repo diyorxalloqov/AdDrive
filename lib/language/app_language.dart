@@ -40,7 +40,8 @@ class AppLanguage extends Translations {
           'password': 'Parol',
           'email': 'Email',
           'email_or_phone': 'Telefon',
-          'Sign_in': 'Kirish',
+          'Sign_in': 'Akkauntga Kirish',
+          "enter":"Kirish",
           'sign_up': 'Ro‘yxatdan o‘tish',
           'login_successful': 'Muvaffaqiyatli kirish',
           'send': 'Yuborish',
@@ -110,7 +111,16 @@ class AppLanguage extends Translations {
           "allow": "Ruxsat berish",
           "deny": "Rad etish",
           "location_permission": "Joylashuv ruxsati",
-          "req_location": "Joylashuvga ruxsat berishingiz kerak."
+          "req_location": "Joylashuvga ruxsat berishingiz kerak.",
+          "next": "Keyingisi",
+          "onboarding1": "Daromadingizni oshirishing.",
+          "onboarding2": "Joylashuvni yoqish",
+          "onboarding1_desc":
+              "Har bir reklama uchun pul – mashinangiz ishlashda davom etsin!",
+          "onboarding2_desc":
+              "Joylashuvni yoqish uchun yoqish tugmasini bosing!",
+          "turn": "Yoqish",
+          "or":"Yoki"
         },
         "ru": {
           'distance': 'Расстояние',
@@ -149,7 +159,8 @@ class AppLanguage extends Translations {
           'password': 'Пароль',
           'email': 'Эл. адрес',
           'email_or_phone': 'Эл. адрес или Телефон',
-          'Sign_in': 'Войти',
+          'Sign_in': 'Войдите в свою учетную запись',
+          "enter":"Войти",
           'sign_up': 'Зарегистрироваться',
           'login_successful': 'Успешный вход',
           'send': 'Отправить',
@@ -218,7 +229,16 @@ class AppLanguage extends Translations {
           "allow": "Дать разрешение",
           "deny": "Отказ",
           "location_permission": "Разрешение на местоположение",
-          "req_location": "Вы должны разрешить местоположение."
+          "req_location": "Вы должны разрешить местоположение.",
+          "next": "Следующий",
+          "onboarding1": "Увеличьте свой доход.",
+          "onboarding2": "Включите местоположение.",
+          "onboarding1_desc":
+              "Получайте деньги за каждую рекламу – пусть ваш автомобиль продолжает работать!",
+          "onboarding2_desc":
+              "Нажмите кнопку включения, чтобы активировать местоположение!",
+          "turn": "Включить",
+          "or":"Или"
         }
       };
 }

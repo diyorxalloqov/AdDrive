@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/app_config/app_config.dart';
+import 'package:flutter_texi_tracker/core/keys.dart';
+import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
 import 'package:flutter_texi_tracker/generated/assets.dart';
+import 'package:flutter_texi_tracker/screens/onboarding/onboarding_page.dart';
 import 'package:flutter_texi_tracker/screens/wrapper/location_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -32,10 +35,15 @@ class SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    Timer(
-        const Duration(seconds: 4),
-        () => Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const LocationWrapper())));
+    Timer(const Duration(seconds: 4), () => routeName());
+  }
+
+  routeName() async {
+    (await getBool(Keys.onBoarding) ?? false)
+        ? Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const LocationWrapper()))
+        : Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const OnboardingPage()));
   }
 
   @override
