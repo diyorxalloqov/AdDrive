@@ -28,7 +28,7 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<Response> posRequest(String url, data) async {
+  Future<Response> posRequest(String url,dynamic data) async {
     if (kDebugMode) {
       print(url);
       print(data);

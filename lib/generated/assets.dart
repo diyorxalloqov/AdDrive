@@ -34,6 +34,7 @@ class Assets {
   static const String driverIconsBiPhone = 'asset/icons/driver_icons/bi_phone.svg';
   static const String driverIconsCilLocationPin = 'asset/icons/driver_icons/cil_location-pin.svg';
   static const String driverIconsDate = 'asset/icons/driver_icons/date.png';
+  static const String iconsBilling = 'asset/v_1/icons/billing.svg';
   static const String iconsCilLocationPin = 'asset/icons/cil_location-pin.svg';
   static const String iconsDistanceSummery = 'asset/icons/distance-summery.svg';
   static const String iconsDone = 'asset/icons/done.svg';
@@ -41,7 +42,11 @@ class Assets {
   static const String iconsEarn = 'asset/icons/earn.png';
   static const String iconsEarn2 = 'asset/icons/earn2.svg';
   static const String iconsEmail = 'asset/v_1/icons/email.svg';
+  static const String iconsHome = 'asset/v_1/icons/home.svg';
   static const String iconsLanguageIcon = 'asset/icons/language_icon.png';
+  static const String iconsLocation = 'asset/v_1/icons/location.svg';
+  static const String iconsLocationSettings = 'asset/v_1/icons/location_settings.svg';
+  static const String iconsNotification = 'asset/v_1/icons/notification.svg';
   static const String iconsOnboarding1 = 'asset/v_1/icons/onboarding1.svg';
   static const String iconsOnboarding2 = 'asset/v_1/icons/onboarding2.svg';
   static const String iconsPaymentHistoryIcon = 'asset/icons/payment-history-icon.png';
@@ -49,8 +54,10 @@ class Assets {
   static const String iconsPointArrow = 'asset/icons/point-arrow.svg';
   static const String iconsPointArrowMark = 'asset/icons/point-arrow-mark.svg';
   static const String iconsProfile = 'asset/v_1/icons/profile.svg';
+  static const String iconsProfileBlack = 'asset/v_1/icons/profile_black.svg';
   static const String iconsSecurity = 'asset/v_1/icons/security.svg';
   static const String imagesGoogle = 'asset/v_1/images/google.png';
+  static const String imagesSuccess = 'asset/v_1/images/success.png';
   static const String interInterBold = 'asset/v_1/fonts/inter/Inter-Bold.ttf';
   static const String interInterExtraBold = 'asset/v_1/fonts/inter/Inter-ExtraBold.ttf';
   static const String interInterExtraLight = 'asset/v_1/fonts/inter/Inter-ExtraLight.ttf';

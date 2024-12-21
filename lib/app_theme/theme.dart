@@ -13,6 +13,7 @@ class AppTheme {
         brightness: Brightness.light,
         primary: Colors.white,
         onPrimary: Colors.transparent,
+        inversePrimary: Color(0xffB5B5B5),
         secondary: Colors.transparent,
         onSecondary: Colors.transparent,
         error: Colors.transparent,
@@ -23,7 +24,7 @@ class AppTheme {
     dividerColor: const Color(0xff004646),
     cardTheme: const CardTheme(color: Color(0xffE7E8EA)),
     scaffoldBackgroundColor: const Color(0xffFFFFFF),
-    appBarTheme: AppBarTheme(color: CustomColors().mainColor(1)),
+    // appBarTheme: AppBarTheme(color: CustomColors().mainColor(1)),
     primarySwatch: const MaterialColor(
       0xFF041E48,
       <int, Color>{
@@ -98,7 +99,7 @@ class AppTheme {
     canvasColor: Colors.white,
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Colors.white,
+        primary: Colors.black,
         onPrimary: Colors.transparent,
         secondary: Colors.transparent,
         onSecondary: Colors.transparent,

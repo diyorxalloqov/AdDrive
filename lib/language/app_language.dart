@@ -120,7 +120,13 @@ class AppLanguage extends Translations {
           "onboarding2_desc":
               "Joylashuvni yoqish uchun yoqish tugmasini bosing!",
           "turn": "Yoqish",
-          "or":"Yoki"
+          "or":"Yoki",
+
+          "turn_on_location":"Joylashuvni yoqing !",
+          "success_location":"Joylashuv aniqlandi!",
+          "no_location":"Joylashuv aniqlanmadi",
+          "success":"Juda zo’r!",
+          "success_register":"Tabriklaymiz siz muvaffaqiyatli ro’yxatdan o’tdingiz!"
         },
         "ru": {
           'distance': 'Расстояние',

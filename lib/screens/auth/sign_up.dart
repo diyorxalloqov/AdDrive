@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:flutter_texi_tracker/screens/auth/widgets/succes_dialog.dart';
 
 class UserSignUp extends StatefulWidget {
   const UserSignUp({super.key});
@@ -18,6 +20,21 @@ class UserSignUpState extends State<UserSignUp> {
   String confirmPassword = '';
   bool isLoading = false;
   bool isSelected = false;
+  late TextEditingController _nameController;
+  late TextEditingController _phoneController;
+  late TextEditingController _emailController;
+  late TextEditingController _passwordController;
+  late TextEditingController _confirmPasswordController;
+
+  @override
+  void initState() {
+    _nameController = TextEditingController();
+    _phoneController = TextEditingController();
+    _emailController = TextEditingController();
+    _passwordController = TextEditingController();
+    _confirmPasswordController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,20 +72,20 @@ class UserSignUpState extends State<UserSignUp> {
                                 style: Get.textTheme.labelMedium),
                             const SpaceHeight(height: 20),
                             TextFormFieldWidget(
-                              controller: TextEditingController(),
+                              controller: _nameController,
                               validator: (val) =>
                                   val!.isEmpty ? 'enter_name_please'.tr : null,
                               prefixIconName: Assets.iconsProfile,
                               hintText: 'username'.tr,
                               onChanged: (val) {
                                 setState(() {
-                                  email = val;
+                                  name = val;
                                 });
                               },
                             ),
                             const SpaceHeight(height: 20),
                             TextFormFieldWidget(
-                              controller: TextEditingController(),
+                              controller: _phoneController,
                               validator: (val) =>
                                   val!.isEmpty ? 'enter_phone_please'.tr : null,
                               prefixIconName: Assets.iconsPhone,
@@ -81,20 +98,20 @@ class UserSignUpState extends State<UserSignUp> {
                             ),
                             const SpaceHeight(height: 20.0),
                             TextFormFieldWidget(
-                              controller: TextEditingController(),
+                              controller: _emailController,
                               validator: (val) =>
                                   val!.isEmpty ? 'enter_email_please'.tr : null,
                               prefixIconName: Assets.iconsEmail,
                               hintText: 'email'.tr,
                               onChanged: (val) {
                                 setState(() {
-                                  password = val;
+                                  email = val;
                                 });
                               },
                             ),
                             const SpaceHeight(height: 20.0),
                             TextFormFieldWidget(
-                              controller: TextEditingController(),
+                              controller: _passwordController,
                               validator: (val) => val!.isEmpty
                                   ? 'enter_password_please'.tr
                                   : null,
@@ -108,7 +125,7 @@ class UserSignUpState extends State<UserSignUp> {
                             ),
                             const SpaceHeight(height: 20.0),
                             TextFormFieldWidget(
-                              controller: TextEditingController(),
+                              controller: _confirmPasswordController,
                               validator: (val) => val!.isEmpty
                                   ? 'enter_confirm_password'.tr
                                   : null,
@@ -208,12 +225,15 @@ class UserSignUpState extends State<UserSignUp> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     // if (isSelected == true) {
+                                    //   showSuccessRegisterDialog(context);
+
                                     controller.userRegistration(
                                         name: name,
                                         phone: phone,
                                         email: email,
                                         password: password,
                                         confirmPassword: confirmPassword);
+
                                     // } else {
                                     //   Get.snackbar('',
                                     //       'Please agree to Terms & Privacy policy',

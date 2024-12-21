@@ -4,6 +4,7 @@ import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/controller/location_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
 import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
+import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
 import 'package:get/get.dart';
 
 class SignInUpController extends GetxController {
@@ -36,8 +37,7 @@ class SignInUpController extends GetxController {
         };
 
         locationController.updateUserData(map: map, uid: user.id);
-
-
+        Get.to(const MainScreen());
 
         loadingOff();
       } else {
@@ -48,14 +48,18 @@ class SignInUpController extends GetxController {
             response.validation?.confirmPassword ??
             response.validation?.password ??
             response.message;
-        Get.snackbar('$message', '', snackPosition: SnackPosition.BOTTOM, backgroundColor: const Color(0xFF000000),colorText:const Color(0xFFFFFFFF));
-
+        Get.snackbar('$message', '',
+            snackPosition: SnackPosition.BOTTOM,
+            backgroundColor: const Color(0xFF000000),
+            colorText: const Color(0xFFFFFFFF));
       }
     } else {
       loadingOff();
 
       Get.snackbar('please Try again later', '',
-          snackPosition: SnackPosition.BOTTOM,backgroundColor: const Color(0xFF000000), colorText:const Color(0xFFFFFFFF) );
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: const Color(0xFF000000),
+          colorText: const Color(0xFFFFFFFF));
     }
   }
 
@@ -79,7 +83,6 @@ class SignInUpController extends GetxController {
     final response = await _repository.userRegistration(data);
 
     if (response != null) {
-
       User? user = response.user;
 
       if (user != null) {
@@ -102,6 +105,9 @@ class SignInUpController extends GetxController {
 
         Get.snackbar('Registration successful', '',
             snackPosition: SnackPosition.BOTTOM);
+
+        Get.to(const MainScreen());
+
       } else {
         // Get.snackbar('Registration failed', '',snackPosition: SnackPosition.BOTTOM);
         final message = response.validation?.email ??

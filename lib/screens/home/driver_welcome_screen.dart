@@ -1,10 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/controller/location_controller.dart';
+import 'package:flutter_texi_tracker/generated/assets.dart';
+import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
 import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
 import 'package:flutter_texi_tracker/model/user_profile.dart';
 import 'package:flutter_texi_tracker/controller/owner_profile_controller.dart';
+import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -22,7 +26,6 @@ class DriverHomeScreen extends StatefulWidget {
 class DriverHomeScreenState extends State<DriverHomeScreen> {
   final historyController = Get.find<OwnerProfileController>();
   BitmapDescriptor? carIcon;
-  // final locationService = LocationService();
 
   @override
   void initState() {
@@ -82,12 +85,13 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                   return GoogleMap(
                     onMapCreated: controller.onMapCreated,
                     initialCameraPosition: CameraPosition(
-                        target: controller.initialCameraPosition, zoom: 16.0),
+                        target: controller.initialCameraPosition,
+                        zoom: 16.0),
                     mapType: MapType.terrain,
                     myLocationEnabled: false,
                     indoorViewEnabled: true,
-                    padding:
-                        EdgeInsets.only(bottom: ScreenUtil().screenHeight / 3),
+                    padding: EdgeInsets.only(
+                        bottom: ScreenUtil().screenHeight / 3),
                     onTap: (place) {
                       if (isDriving) {
                         controller.onDrivingModeCameraPosition();
@@ -109,7 +113,7 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                 },
               ),
               Positioned(
-                bottom: 30,
+                bottom: 250,
                 left: 10,
                 right: 10,
                 child: GetBuilder<LocationController>(
@@ -132,7 +136,8 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                           children: [
                             Expanded(
                               child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                                crossAxisAlignment:
+                                    CrossAxisAlignment.start,
                                 children: [
                                   Text('distance'.tr,
                                       style: const TextStyle(
@@ -141,7 +146,8 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                                           height: 2,
                                           fontWeight: FontWeight.w600)),
                                   Wrap(
-                                    crossAxisAlignment: WrapCrossAlignment.end,
+                                    crossAxisAlignment:
+                                        WrapCrossAlignment.end,
                                     spacing: 6,
                                     children: [
                                       Text(
@@ -151,7 +157,8 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                                               color: Colors.black)),
                                       const Text(
                                         'km',
-                                        style: TextStyle(color: Colors.grey),
+                                        style:
+                                            TextStyle(color: Colors.grey),
                                       ),
                                       if (isDriving)
                                         Image.asset(
@@ -179,7 +186,9 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                                         ? 'stop_driving'.tr
                                         : 'start_driving'.tr,
                                     barrierDismissible: false,
-                                    confirmTextColor: Colors.white,
+                                    backgroundColor: Colors.white,
+                                    confirmTextColor: Colors.black,
+                                    cancelTextColor: Colors.black,
                                     content: Column(
                                       children: [
                                         lotte.Lottie.asset(
@@ -201,7 +210,8 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
 
                                       if (isDriving) {
                                         ///get driving stop moving
-                                        controller.getDriverStopMoving(user.id);
+                                        controller
+                                            .getDriverStopMoving(user.id);
 
                                         ///when driver stop driving
                                         ///we have update driving
@@ -215,7 +225,8 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
 
                                       final map = {
                                         'is_driving': isDriving ? 0 : 1,
-                                        'last_login': Timestamp.now().seconds,
+                                        'last_login':
+                                            Timestamp.now().seconds,
                                         'uid': '${user.id}'
                                       };
 
@@ -250,25 +261,83 @@ class DriverHomeScreenState extends State<DriverHomeScreen> {
                       );
                     }),
               ),
-              Align(
-                alignment: Alignment.topRight,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: GetBuilder<LocationController>(
-                    builder: (controller) {
-                      return IconButton(
-                          onPressed: () {
-                            if (isDriving) {
-                              controller.onDrivingModeCameraPosition();
-                            } else {
-                              controller.onStopModeCameraPosition();
-                            }
-                          },
-                          icon: const Icon(Icons.location_searching_outlined));
-                    },
+              Positioned(
+                  child: Align(
+                alignment: Alignment.topCenter,
+                child: SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: () =>
+                              scaffoldKey.currentState?.openDrawer(),
+                          child: Container(
+                            padding: const EdgeInsets.all(12),
+                            decoration: decoration(context),
+                            child: Icon(Icons.menu,
+                                color: context.theme.canvasColor),
+                          ),
+                        ),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          // onTap: () => scaffoldKey.currentState?.openDrawer(),
+                          child: Container(
+                            padding: const EdgeInsets.all(6),
+                            decoration: decoration(context),
+                            child: Text.rich(TextSpan(children: [
+                              TextSpan(
+                                  text: '\$',
+                                  style: context
+                                      .theme.textTheme.displayLarge
+                                      ?.copyWith(fontSize: 30)),
+                              TextSpan(
+                                  text: '1',
+                                  style: context.theme.textTheme.labelMedium
+                                      ?.copyWith(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.w700))
+                            ])),
+                          ),
+                        ),
+                        GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          // onTap: () => scaffoldKey.currentState?.openDrawer(),
+                          child: Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: decoration(context),
+                              child: SvgPicture.asset(
+                                  Assets.iconsNotification,
+                                  width: 20,
+                                  height: 24)),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              )),
+              // Padding(
+              //   padding:
+              //       const EdgeInsets.symmetric(horizontal: 20, vertical: 100),
+              //   child: Align(
+              //     alignment: Alignment.topRight,
+              //     child: GetBuilder<LocationController>(
+              //       builder: (controller) {
+              //         return IconButton(
+              //             onPressed: () {
+              //               if (isDriving) {
+              //                 controller.onDrivingModeCameraPosition();
+              //               } else {
+              //                 controller.onStopModeCameraPosition();
+              //               }
+              //             },
+              //             icon: const Icon(Icons.location_searching_outlined));
+              //       },
+              //     ),
+              //   ),
+              // ),
             ],
           );
         }

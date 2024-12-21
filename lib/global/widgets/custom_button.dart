@@ -9,11 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/app_config/app_config.dart';
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final VoidCallback? onPressed;
   final String title;
   final EdgeInsetsGeometry? padding;
+  final double? borderRadius;
   const CustomButton(
-      {super.key, this.padding, required this.onPressed, required this.title});
+      {super.key,
+      this.padding,
+      this.borderRadius,
+      this.onPressed,
+      required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +27,9 @@ class CustomButton extends StatelessWidget {
       child: ElevatedButton(
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
+              disabledBackgroundColor: CustomColors().mainColor(0.5),
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8)),
+                  borderRadius: BorderRadius.circular(borderRadius ?? 8)),
               backgroundColor: CustomColors().mainColor(1)),
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),

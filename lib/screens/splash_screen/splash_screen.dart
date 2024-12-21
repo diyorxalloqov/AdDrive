@@ -23,15 +23,11 @@ class SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
 
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    );
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 3));
 
     _animation = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInCubic,
-    ));
+        parent: _animationController, curve: Curves.easeInCubic));
 
     _animationController.forward();
 
@@ -39,7 +35,7 @@ class SplashScreenState extends State<SplashScreen>
   }
 
   routeName() async {
-    (await getBool(Keys.onBoarding) ?? false)
+     (await getBool(Keys.onBoarding) ?? false)
         ? Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const LocationWrapper()))
         : Navigator.pushReplacement(context,

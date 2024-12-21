@@ -6,20 +6,27 @@
  */
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/app_config/app_config.dart';
+import 'package:flutter_texi_tracker/controller/location_controller.dart';
 import 'package:flutter_texi_tracker/core/keys.dart';
 import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
 import 'package:flutter_texi_tracker/generated/assets.dart';
 import 'package:flutter_texi_tracker/global/language_dialog.dart';
 import 'package:flutter_texi_tracker/global/widgets/custom_button.dart';
+import 'package:flutter_texi_tracker/main.dart';
 import 'package:flutter_texi_tracker/screens/auth/sign_in.dart';
-import 'package:flutter_texi_tracker/screens/auth/user_authenticate.dart';
+import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
+import 'package:flutter_texi_tracker/services/location_service.dart';
+import 'package:flutter_texi_tracker/utils/enums/status.dart';
 import 'package:flutter_texi_tracker/widgets/space_widget.dart';
 import 'package:get/get.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart'
     hide PermissionStatus;
+
+LocationService locationServiceProvider = LocationService();
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({super.key});
@@ -44,8 +51,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
     _pageController = PageController();
     super.initState();
   }
-
-  final Location location = Location();
 
   @override
   Widget build(BuildContext context) {
@@ -114,70 +119,42 @@ class _OnboardingPageState extends State<OnboardingPage> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 20),
-                  child: CustomButton(
-                    onPressed: () async {
-                      if (currentPage < _icons.length - 1) {
-                        _pageController.nextPage(
-                            duration: const Duration(milliseconds: 300),
-                            curve: Curves.easeInOut);
-                      } else {
-                        location
-                            .hasPermission()
-                            .then((permissionGrantedResult) async {
-                          print(permissionGrantedResult);
-                          if (permissionGrantedResult ==
-                              PermissionStatus.granted) {
-                            Navigator.pushAndRemoveUntil(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const UserSignIn()),
-                                (route) => false);
-                            setBool(Keys.onBoarding, true);
-                          } else if (permissionGrantedResult ==
-                              PermissionStatus.deniedForever) {
-                            openAppSettings();
-                          } else if (permissionGrantedResult ==
-                              PermissionStatus.denied) {
-                            await location
-                                .requestPermission()
-                                .then((permissionGrantedResult) {
-                              if (permissionGrantedResult ==
-                                  PermissionStatus.granted) {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const UserSignIn()),
-                                    (route) => false);
-                                setBool(Keys.onBoarding, true);
-                              } else {
-                                openAppSettings();
-                              }
-                            });
-                          } else {
-                            await location
-                                .requestPermission()
-                                .then((permissionGrantedResult) {
-                              if (permissionGrantedResult ==
-                                  PermissionStatus.granted) {
-                                Navigator.pushAndRemoveUntil(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            const UserSignIn()),
-                                    (route) => false);
-                                setBool(Keys.onBoarding, true);
-                              }
-                            });
-                          }
-                        });
-                        // await
+                  child: BlocListener<LocationCubit, LocationState>(
+                    listener: (context, state) {
+                      if (state.locationStatus == ActionStatus.isSuccess) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const UserSignIn()),
+                            (route) => false);
+                        setBool(Keys.onBoarding, true);
+                        final locationController =
+                            Get.put(LocationController());
+
+                        ///instantiate locationService
+                        locationServiceProvider = LocationService();
+
+                        ///getCurrentLocation - Method called
+                        locationController.getCurrentLocation();
                       }
+                      // else if (state.locationStatus == ActionStatus.isError) {
+                      //
+                      // }
                     },
-                    title: currentPage == _icons.length - 1
-                        ? 'turn'.tr
-                        : 'next'.tr,
+                    child: CustomButton(
+                      onPressed: () async {
+                        if (currentPage < _icons.length - 1) {
+                          _pageController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut);
+                        } else {
+                          context.read<LocationCubit>().listenLocation();
+                        }
+                      },
+                      title: currentPage == _icons.length - 1
+                          ? 'turn'.tr
+                          : 'next'.tr,
+                    ),
                   ),
                 ),
               ],

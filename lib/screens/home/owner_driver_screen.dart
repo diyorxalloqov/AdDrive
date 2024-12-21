@@ -16,7 +16,7 @@ import 'package:provider/provider.dart';
 class OwnerDriverScreen extends StatefulWidget {
   final UserProfile driverProfile;
 
-  const OwnerDriverScreen({Key? key, required this.driverProfile}) : super(key: key);
+  const OwnerDriverScreen({super.key, required this.driverProfile});
 
   @override
   OwnerDriverScreenState createState() => OwnerDriverScreenState();

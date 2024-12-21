@@ -12,7 +12,7 @@ import 'package:flutter_texi_tracker/hive/hive_location_provider.dart';
 import 'package:flutter_texi_tracker/map_style/util.dart';
 import 'package:flutter_texi_tracker/model/driver_location_model.dart';
 import 'package:flutter_texi_tracker/model/live_data_model.dart';
-import 'package:flutter_texi_tracker/screens/wrapper/location_wrapper.dart';
+import 'package:flutter_texi_tracker/screens/onboarding/onboarding_page.dart';
 import 'package:flutter_texi_tracker/services/location_service.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/geolocator_service.dart';
@@ -134,7 +134,7 @@ class LocationController extends GetxController {
   addLocationDataToLocal() async {
     Timer.periodic(const Duration(minutes: 1), (timer) async {
       final trackingIdFromLocal = await getLocalData(key: 'tracking_id');
-      if(trackingIdFromLocal != 'null'){
+      if (trackingIdFromLocal != 'null') {
         ///checkCondition
         if (canStoreLocation.isTrue) {
           await getDriverPositionFuture();
@@ -159,8 +159,8 @@ class LocationController extends GetxController {
           distance = await geoService.getDistance(
               LatLng(firstPosition?.latitude ?? 0.0,
                   firstPosition?.longitude ?? 0.0),
-              LatLng(
-                  lastPosition?.latitude ?? 0.0, lastPosition?.longitude ?? 0.0));
+              LatLng(lastPosition?.latitude ?? 0.0,
+                  lastPosition?.longitude ?? 0.0));
 
           driverLocationModel = DriverLocationModel(
               latitude: positionStream.value?.latitude,
@@ -170,7 +170,7 @@ class LocationController extends GetxController {
               country: placeMarkStream.value?.country,
               countryCode: placeMarkStream.value?.isoCountryCode,
               address:
-              '${placeMarkStream.value?.name} ${placeMarkStream.value?.subLocality} ${placeMarkStream.value?.thoroughfare} ${placeMarkStream.value?.subThoroughfare}',
+                  '${placeMarkStream.value?.name} ${placeMarkStream.value?.subLocality} ${placeMarkStream.value?.thoroughfare} ${placeMarkStream.value?.subThoroughfare}',
               heading: positionStream.value?.heading,
               distance: distance);
 

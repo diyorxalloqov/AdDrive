@@ -3,6 +3,7 @@ import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_texi_tracker/hive/hive_fav_provider.dart';
@@ -14,6 +15,7 @@ import 'package:flutter_texi_tracker/model/hive_model/fav/favourite_car_model.da
 import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
 import 'package:flutter_texi_tracker/routes/app_pages.dart';
 import 'package:flutter_texi_tracker/routes/app_routes.dart';
+import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/geolocator_service.dart';
 import 'package:get/get.dart';
@@ -41,7 +43,7 @@ Future openBox() async {
 }
 
 void main() async {
-  WidgetsBinding widgetsBinding =  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp();
   await openBox();
@@ -65,37 +67,40 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        FutureProvider<BitmapDescriptor?>(
-          create: (context) => Common.setCustomMapPin('asset/car-ash.png'),
-          initialData: null,
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => LocationCubit())],
+      child: MultiProvider(
+        providers: [
+          FutureProvider<BitmapDescriptor?>(
+            create: (context) => Common.setCustomMapPin('asset/car-ash.png'),
+            initialData: null,
+          ),
+          Provider(create: (context) => FirebaseLocationService()),
+          ChangeNotifierProvider<FavService>(create: (context) => FavService()),
+        ],
+        child: ScreenUtilInit(
+          builder: (_, __) {
+            return AdaptiveTheme(
+                initial: AdaptiveThemeMode.light,
+                light: AppTheme().lightTheme,
+                dark: AppTheme().darkTheme,
+                debugShowFloatingThemeButton: kDebugMode,
+                builder: (theme, darkTheme) {
+                  return GetMaterialApp(
+                    debugShowCheckedModeBanner: false,
+                    initialRoute: AppRoutes.splashScreen,
+                    getPages: AppPages.list,
+                    title: 'AdDrive',
+                    theme: theme,
+                    darkTheme: darkTheme,
+                    themeMode: ThemeMode.system,
+                    translations: AppLanguage(),
+                    locale: Locale(languageCode ?? 'uz'),
+                    initialBinding: InitialBinding(),
+                  );
+                });
+          },
         ),
-        Provider(create: (context) => FirebaseLocationService()),
-        ChangeNotifierProvider<FavService>(create: (context) => FavService()),
-      ],
-      child: ScreenUtilInit(
-        builder: (_, __) {
-          return AdaptiveTheme(
-              initial: AdaptiveThemeMode.light,
-              light: AppTheme().lightTheme,
-              dark: AppTheme().darkTheme,
-              debugShowFloatingThemeButton: kDebugMode,
-              builder: (theme, darkTheme) {
-                return GetMaterialApp(
-                  debugShowCheckedModeBanner: false,
-                  initialRoute: AppRoutes.splashScreen,
-                  getPages: AppPages.list,
-                  title: 'AdDrive',
-                  theme: theme,
-                  darkTheme: darkTheme,
-                  themeMode: ThemeMode.system,
-                  translations: AppLanguage(),
-                  locale: Locale(languageCode ?? 'uz'),
-                  initialBinding: InitialBinding(),
-                );
-              });
-        },
       ),
     );
   }
