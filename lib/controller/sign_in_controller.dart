@@ -4,6 +4,8 @@ import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/controller/location_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
 import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
+import 'package:flutter_texi_tracker/model/sign_up_model.dart';
+import 'package:flutter_texi_tracker/screens/auth/widgets/succes_dialog.dart';
 import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
 import 'package:get/get.dart';
 
@@ -80,7 +82,7 @@ class SignInUpController extends GetxController {
       'is_mobile': 1
     };
 
-    final response = await _repository.userRegistration(data);
+    final SignupModel? response = await _repository.userRegistration(data);
 
     if (response != null) {
       User? user = response.user;
@@ -105,9 +107,8 @@ class SignInUpController extends GetxController {
 
         Get.snackbar('Registration successful', '',
             snackPosition: SnackPosition.BOTTOM);
-
-        Get.to(const MainScreen());
-
+        showSuccessRegisterDialog(Get.context!,
+            onPressed: () => Get.to(const MainScreen()));
       } else {
         // Get.snackbar('Registration failed', '',snackPosition: SnackPosition.BOTTOM);
         final message = response.validation?.email ??

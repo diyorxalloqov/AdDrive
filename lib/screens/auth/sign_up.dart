@@ -225,7 +225,6 @@ class UserSignUpState extends State<UserSignUp> {
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
                                     // if (isSelected == true) {
-                                    //   showSuccessRegisterDialog(context);
 
                                     controller.userRegistration(
                                         name: name,

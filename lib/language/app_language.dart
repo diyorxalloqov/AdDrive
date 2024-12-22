@@ -41,7 +41,7 @@ class AppLanguage extends Translations {
           'email': 'Email',
           'email_or_phone': 'Telefon',
           'Sign_in': 'Akkauntga Kirish',
-          "enter":"Kirish",
+          "enter": "Kirish",
           'sign_up': 'Ro‘yxatdan o‘tish',
           'login_successful': 'Muvaffaqiyatli kirish',
           'send': 'Yuborish',
@@ -79,7 +79,7 @@ class AppLanguage extends Translations {
           'NID_no': 'NID raqami',
           'agreement_information': 'Shartnoma ma’lumotlari',
           'DISTANCE': 'MASOFA',
-          'km': 'KM',
+          'km': 'Km',
           'total_car': 'JAMI AVTOMOBIL',
           'amount': 'MIQDOR',
           'start_date': 'Boshlash sanasi',
@@ -120,13 +120,17 @@ class AppLanguage extends Translations {
           "onboarding2_desc":
               "Joylashuvni yoqish uchun yoqish tugmasini bosing!",
           "turn": "Yoqish",
-          "or":"Yoki",
+          "or": "Yoki",
 
-          "turn_on_location":"Joylashuvni yoqing !",
-          "success_location":"Joylashuv aniqlandi!",
-          "no_location":"Joylashuv aniqlanmadi",
-          "success":"Juda zo’r!",
-          "success_register":"Tabriklaymiz siz muvaffaqiyatli ro’yxatdan o’tdingiz!"
+
+          "turn_on_location": "Joylashuvni yoqing !",
+          "success_location": "Joylashuv aniqlandi!",
+          "no_location": "Joylashuv aniqlanmadi",
+          "success": "Juda zo’r!",
+          "success_register":
+              "Tabriklaymiz siz muvaffaqiyatli ro’yxatdan o’tdingiz!",
+          "billing": "Daromad",
+          "billing_hour": "Har soatda ishlagan pulingiz"
         },
         "ru": {
           'distance': 'Расстояние',
@@ -166,7 +170,7 @@ class AppLanguage extends Translations {
           'email': 'Эл. адрес',
           'email_or_phone': 'Эл. адрес или Телефон',
           'Sign_in': 'Войдите в свою учетную запись',
-          "enter":"Войти",
+          "enter": "Войти",
           'sign_up': 'Зарегистрироваться',
           'login_successful': 'Успешный вход',
           'send': 'Отправить',
@@ -203,7 +207,7 @@ class AppLanguage extends Translations {
           'NID_no': 'Номер NID',
           'agreement_information': 'Информация о соглашении',
           'DISTANCE': 'РАССТОЯНИЕ',
-          'km': 'КМ',
+          'km': 'Км',
           'total_car': 'ВСЕГО МАШИН',
           'amount': 'СУММА',
           'start_date': 'ДАТА НАЧАЛА',
@@ -244,7 +248,7 @@ class AppLanguage extends Translations {
           "onboarding2_desc":
               "Нажмите кнопку включения, чтобы активировать местоположение!",
           "turn": "Включить",
-          "or":"Или"
+          "or": "Или"
         }
       };
 }

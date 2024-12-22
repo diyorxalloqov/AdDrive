@@ -47,47 +47,48 @@ class AppTheme {
     fontFamily: "Inter",
     hintColor: config.CustomColors().secondColor(1),
     textTheme: TextTheme(
-      displayLarge: TextStyle(
-          fontSize: 22.0,
-          color: config.CustomColors().mainColor(1),
-          fontWeight: FontWeight.w700),
-      headlineSmall: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w400,
-          color: const Color(0xff3c3c43).withOpacity(0.6)),
-      bodyLarge: const TextStyle(
-          fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
-      displayMedium: TextStyle(
-          fontSize: 20.0,
-          fontWeight: FontWeight.w600,
-          color: config.CustomColors().mainColor(1)),
-      displaySmall: TextStyle(
-          fontSize: 18.0,
-          fontWeight: FontWeight.w500,
-          color: config.CustomColors().mainColor(1)),
-      headlineLarge: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w400,
-          color: config.CustomColors().mainColor(1)),
-      headlineMedium: TextStyle(
-          fontSize: 15.0,
-          fontWeight: FontWeight.w300,
-          color: config.CustomColors().mainColor(1)),
-      titleLarge: TextStyle(
-          fontSize: 14.0,
-          fontWeight: FontWeight.w500,
-          color: config.CustomColors().secondColor(1)),
-      titleMedium: TextStyle(
-          fontSize: 13.0,
-          fontWeight: FontWeight.w600,
-          color: config.CustomColors().secondColor(1)),
-      labelMedium: TextStyle(
-          fontSize: 16.0,
-          fontWeight: FontWeight.w500,
-          color: config.CustomColors().greyColor(1)),
-      bodySmall: TextStyle(
-          fontSize: 12.0, color: config.CustomColors().accentColor(1)),
-    ),
+        displayLarge: TextStyle(
+            fontSize: 22.0,
+            color: config.CustomColors().mainColor(1),
+            fontWeight: FontWeight.w700),
+        headlineSmall: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xff3c3c43).withOpacity(0.6)),
+        bodyLarge: const TextStyle(
+            fontSize: 24, fontWeight: FontWeight.w600, color: Colors.black),
+        displayMedium: TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.w600,
+            color: config.CustomColors().mainColor(1)),
+        displaySmall: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+            color: config.CustomColors().mainColor(1)),
+        headlineLarge: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+            color: config.CustomColors().mainColor(1)),
+        headlineMedium: TextStyle(
+            fontSize: 15.0,
+            fontWeight: FontWeight.w300,
+            color: config.CustomColors().mainColor(1)),
+        titleLarge: TextStyle(
+            fontSize: 14.0,
+            fontWeight: FontWeight.w500,
+            color: config.CustomColors().secondColor(1)),
+        titleMedium: TextStyle(
+            fontSize: 13.0,
+            fontWeight: FontWeight.w600,
+            color: config.CustomColors().secondColor(1)),
+        labelMedium: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w500,
+            color: config.CustomColors().greyColor(1)),
+        bodySmall: TextStyle(
+            fontSize: 12.0, color: config.CustomColors().accentColor(1)),
+        labelLarge: const TextStyle(
+            fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white)),
   );
 
   final darkTheme = ThemeData(

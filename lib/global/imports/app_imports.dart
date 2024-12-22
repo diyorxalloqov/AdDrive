@@ -6,7 +6,11 @@
  */
 
 export 'package:flutter/material.dart';
+export 'package:cloud_firestore/cloud_firestore.dart';
+export 'package:flutter_texi_tracker/controller/location_controller.dart';
+export 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
 export 'package:flutter_texi_tracker/app_config/app_config.dart';
+export 'package:flutter_texi_tracker/controller/owner_profile_controller.dart';
 export 'package:flutter_texi_tracker/generated/assets.dart';
 export 'package:flutter/gestures.dart';
 export 'package:flutter_texi_tracker/app_config/utils.dart';

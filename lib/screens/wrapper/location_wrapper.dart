@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/screens/auth/sign_in.dart';
 import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
+import 'package:flutter_texi_tracker/screens/profile/profile_screen.dart';
 import 'package:get/get.dart';
 
 // LocationService locationServiceProvider = LocationService();
@@ -24,7 +25,7 @@ class LocationWrapperState
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(builder: (authController) {
       return authController.getUser() != null
-          ? const MainScreen()
+          ? const MainScreen() // ProfileScreen()
           : const UserSignIn();
     });
   }

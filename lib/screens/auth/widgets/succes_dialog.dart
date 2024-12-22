@@ -7,9 +7,11 @@
 
 import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
 
-void showSuccessRegisterDialog(BuildContext context) {
+void showSuccessRegisterDialog(BuildContext context,
+    {required VoidCallback onPressed}) {
   showAdaptiveDialog(
       context: context,
+      barrierDismissible: false,
       builder: (context) => AlertDialog.adaptive(
             content: Container(
               decoration: BoxDecoration(
@@ -30,7 +32,7 @@ void showSuccessRegisterDialog(BuildContext context) {
                       textAlign: TextAlign.center,
                       style: context.theme.textTheme.labelMedium),
                   const SpaceHeight(height: 16),
-                  CustomButton(onPressed: () {}, title: "next".tr),
+                  CustomButton(onPressed: onPressed, title: "next".tr),
                   const SpaceHeight(height: 28)
                 ],
               ),
