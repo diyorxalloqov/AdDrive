@@ -30,26 +30,24 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _currentScreen = 1;
-
   final historyController = Get.find<OwnerProfileController>();
   BitmapDescriptor? carIcon;
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     context.read<LocationCubit>().listenLocation();
 
     Future.delayed(const Duration(seconds: 3), () async {
-      LocationController controller = Get.find<LocationController>();
-      AuthController authController = Get.find<AuthController>();
-      User user = authController.getUser()!;
+      WidgetsBinding.instance.addPostFrameCallback((_) async {
+        LocationController controller = Get.find<LocationController>();
+        AuthController authController = Get.find<AuthController>();
+        User user = authController.getUser()!;
 
-      controller.startListening();
-
-      controller.addLocationDataToLocal();
-
-      controller.deleteDataAndSendToServer(uid: user.id);
+        controller.startListening();
+        controller.addLocationDataToLocal();
+        controller.deleteDataAndSendToServer(uid: user.id);
+      });
     });
     super.initState();
   }
@@ -60,226 +58,221 @@ class _MainScreenState extends State<MainScreen> {
         Provider.of<FirebaseLocationService>(context);
     AuthController authController = Get.find<AuthController>();
 
+    return Init(
+        firebaseLocationService: firebaseLocationService,
+        user: authController.getUser()!,
+        scaffoldKey: scaffoldKey,
+        historyController: historyController);
+  }
+}
+
+class Init extends StatefulWidget {
+  final FirebaseLocationService firebaseLocationService;
+  final User user;
+  final GlobalKey<ScaffoldState> scaffoldKey;
+  final OwnerProfileController historyController;
+  const Init(
+      {super.key,
+      required this.firebaseLocationService,
+      required this.scaffoldKey,
+      required this.historyController,
+      required this.user});
+
+  @override
+  State<Init> createState() => _InitState();
+}
+
+class _InitState extends State<Init> {
+  int _currentScreen = 1;
+
+  //* logut dan keyingi error ni to'g'irlash
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<LocationCubit, LocationState>(
       builder: (context, state) {
-        return Scaffold(
-          body:
-              _init(firebaseLocationService, authController.getUser()!, state),
-        );
-      },
-    );
-  }
+        return StreamBuilder<DriverProfile>(
+            stream:
+                widget.firebaseLocationService.getUserProfile(widget.user.id),
+            builder: (context, snapshot) {
+              if (!snapshot.hasData || snapshot.data == null) {
+                return const Loading();
+              }
+              if (snapshot.hasData) {
+                bool isDriving = snapshot.data?.isDriving == 1 ? true : false;
 
-  Widget _init(FirebaseLocationService firebaseLocationService, User user,
-      LocationState state) {
-    return StreamBuilder<DriverProfile>(
-        stream: firebaseLocationService.getUserProfile(user.id),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            bool isDriving = snapshot.data?.isDriving == 1 ? true : false;
-
-            return Scaffold(
-                key: scaffoldKey,
-                drawer: const Drawer(child: DrawerScreen()),
-                extendBodyBehindAppBar: true,
-                appBar: PreferredSize(
-                    preferredSize: const Size(double.infinity, 200),
-                    child: SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 20),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () =>
-                                  scaffoldKey.currentState?.openDrawer(),
-                              child: Container(
-                                padding: const EdgeInsets.all(12),
-                                decoration: decoration(context),
-                                child: Icon(Icons.menu,
-                                    color: context.theme.canvasColor),
-                              ),
-                            ),
-                            _currentScreen == 1
-                                ? GestureDetector(
-                                    behavior: HitTestBehavior.opaque,
-                                    child: Container(
-                                      padding: const EdgeInsets.all(12),
-                                      decoration: decoration(context),
-                                      child: Text.rich(TextSpan(children: [
-                                        TextSpan(
-                                            text: '\$',
-                                            style: context
-                                                .theme.textTheme.displayLarge
-                                                ?.copyWith(fontSize: 22)),
-                                        TextSpan(
-                                            text: '1',
-                                            style: context
-                                                .theme.textTheme.labelMedium
-                                                ?.copyWith(
-                                                    fontSize: 22,
-                                                    fontWeight:
-                                                        FontWeight.w700))
-                                      ])),
-                                    ),
-                                  )
-                                : _currentScreen == 0
-                                    ? Text('billing'.tr,
-                                        style:
-                                            context.theme.textTheme.labelLarge)
-                                    : const SizedBox.shrink(),
-                            GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              // onTap: () => ,
-                              child: Container(
-                                  padding: const EdgeInsets.all(12),
-                                  decoration: decoration(context),
-                                  child: SvgPicture.asset(
-                                      Assets.iconsNotification,
-                                      width: 20,
-                                      height: 24)),
-                            )
-                          ],
-                        ),
-                      ),
-                    )),
-                body: IndexedStack(
-                  index: _currentScreen,
-                  children: [
-                    const BillingScreen(),
-                    DriverHomeScreen(
-                        scaffoldKey: scaffoldKey,
-                        historyController: historyController,
-                        isDriving: isDriving,
-                        state: state,
-                        user: user),
-                    ProfileScreen()
-                  ],
-                ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
-                floatingActionButton: GetBuilder<LocationController>(
-                    initState: (_) => LocationController(),
-                    builder: (controller) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Container(
-                            decoration: decoration(context).copyWith(
-                                borderRadius: const BorderRadius.vertical(
-                                    top: Radius.circular(20))),
-                            child: Column(
+                return Scaffold(
+                    drawer: const Drawer(child: DrawerScreen()),
+                    key: widget.scaffoldKey,
+                    extendBodyBehindAppBar: true,
+                    appBar: PreferredSize(
+                        preferredSize: const Size(double.infinity, 200),
+                        child: SafeArea(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 20),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                const SpaceHeight(height: 22),
-                                Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    isDriving
-                                        ? Image.asset(
-                                            'asset/icons/markers/car_icon_animated.gif',
-                                            width: 50)
-                                        : const SpaceWidth(width: 52),
-                                    Wrap(
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.end,
-                                        children: [
-                                          Column(
-                                            children: [
-                                              Text(
-                                                  state.locationStatus ==
-                                                          ActionStatus.isLoading
-                                                      ? 'success_location'.tr
-                                                      : state.locationStatus ==
-                                                              ActionStatus
-                                                                  .isSuccess
-                                                          ? "${'distance'.tr} ${controller.liveLocationData.value != null ? controller.liveLocationData.value?.distance : ''} ${"km".tr}"
-                                                          : 'turn_on_location'
-                                                              .tr,
-                                                  style: context
-                                                      .theme.textTheme.bodyLarge
-                                                      ?.copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                          fontSize: 20)),
-                                              Text(
-                                                  controller.driveAddress
-                                                      .toString(),
-                                                  style: context.theme.textTheme
-                                                      .headlineSmall),
-                                            ],
-                                          ),
-                                        ]),
-                                    state.locationStatus !=
-                                            ActionStatus.isSuccess
-                                        ? SizedBox(
-                                            width: 30,
-                                            child: GestureDetector(
-                                                behavior:
-                                                    HitTestBehavior.opaque,
-                                                onTap: () => context
-                                                    .read<LocationCubit>()
-                                                    .location
-                                                    .requestService(),
-                                                child: SvgPicture.asset(Assets
-                                                    .iconsLocationSettings)),
-                                          )
-                                        : const SpaceWidth(width: 32),
-                                  ],
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  onTap: () => widget.scaffoldKey.currentState
+                                      ?.openDrawer(),
+                                  child: Container(
+                                    padding: const EdgeInsets.all(12),
+                                    decoration: decoration(context),
+                                    child: Icon(Icons.menu,
+                                        color: context.theme.canvasColor),
+                                  ),
                                 ),
-                                const SpaceHeight(height: 40),
-                                Row(
-                                  mainAxisAlignment: _currentScreen == 1
-                                      ? MainAxisAlignment.center
-                                      : MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: GestureDetector(
-                                        onTap: () => setState(() {
-                                          _currentScreen = 0;
-                                        }),
+                                _currentScreen == 1
+                                    ? GestureDetector(
                                         behavior: HitTestBehavior.opaque,
                                         child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 18, horizontal: 20),
-                                          decoration: ShapeDecoration(
-                                              shape: OvalBorder(
-                                                  side: BorderSide(
-                                                      width: 0.4,
-                                                      color: context
-                                                          .theme
-                                                          .colorScheme
-                                                          .inversePrimary))),
-                                          child: SvgPicture.asset(
-                                              Assets.iconsBilling),
+                                          padding: const EdgeInsets.all(12),
+                                          decoration: decoration(context),
+                                          child: Text.rich(TextSpan(children: [
+                                            TextSpan(
+                                                text: '\$',
+                                                style: context.theme.textTheme
+                                                    .displayLarge
+                                                    ?.copyWith(fontSize: 22)),
+                                            TextSpan(
+                                                text: '1',
+                                                style: context
+                                                    .theme.textTheme.labelMedium
+                                                    ?.copyWith(
+                                                        fontSize: 22,
+                                                        fontWeight:
+                                                            FontWeight.w700))
+                                          ])),
                                         ),
-                                      ),
+                                      )
+                                    : _currentScreen == 0
+                                        ? Text('billing'.tr,
+                                            style: context
+                                                .theme.textTheme.labelLarge)
+                                        : Text('profile'.tr,
+                                            style: context
+                                                .theme.textTheme.bodyLarge
+                                                ?.copyWith(fontSize: 20)),
+                                GestureDetector(
+                                  behavior: HitTestBehavior.opaque,
+                                  // onTap: () => ,
+                                  child: Container(
+                                      padding: const EdgeInsets.all(12),
+                                      decoration: decoration(context),
+                                      child: SvgPicture.asset(
+                                          Assets.iconsNotification,
+                                          width: 20,
+                                          height: 24)),
+                                )
+                              ],
+                            ),
+                          ),
+                        )),
+                    body: IndexedStack(
+                      index: _currentScreen,
+                      children: [
+                        const BillingScreen(),
+                        DriverHomeScreen(
+                            historyController: widget.historyController,
+                            isDriving: isDriving,
+                            state: state,
+                            user: widget.user),
+                        ProfileScreen()
+                      ],
+                    ),
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.centerDocked,
+                    floatingActionButton: GetBuilder<LocationController>(
+                        initState: (_) => LocationController(),
+                        builder: (controller) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Container(
+                                decoration: decoration(context).copyWith(
+                                    borderRadius: const BorderRadius.vertical(
+                                        top: Radius.circular(20))),
+                                child: Column(
+                                  children: [
+                                    const SpaceHeight(height: 22),
+                                    Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        isDriving
+                                            ? Image.asset(
+                                                'asset/icons/markers/car_icon_animated.gif',
+                                                width: 50)
+                                            : const SpaceWidth(width: 52),
+                                        Wrap(
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.end,
+                                            children: [
+                                              Column(
+                                                children: [
+                                                  Text(
+                                                      state.locationStatus ==
+                                                              ActionStatus
+                                                                  .isLoading
+                                                          ? 'success_location'
+                                                              .tr
+                                                          : state.locationStatus ==
+                                                                  ActionStatus
+                                                                      .isSuccess
+                                                              ? "${'distance'.tr} ${controller.liveLocationData.value != null ? controller.liveLocationData.value?.distance : ''} ${"km".tr}"
+                                                              : 'turn_on_location'
+                                                                  .tr,
+                                                      style: context.theme
+                                                          .textTheme.bodyLarge
+                                                          ?.copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
+                                                              fontSize: 20)),
+                                                  Text(
+                                                      controller.driveAddress
+                                                          .toString(),
+                                                      style: context
+                                                          .theme
+                                                          .textTheme
+                                                          .headlineSmall),
+                                                ],
+                                              ),
+                                            ]),
+                                        state.locationStatus !=
+                                                ActionStatus.isSuccess
+                                            ? SizedBox(
+                                                width: 30,
+                                                child: GestureDetector(
+                                                    behavior:
+                                                        HitTestBehavior.opaque,
+                                                    onTap: () => context
+                                                        .read<LocationCubit>()
+                                                        .location
+                                                        .requestService(),
+                                                    child: SvgPicture.asset(Assets
+                                                        .iconsLocationSettings)),
+                                              )
+                                            : const SpaceWidth(width: 32),
+                                      ],
                                     ),
-                                    _currentScreen == 1
-                                        ? Expanded(
-                                            child: CustomButton(
-                                                onPressed: state
-                                                            .locationStatus ==
-                                                        ActionStatus.isSuccess
-                                                    ? () =>
-                                                        showStartDrivingDialog(
-                                                            isDriving,
-                                                            historyController,
-                                                            user,
-                                                            controller)
-                                                    : null,
-                                                borderRadius: 24,
-                                                title: isDriving
-                                                    ? 'stop'.tr
-                                                    : 'start'.tr))
-                                        : GestureDetector(
+                                    const SpaceHeight(height: 40),
+                                    Row(
+                                      mainAxisAlignment: _currentScreen == 1
+                                          ? MainAxisAlignment.center
+                                          : MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: GestureDetector(
                                             onTap: () => setState(() {
-                                              _currentScreen = 1;
+                                              _currentScreen = 0;
                                             }),
                                             behavior: HitTestBehavior.opaque,
                                             child: Container(
@@ -296,45 +289,91 @@ class _MainScreenState extends State<MainScreen> {
                                                               .colorScheme
                                                               .inversePrimary))),
                                               child: SvgPicture.asset(
-                                                  Assets.iconsHome,
-                                                  width: 24),
+                                                  Assets.iconsBilling),
                                             ),
                                           ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16),
-                                      child: GestureDetector(
-                                        onTap: () => setState(() {
-                                          _currentScreen = 2;
-                                        }),
-                                        behavior: HitTestBehavior.opaque,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 18, horizontal: 20),
-                                          decoration: ShapeDecoration(
-                                              shape: OvalBorder(
-                                                  side: BorderSide(
-                                                      width: 0.4,
-                                                      color: context
-                                                          .theme
-                                                          .colorScheme
-                                                          .inversePrimary))),
-                                          child: SvgPicture.asset(
-                                              Assets.iconsProfileBlack),
                                         ),
-                                      ),
-                                    )
+                                        _currentScreen == 1
+                                            ? Expanded(
+                                                child: CustomButton(
+                                                    onPressed: state
+                                                                .locationStatus ==
+                                                            ActionStatus
+                                                                .isSuccess
+                                                        ? () => showStartDrivingDialog(
+                                                            isDriving,
+                                                            widget
+                                                                .historyController,
+                                                            widget.user,
+                                                            controller)
+                                                        : null,
+                                                    borderRadius: 24,
+                                                    title: isDriving
+                                                        ? 'stop'.tr
+                                                        : 'start'.tr))
+                                            : GestureDetector(
+                                                onTap: () => setState(() {
+                                                  _currentScreen = 1;
+                                                }),
+                                                behavior:
+                                                    HitTestBehavior.opaque,
+                                                child: Container(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(
+                                                      vertical: 18,
+                                                      horizontal: 20),
+                                                  decoration: ShapeDecoration(
+                                                      shape: OvalBorder(
+                                                          side: BorderSide(
+                                                              width: 0.4,
+                                                              color: context
+                                                                  .theme
+                                                                  .colorScheme
+                                                                  .inversePrimary))),
+                                                  child: SvgPicture.asset(
+                                                      Assets.iconsHome,
+                                                      width: 24),
+                                                ),
+                                              ),
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 16),
+                                          child: GestureDetector(
+                                            onTap: () => setState(() {
+                                              _currentScreen = 2;
+                                            }),
+                                            behavior: HitTestBehavior.opaque,
+                                            child: Container(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      vertical: 18,
+                                                      horizontal: 20),
+                                              decoration: ShapeDecoration(
+                                                  shape: OvalBorder(
+                                                      side: BorderSide(
+                                                          width: 0.4,
+                                                          color: context
+                                                              .theme
+                                                              .colorScheme
+                                                              .inversePrimary))),
+                                              child: SvgPicture.asset(
+                                                  Assets.iconsProfileBlack),
+                                            ),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    const SpaceHeight(height: 20),
                                   ],
                                 ),
-                                const SpaceHeight(height: 20),
-                              ],
-                            ),
-                          ),
-                        ],
-                      );
-                    }));
-          }
-          return Container();
-        });
+                              ),
+                            ],
+                          );
+                        }));
+              }
+              return Container();
+            });
+      },
+    );
   }
 }

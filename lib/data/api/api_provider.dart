@@ -1,6 +1,6 @@
 class ApiProvider {
   ///Live url
-  static const String baseUrl = 'https://adgari.onesttech.com';
+  static const String baseUrl = 'https://adgari.onesttech.com'; //'https://addrive.uz/api/pages/index';
 
   static const String signIn = '$baseUrl/api/auth/login';
   static const String signUp = '$baseUrl/api/auth/register';

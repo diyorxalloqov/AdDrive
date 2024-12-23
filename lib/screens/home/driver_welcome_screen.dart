@@ -14,12 +14,10 @@ class DriverHomeScreen extends StatelessWidget {
   final OwnerProfileController historyController;
   final bool isDriving;
   final User user;
-  final GlobalKey<ScaffoldState> scaffoldKey;
   final LocationState state;
   const DriverHomeScreen(
       {super.key,
       required this.isDriving,
-      required this.scaffoldKey,
       required this.state,
       required this.user,
       required this.historyController});

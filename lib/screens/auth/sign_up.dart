@@ -1,8 +1,5 @@
 import 'dart:io';
-
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/screens/auth/widgets/succes_dialog.dart';
 
 class UserSignUp extends StatefulWidget {
   const UserSignUp({super.key});

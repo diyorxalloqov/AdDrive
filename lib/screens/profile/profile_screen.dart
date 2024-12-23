@@ -1,12 +1,10 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/driver_profile_controller.dart';
-import 'package:get/get.dart';
+import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   final controller = Get.put(DriverProfileController());
-
   ProfileScreen({super.key});
 
   @override
@@ -29,112 +27,40 @@ class ProfileScreen extends StatelessWidget {
                               alignment: Alignment.topCenter,
                               children: [
                                 Container(
-                                  margin: const EdgeInsets.only(top: 40),
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12.0)),
-                                    child: Container(
-                                      margin: const EdgeInsets.only(
-                                          top: 80,
-                                          left: 16,
-                                          right: 16,
-                                          bottom: 20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text(
-                                            controller.driverProfile.value?.data
-                                                    ?.name ??
-                                                "Name Not Found",
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400),
-                                          ),
-                                          const SizedBox(
-                                            height: 17,
-                                          ),
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                                horizontal: 0, vertical: -4),
-                                            dense: true,
-                                            title: Text(
-                                              controller.driverProfile.value
-                                                      ?.data?.phone ??
-                                                  "No Phone Number Found",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF555555),
-                                              ),
-                                            ),
-                                            leading: SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: SvgPicture.asset(
-                                                'asset/icons/driver_icons/bi_phone.svg',
-                                              ),
-                                            ),
-                                            minLeadingWidth: 10,
-                                            contentPadding: EdgeInsets.zero,
-                                          ),
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                                horizontal: 0, vertical: -4),
-                                            dense: true,
-                                            title: Text(
-                                              controller.driverProfile.value
-                                                      ?.data?.vehicleNumber ??
-                                                  "No Vehicle Number Found",
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF555555),
-                                              ),
-                                            ),
-                                            leading: SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: SvgPicture.asset(
-                                                'asset/icons/drawer_icon/vehicles.svg',
-                                              ),
-                                            ),
-                                            minLeadingWidth: 10,
-                                            contentPadding: EdgeInsets.zero,
-                                          ),
-                                          ListTile(
-                                            visualDensity: const VisualDensity(
-                                                horizontal: 0, vertical: -4),
-                                            dense: true,
-                                            title: Text(
-                                              controller
-                                                      .driverProfile
-                                                      .value
-                                                      ?.data
-                                                      ?.driver
-                                                      ?.currentAddress ??
-                                                  'N/A',
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w400,
-                                                color: Color(0xFF555555),
-                                              ),
-                                            ),
-                                            leading: SizedBox(
-                                              width: 20,
-                                              height: 20,
-                                              child: SvgPicture.asset(
-                                                'asset/icons/cil_location-pin.svg',
-                                              ),
-                                            ),
-                                            minLeadingWidth: 10,
-                                            contentPadding: EdgeInsets.zero,
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  margin: const EdgeInsets.only(top: 60),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  decoration: decoration(context),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const SpaceHeight(height: 80),
+                                      ProfileItemWidget(
+                                          title: controller.driverProfile.value
+                                                  ?.data?.name ??
+                                              "Name Not Found",
+                                          icon: Assets.iconsProfile2),
+                                      ProfileItemWidget(
+                                          title: controller.driverProfile.value
+                                                  ?.data?.phone ??
+                                              "No Phone Number Found",
+                                          icon: Assets.driverIconsBiPhone),
+                                      ProfileItemWidget(
+                                          title: controller
+                                                  .driverProfile
+                                                  .value
+                                                  ?.data
+                                                  ?.driver
+                                                  ?.currentAddress ??
+                                              'N/A',
+                                          icon: Assets.iconsCilLocationPin),
+                                      ProfileItemWidget(
+                                          title: controller.driverProfile.value
+                                                  ?.data?.vehicleNumber ??
+                                              "No Vehicle Number Found",
+                                          icon: Assets.drawerIconVehicles),
+                                    ],
                                   ),
                                 ),
 
@@ -198,15 +124,14 @@ class ProfileScreen extends StatelessWidget {
                                         Container(
                                           height: 100,
                                           width: 100,
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.black),
-                                            shape: BoxShape.circle,
-                                            color: Colors.white,
+                                          decoration: ShapeDecoration(
+                                            shape: const OvalBorder(),
+                                            color: context.isDarkMode
+                                                ? CustomColors().greyColor(1)
+                                                : Colors.white,
                                             image: DecorationImage(
                                                 image: NetworkImage(
-                                                  '${controller.avatarRX}',
-                                                ),
+                                                    '${controller.avatarRX}'),
                                                 fit: BoxFit.cover),
                                           ),
                                         ),
@@ -224,11 +149,9 @@ class ProfileScreen extends StatelessWidget {
                                               decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
                                                   color: Colors.grey),
-                                              child: const Icon(
-                                                Icons.edit,
-                                                color: Colors.white,
-                                                size: 12,
-                                              ),
+                                              child: const Icon(Icons.edit,
+                                                  color: Colors.white,
+                                                  size: 12),
                                             ),
                                           ),
                                         )
@@ -556,7 +479,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 200),
                         ],
                       ),
                     )
@@ -566,5 +489,22 @@ class ProfileScreen extends StatelessWidget {
         }),
       ),
     );
+  }
+}
+
+class ProfileItemWidget extends StatelessWidget {
+  final String title;
+  final String icon;
+  const ProfileItemWidget({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+        visualDensity: const VisualDensity(horizontal: 0, vertical: -4),
+        dense: true,
+        title: Text(title, style: context.theme.textTheme.headlineSmall),
+        leading: SizedBox(width: 20, height: 20, child: SvgPicture.asset(icon)),
+        minLeadingWidth: 10,
+        contentPadding: EdgeInsets.zero);
   }
 }

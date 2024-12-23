@@ -100,7 +100,7 @@ class AppTheme {
     canvasColor: Colors.white,
     colorScheme: const ColorScheme(
         brightness: Brightness.dark,
-        primary: Colors.black,
+        primary: Color(0xff474747),
         onPrimary: Colors.transparent,
         secondary: Colors.transparent,
         onSecondary: Colors.transparent,

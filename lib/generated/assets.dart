@@ -54,6 +54,7 @@ class Assets {
   static const String iconsPointArrow = 'asset/icons/point-arrow.svg';
   static const String iconsPointArrowMark = 'asset/icons/point-arrow-mark.svg';
   static const String iconsProfile = 'asset/v_1/icons/profile.svg';
+  static const String iconsProfile2 = 'asset/v_1/icons/profile_2.svg';
   static const String iconsProfileBlack = 'asset/v_1/icons/profile_black.svg';
   static const String iconsSecurity = 'asset/v_1/icons/security.svg';
   static const String imagesGoogle = 'asset/v_1/images/google.png';

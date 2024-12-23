@@ -13,6 +13,6 @@ extension ThemesData on BuildContext {
 // SchedulerBinding.instance.platformDispatcher.platformBrightness;
 // var brightness = View.of(context).platformDispatcher.platformBrightness;
 
-extension GetTheme on BuildContext {
+extension GetThemes on BuildContext {
   ThemeData get theme => isDark ? AppTheme().darkTheme : AppTheme().lightTheme;
 }
