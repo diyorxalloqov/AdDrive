@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
+import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
 import 'package:flutter_texi_tracker/global/language_dialog.dart';
 import 'package:flutter_texi_tracker/routes/app_routes.dart';
 import 'package:flutter_texi_tracker/widgets/space_widget.dart';
@@ -46,6 +47,10 @@ class _DrawerScreenState extends State<DrawerScreen> {
           iconData: 'asset/icons/drawer_icon/drivers.svg',
           title: 'drivers'.tr,
           onPressed: () => Get.toNamed(AppRoutes.driverScreen)),
+      DrawerProfileList(
+          iconData: Assets.iconsVehicle,
+          title: 'add_vehicle'.tr,
+          onPressed: () => Get.toNamed(AppRoutes.addVehicle)),
     };
 
     final settingList = {
@@ -97,7 +102,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                           CircleAvatar(
                               backgroundImage: NetworkImage(
                                   '${controller.getUser()?.avatar}'),
-                              maxRadius: 55.0),
+                              maxRadius: 50),
                           Positioned(
                             right: 10,
                             top: 2,
@@ -134,7 +139,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         dense: true,
                         title: Text('${e.title}',
                             style: context.theme.textTheme.headlineSmall),
-                        leading: SvgPicture.asset('${e.iconData}')))
+                        leading: SvgPicture.asset('${e.iconData}', width: 20)))
                     .toList(),
               ),
               titleWithBorder(title: 'settings'.tr),

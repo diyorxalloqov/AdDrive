@@ -1,80 +1,26 @@
 {
   "project_info": {
-    "project_number": "734310476350",
-    "firebase_url": "https://adgari-default-rtdb.firebaseio.com",
-    "project_id": "adgari",
-    "storage_bucket": "adgari.appspot.com"
+    "project_number": "526039409607",
+    "project_id": "addrive-35217",
+    "storage_bucket": "addrive-35217.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:734310476350:android:694f572c48952bbb7bbf6f",
+        "mobilesdk_app_id": "1:526039409607:android:22bb442482e6dfa4d4afe2",
         "android_client_info": {
-          "package_name": "com.impex.adgari"
+          "package_name": "com.adDrive"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "734310476350-lj02vdqpqpvn5dmos13223bqa5ag3062.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBafn8LkAgFjOYdqx462Bby7xco0vOlsCw"
+          "current_key": "AIzaSyCSOb5Q2SzNor91sYl_11ExpcTU_vYyI60"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "734310476350-lj02vdqpqpvn5dmos13223bqa5ag3062.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "734310476350-5tbgr05ndm7n6pco3ms8sqhose59tj34.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.impex.adgari"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:734310476350:android:8070b2fb8baecf037bbf6f",
-        "android_client_info": {
-          "package_name": "com.wrapty.gari"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "734310476350-lj02vdqpqpvn5dmos13223bqa5ag3062.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBafn8LkAgFjOYdqx462Bby7xco0vOlsCw"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "734310476350-lj02vdqpqpvn5dmos13223bqa5ag3062.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "734310476350-5tbgr05ndm7n6pco3ms8sqhose59tj34.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.impex.adgari"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

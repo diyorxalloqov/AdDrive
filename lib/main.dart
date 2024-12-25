@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_texi_tracker/firebase_options.dart';
 import 'package:flutter_texi_tracker/hive/hive_fav_provider.dart';
 import 'package:flutter_texi_tracker/hive/hive_location_provider.dart';
 import 'package:flutter_texi_tracker/language/app_language.dart';
@@ -15,6 +16,8 @@ import 'package:flutter_texi_tracker/model/hive_model/fav/favourite_car_model.da
 import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
 import 'package:flutter_texi_tracker/routes/app_pages.dart';
 import 'package:flutter_texi_tracker/routes/app_routes.dart';
+import 'package:flutter_texi_tracker/screens/add_vehicle/bloc/car_bloc.dart';
+import 'package:flutter_texi_tracker/screens/add_vehicle/db/car_db.dart';
 import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/geolocator_service.dart';
@@ -45,8 +48,9 @@ Future openBox() async {
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await openBox();
+  CarDb.registerAdapters();
   final languageCode = await getLocalData(key: 'languageCode');
   FlutterNativeSplash.remove();
 
@@ -68,7 +72,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => LocationCubit())],
+      providers: [
+        BlocProvider(create: (context) => LocationCubit()),
+        BlocProvider(create: (context) => CarBloc()),
+      ],
       child: MultiProvider(
         providers: [
           FutureProvider<BitmapDescriptor?>(

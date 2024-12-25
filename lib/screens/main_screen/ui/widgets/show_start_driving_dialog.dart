@@ -16,19 +16,14 @@ void showStartDrivingDialog(
   Get.defaultDialog(
       title: isDriving ? 'stop_driving'.tr : 'start_driving'.tr,
       barrierDismissible: false,
-      backgroundColor: Colors.white,
-      confirmTextColor: Colors.black,
-      cancelTextColor: Colors.black,
+      backgroundColor: Get.theme.colorScheme.primary,
+      confirmTextColor: Colors.black54,
+      cancelTextColor: Colors.black54,
       content: Column(
         children: [
-          lotte.Lottie.asset(
-            'asset/lotte/car_lotte.json',
-          ),
-          Text(
-            '${'are_you_sure_that_you_want_to'.tr} ${isDriving ? 'stop_driving'.tr : 'start_driving'.tr}?',
-            style: const TextStyle(
-                fontSize: 14, color: Colors.black, fontWeight: FontWeight.w400),
-          ),
+          lotte.Lottie.asset(Assets.lotteCarLotte),
+          Text('${isDriving ? 'stop_drive'.tr : 'start_drive'.tr}?',
+              style: Get.theme.textTheme.headlineSmall),
         ],
       ),
       textConfirm: 'yes'.tr,

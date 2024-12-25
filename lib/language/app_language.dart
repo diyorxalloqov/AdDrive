@@ -61,9 +61,8 @@ class AppLanguage extends Translations {
           'forget_password': 'Parolni unutdingizmi',
           'already_have_account': 'Hisobingiz bormi?',
           'we_will_send_verification_code_to_your_phone_to_reset_your_password':
-              'Parolingizni tiklash uchun telefoningizga\n tasdiqlash kodi yuboramiz',
-          'skip_i_will_confirm_later':
-              'Keyinroq tasdiqlayman, o‘tkazib yuborish.',
+              'Parolingizni tiklash uchun telefoningizga\ntasdiqlash kodi yuboramiz',
+          'skip_i_will_confirm_later': 'O‘tkazib yuborish.',
           'are_you_sure_that_you_want_to': 'Siz shuni xohlaysizmi',
           'message': 'Xabarlar',
           'change_password': 'Parolni o‘zgartirish',
@@ -130,7 +129,16 @@ class AppLanguage extends Translations {
           "success_register":
               "Tabriklaymiz siz muvaffaqiyatli ro’yxatdan o’tdingiz!",
           "billing": "Daromad",
-          "billing_hour": "Har soatda ishlagan pulingiz"
+          "billing_hour": "Har soatda ishlagan pulingiz",
+          "select_image": "Rasmni tanlang",
+          "add_vehicle": "Avtomobil qo'shish",
+          "start_drive":"Haydashni boshlashni xoxlaysizmi",
+          "stop_drive":"Haydashni to'xtatishni xoxlaysizmi",
+          "choice_mark":"Avtomobil markasini tanlang",
+          "search":"Qidirish",
+          "no_car":"Bunday avtomobil mavjud emas",
+          "choice_model":"Modelni Tanlang",
+          "choice_car_model":"Avtomobil modelini tanlang"
         },
         "ru": {
           'distance': 'Расстояние',

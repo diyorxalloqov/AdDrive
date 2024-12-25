@@ -9,6 +9,7 @@ class AppRoutes {
   static const String summaryPage = '/SummeryScreen';
   static const String vehicleScreen = '/VehiclesScreen';
   static const String driverScreen = '/DriversScreen';
+  static const String addVehicle = '/addVehicle';
   static const String driverInfoPage = '/DriversInfoPage';
   static const String settingScreen = '/SettingsScreen';
   static const String privacyPolicy = '/PrivacyPolicy';

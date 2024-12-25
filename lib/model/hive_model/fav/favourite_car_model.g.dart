@@ -23,13 +23,14 @@ class FavoriteCarAdapter extends TypeAdapter<FavoriteCar> {
       brandingType: fields[3] as String?,
       duration: fields[4] as String?,
       price: fields[5] as String?,
+      image: fields[6] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, FavoriteCar obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class FavoriteCarAdapter extends TypeAdapter<FavoriteCar> {
       ..writeByte(4)
       ..write(obj.duration)
       ..writeByte(5)
-      ..write(obj.price);
+      ..write(obj.price)
+      ..writeByte(6)
+      ..write(obj.image);
   }
 
   @override

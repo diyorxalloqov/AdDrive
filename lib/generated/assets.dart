@@ -32,8 +32,8 @@ class Assets {
   static const String drawerIconTermsCondition = 'asset/icons/drawer_icon/terms-condition.svg';
   static const String drawerIconVehicles = 'asset/icons/drawer_icon/vehicles.svg';
   static const String driverIconsBiPhone = 'asset/icons/driver_icons/bi_phone.svg';
-  static const String driverIconsCilLocationPin = 'asset/icons/driver_icons/cil_location-pin.svg';
   static const String driverIconsDate = 'asset/icons/driver_icons/date.png';
+  static const String driverIconsLocation = 'asset/icons/driver_icons/location.svg';
   static const String iconsBilling = 'asset/v_1/icons/billing.svg';
   static const String iconsCilLocationPin = 'asset/icons/cil_location-pin.svg';
   static const String iconsDistanceSummery = 'asset/icons/distance-summery.svg';
@@ -57,6 +57,7 @@ class Assets {
   static const String iconsProfile2 = 'asset/v_1/icons/profile_2.svg';
   static const String iconsProfileBlack = 'asset/v_1/icons/profile_black.svg';
   static const String iconsSecurity = 'asset/v_1/icons/security.svg';
+  static const String iconsVehicle = 'asset/v_1/icons/vehicle.svg';
   static const String imagesGoogle = 'asset/v_1/images/google.png';
   static const String imagesSuccess = 'asset/v_1/images/success.png';
   static const String interInterBold = 'asset/v_1/fonts/inter/Inter-Bold.ttf';

@@ -9,11 +9,11 @@ class AppTheme {
     brightness: Brightness.light,
     cardColor: const Color(0xffE7E8EA),
     canvasColor: Colors.black,
-    colorScheme: const ColorScheme(
+    colorScheme: ColorScheme(
         brightness: Brightness.light,
         primary: Colors.white,
-        onPrimary: Colors.transparent,
-        inversePrimary: Color(0xffB5B5B5),
+        onPrimary: const Color(0xff3c3c43).withOpacity(0.5),
+        inversePrimary: const Color(0xffB5B5B5),
         secondary: Colors.transparent,
         onSecondary: Colors.transparent,
         error: Colors.transparent,
@@ -22,6 +22,24 @@ class AppTheme {
         onSurface: Colors.transparent),
     shadowColor: const Color(0xffC7C7CC),
     dividerColor: const Color(0xff004646),
+    inputDecorationTheme: InputDecorationTheme(
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: const BorderSide(color: Color(0xffCCCFD3), width: 1)),
+        contentPadding: const EdgeInsets.only(left: 12),
+        filled: true,
+        hintStyle: const TextStyle(
+            fontSize: 14,
+            color: Color(0xffB1B1B4),
+            fontWeight: FontWeight.w400),
+        fillColor: const Color(0xffFFFFFF),
+        constraints: const BoxConstraints(maxHeight: 80, minHeight: 44),
+        focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xffCCCFD3), width: 1),
+            borderRadius: BorderRadius.circular(8)),
+        enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Color(0xffCCCFD3), width: 1),
+            borderRadius: BorderRadius.circular(8))),
     cardTheme: const CardTheme(color: Color(0xffE7E8EA)),
     scaffoldBackgroundColor: const Color(0xffFFFFFF),
     // appBarTheme: AppBarTheme(color: CustomColors().mainColor(1)),

@@ -15,12 +15,13 @@ class ProfileScreen extends StatelessWidget {
           return Stack(
             children: [
               controller.isLoading.isTrue
-                  ? const Center(child: CircularProgressIndicator())
+                  ? const Center(child: Loading())
                   : const SizedBox(),
               controller.driverProfile.value != null
                   ? SingleChildScrollView(
                       child: Column(
                         children: [
+                          const SpaceHeight(height: 20),
                           Container(
                             margin: const EdgeInsets.only(left: 20, right: 20),
                             child: Stack(
@@ -71,46 +72,65 @@ class ProfileScreen extends StatelessWidget {
                                     onPressed: () {
                                       Get.dialog(
                                         AlertDialog(
-                                          title:
-                                              const Text('Select Image from'),
+                                          backgroundColor:
+                                              context.theme.colorScheme.primary,
+                                          title: Text('select_image'.tr),
                                           content: Padding(
                                             padding: const EdgeInsets.all(8.0),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.spaceEvenly,
                                               children: [
-                                                InkWell(
+                                                GestureDetector(
+                                                    behavior:
+                                                        HitTestBehavior.opaque,
                                                     onTap: () {
                                                       controller
                                                           .imgFromCamera();
                                                       Get.back();
                                                     },
-                                                    child: const Column(
+                                                    child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
-                                                        Icon(
-                                                          Icons.camera,
-                                                          // color: kAppPrimaryColor,
-                                                        ),
-                                                        Text('Camera')
+                                                        Icon(Icons.camera,
+                                                            color: context
+                                                                .theme
+                                                                .colorScheme
+                                                                .onPrimary),
+                                                        const SpaceHeight(
+                                                            height: 10),
+                                                        Text('camera',
+                                                            style: context
+                                                                .theme
+                                                                .textTheme
+                                                                .headlineSmall)
                                                       ],
                                                     )),
-                                                InkWell(
+                                                GestureDetector(
+                                                    behavior:
+                                                        HitTestBehavior.opaque,
                                                     onTap: () {
                                                       controller
                                                           .imgFromGallery();
                                                       Get.back();
                                                     },
-                                                    child: const Column(
+                                                    child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
-                                                        Icon(
-                                                          Icons.image,
-                                                          // color: kAppPrimaryColor,
-                                                        ),
-                                                        Text('Gallery')
+                                                        Icon(Icons.image,
+                                                            color: context
+                                                                .theme
+                                                                .colorScheme
+                                                                .onPrimary),
+                                                        const SpaceHeight(
+                                                            height: 10),
+                                                        Text('gallery',
+                                                            style: context
+                                                                .theme
+                                                                .textTheme
+                                                                .headlineSmall)
                                                       ],
                                                     )),
                                               ],
@@ -122,13 +142,12 @@ class ProfileScreen extends StatelessWidget {
                                     child: Stack(
                                       children: [
                                         Container(
-                                          height: 100,
-                                          width: 100,
+                                          height: 90,
+                                          width: 90,
                                           decoration: ShapeDecoration(
                                             shape: const OvalBorder(),
-                                            color: context.isDarkMode
-                                                ? CustomColors().greyColor(1)
-                                                : Colors.white,
+                                            color: context
+                                                .theme.colorScheme.onPrimary,
                                             image: DecorationImage(
                                                 image: NetworkImage(
                                                     '${controller.avatarRX}'),
@@ -136,23 +155,21 @@ class ProfileScreen extends StatelessWidget {
                                           ),
                                         ),
                                         Positioned(
-                                          bottom: 8,
+                                          bottom: 6,
                                           right: 2,
                                           child: Container(
                                             padding: const EdgeInsets.all(2.0),
                                             decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: Colors.white,
-                                            ),
+                                                shape: BoxShape.circle,
+                                                color: Colors.white),
                                             child: Container(
-                                              padding: const EdgeInsets.all(4),
-                                              decoration: const BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  color: Colors.grey),
-                                              child: const Icon(Icons.edit,
-                                                  color: Colors.white,
-                                                  size: 12),
-                                            ),
+                                                padding:
+                                                    const EdgeInsets.all(4),
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: Colors.black38),
+                                                child: const Icon(Icons.edit,
+                                                    size: 12)),
                                           ),
                                         )
                                       ],
@@ -167,105 +184,67 @@ class ProfileScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 20, vertical: 20),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
+                            child: Container(
+                              decoration: decoration(context),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'driver_information'.tr,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.4,
-                                          color: Color(0xFF999999)),
-                                    ),
-                                    const Divider(),
+                                    Text('driver_information'.tr,
+                                        style: context
+                                            .theme.textTheme.labelMedium),
+                                    const SpaceHeight(height: 12),
                                     Row(
                                       children: [
                                         SizedBox(
                                             width: 100,
-                                            child: Text(
-                                              'license_no'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  height: 1.1,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF555555)),
-                                            )),
+                                            child: Text('license_no'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall
+                                                    ?.copyWith(fontSize: 14))),
                                         Expanded(
                                           child: Text(
-                                            ': ${controller.driverProfile.value?.data?.driver?.drivingLicenceNumber ?? 'N/A'}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                height: 1.1,
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: 0.5,
-                                                color: Color(0xFF555555)),
-                                          ),
+                                              ': ${controller.driverProfile.value?.data?.driver?.drivingLicenceNumber ?? 'N/A'}',
+                                              style: context
+                                                  .theme.textTheme.bodySmall
+                                                  ?.copyWith(fontSize: 14)),
                                         )
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SpaceHeight(height: 10),
                                     Row(
                                       children: [
                                         SizedBox(
                                             width: 100,
-                                            child: Text(
-                                              'expired_date'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  height: 1.1,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF555555)),
-                                            )),
+                                            child: Text('expired_date'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall
+                                                    ?.copyWith(fontSize: 14))),
                                         Expanded(
                                           child: Text(
-                                            ': ${controller.driverProfile.value?.data?.driver?.drivingLicenceExpiryDate ?? 'N/A'}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                height: 1.1,
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: 0.5,
-                                                color: Color(0xFF555555)),
-                                          ),
+                                              ': ${controller.driverProfile.value?.data?.driver?.drivingLicenceExpiryDate ?? 'N/A'}',
+                                              style: context
+                                                  .theme.textTheme.bodySmall
+                                                  ?.copyWith(fontSize: 14)),
                                         )
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 10,
-                                    ),
+                                    const SpaceHeight(height: 10),
                                     Row(
                                       children: [
                                         SizedBox(
                                             width: 100,
-                                            child: Text(
-                                              'NID_no'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  height: 1.1,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF555555)),
-                                            )),
+                                            child: Text('NID_no'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall
+                                                    ?.copyWith(fontSize: 14))),
                                         Expanded(
                                           child: Text(
-                                            ': ${controller.driverProfile.value?.data?.driver?.nidCard ?? 'N/A'}',
-                                            style: const TextStyle(
-                                                fontSize: 16,
-                                                height: 1.1,
-                                                fontWeight: FontWeight.w400,
-                                                letterSpacing: 0.5,
-                                                color: Color(0xFF555555)),
-                                          ),
+                                              ': ${controller.driverProfile.value?.data?.driver?.nidCard ?? 'N/A'}',
+                                              style: context
+                                                  .theme.textTheme.bodySmall
+                                                  ?.copyWith(fontSize: 14)),
                                         )
                                       ],
                                     ),
@@ -278,24 +257,17 @@ class ProfileScreen extends StatelessWidget {
                           ///Agreement Information
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Card(
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
+                            child: Container(
+                              decoration: decoration(context),
                               child: Padding(
                                 padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'agreement_information'.tr,
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.w400,
-                                          height: 1.4,
-                                          color: Color(0xFF999999)),
-                                    ),
-                                    const Divider(),
+                                    Text('agreement_information'.tr,
+                                        style: context
+                                            .theme.textTheme.labelMedium),
+                                    const SpaceHeight(height: 16),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -304,34 +276,19 @@ class ProfileScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'DISTANCE'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  height: 1.6,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF999999)),
-                                            ),
+                                            Text('DISTANCE'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall),
                                             Wrap(spacing: 4, children: [
                                               Text(
-                                                '${controller.driverProfile.value?.data?.agreement?.distance ?? '0'}',
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    height: 1.1,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF222222)),
-                                              ),
-                                              Text(
-                                                'km'.tr,
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    height: 1.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF555555)),
-                                              )
+                                                  '${controller.driverProfile.value?.data?.agreement?.distance ?? '0'}',
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14)),
+                                              Text('km'.tr,
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14))
                                             ]),
                                           ],
                                         ),
@@ -339,34 +296,19 @@ class ProfileScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            Text(
-                                              'total_car'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  height: 1.6,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF999999)),
-                                            ),
+                                            Text('total_car'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall),
                                             Wrap(spacing: 4, children: [
                                               Text(
-                                                '${controller.driverProfile.value?.data?.agreement?.totalCar ?? '0'}',
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    height: 1.1,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF222222)),
-                                              ),
-                                              Text(
-                                                'car'.tr,
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    height: 1.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF555555)),
-                                              )
+                                                  '${controller.driverProfile.value?.data?.agreement?.totalCar ?? '0'}',
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14)),
+                                              Text('car'.tr,
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14))
                                             ]),
                                           ],
                                         ),
@@ -374,42 +316,26 @@ class ProfileScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
-                                            Text(
-                                              'amount'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  height: 1.6,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF999999)),
-                                            ),
+                                            Text('amount'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall),
+                                            const SpaceHeight(height: 4),
                                             Wrap(spacing: 4, children: [
                                               Text(
-                                                '${controller.driverProfile.value?.data?.agreement?.amount ?? '0'}',
-                                                style: const TextStyle(
-                                                    fontSize: 16,
-                                                    height: 1.1,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF222222)),
-                                              ),
-                                              Text(
-                                                controller.currency ?? '',
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    height: 1.5,
-                                                    fontWeight: FontWeight.w400,
-                                                    letterSpacing: 0.5,
-                                                    color: Color(0xFF555555)),
-                                              )
+                                                  '${controller.driverProfile.value?.data?.agreement?.amount ?? '0'}',
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14)),
+                                              Text(controller.currency ?? '',
+                                                  style: context.theme.textTheme
+                                                      .labelMedium
+                                                      ?.copyWith(fontSize: 14))
                                             ]),
                                           ],
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(
-                                      height: 16,
-                                    ),
+                                    const SpaceHeight(height: 16),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -418,58 +344,44 @@ class ProfileScreen extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
+                                            Text('start_date'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall),
+                                            const SpaceHeight(height: 4),
                                             Text(
-                                              'start_date'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  height: 1.6,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF999999)),
-                                            ),
-                                            Text(
-                                              controller
-                                                      .driverProfile
-                                                      .value
-                                                      ?.data
-                                                      ?.agreement
-                                                      ?.startDate
-                                                      .toString() ??
-                                                  'N/A',
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  height: 1.1,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF222222)),
-                                            ),
+                                                controller
+                                                        .driverProfile
+                                                        .value
+                                                        ?.data
+                                                        ?.agreement
+                                                        ?.startDate
+                                                        .toString() ??
+                                                    'N/A',
+                                                style: context
+                                                    .theme.textTheme.labelMedium
+                                                    ?.copyWith(fontSize: 14)),
                                           ],
                                         ),
                                         Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.end,
                                           children: [
+                                            Text('end_date'.tr,
+                                                style: context
+                                                    .theme.textTheme.bodySmall),
+                                            const SpaceHeight(height: 4),
                                             Text(
-                                              'end_date'.tr,
-                                              style: const TextStyle(
-                                                  fontSize: 11,
-                                                  height: 1.6,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF999999)),
-                                            ),
-                                            Text(
-                                              controller.driverProfile.value
-                                                      ?.data?.agreement?.endDate
-                                                      .toString() ??
-                                                  'N/A',
-                                              style: const TextStyle(
-                                                  fontSize: 16,
-                                                  height: 1.1,
-                                                  fontWeight: FontWeight.w400,
-                                                  letterSpacing: 0.5,
-                                                  color: Color(0xFF222222)),
-                                            ),
+                                                controller
+                                                        .driverProfile
+                                                        .value
+                                                        ?.data
+                                                        ?.agreement
+                                                        ?.endDate
+                                                        .toString() ??
+                                                    'N/A',
+                                                style: context
+                                                    .theme.textTheme.labelMedium
+                                                    ?.copyWith(fontSize: 14)),
                                           ],
                                         ),
                                       ],

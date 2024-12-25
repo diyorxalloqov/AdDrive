@@ -3,6 +3,7 @@ import 'package:flutter_texi_tracker/controller/vehicles_list_controller.dart';
 import 'package:flutter_texi_tracker/model/vehicle_list_model.dart';
 import 'package:flutter_texi_tracker/widgets/error_screen.dart';
 import 'package:flutter_texi_tracker/widgets/no_data_found_widget.dart';
+import 'package:flutter_texi_tracker/widgets/space_widget.dart';
 import 'package:get/get.dart';
 
 class VehiclesScreen extends StatelessWidget {
@@ -15,15 +16,13 @@ class VehiclesScreen extends StatelessWidget {
         appBar: isBottomNavbar != null
             ? null
             : AppBar(
-                title: Text(
-                  'vehicles'.tr,
-                  style: const TextStyle(color: Colors.white, fontSize: 16),
-                ),
+                title: Text('vehicles'.tr,
+                    style: context.theme.textTheme.labelMedium),
                 leading: InkWell(
                     onTap: () => Navigator.pop(context),
-                    child: const Icon(
+                    child: Icon(
                       Icons.arrow_back_ios_new,
-                      color: Colors.white,
+                      color: context.isDarkMode ? Colors.white : Colors.black,
                       size: 20,
                     )),
               ),
@@ -49,24 +48,19 @@ class VehiclesScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    Text(
-                                      '${data?.vehicleName}',
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                    const SizedBox(
-                                      height: 17,
-                                    ),
+                                    Text('${data?.vehicleName}',
+                                        style: context
+                                            .theme.textTheme.labelMedium),
+                                    const SpaceHeight(height: 17),
 
                                     /// Mileage mpg and year
-                                    buildMialeageMpgYear(data!),
+                                    buildMialeageMpgYear(data!, context),
 
                                     /// Brand, displacement and engine
-                                    buildBrandDisplacementEngine(data),
+                                    buildBrandDisplacementEngine(data, context),
 
                                     /// Abs, Model, HP
-                                    buildAbsModelHp(data),
+                                    buildAbsModelHp(data, context),
 
                                     /// All permission status
                                     Container(
@@ -81,15 +75,11 @@ class VehiclesScreen extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      'fitness'.tr,
-                                                      style: const TextStyle(
-                                                          color: Colors.grey,
-                                                          height: 1.8,
-                                                          fontSize: 11,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
+                                                    Text('fitness'.tr,
+                                                        style: context
+                                                            .theme
+                                                            .textTheme
+                                                            .labelMedium),
                                                     Text(
                                                       '${data.fitness}',
                                                       style: TextStyle(
@@ -109,22 +99,19 @@ class VehiclesScreen extends StatelessWidget {
                                               ),
                                               Expanded(
                                                 child: Container(
-                                                  child: buildColumn(data),
+                                                  child: buildColumn(
+                                                      data, context),
                                                 ),
                                               ),
                                               Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(
-                                                    'license'.tr,
-                                                    style: const TextStyle(
-                                                        color: Colors.grey,
-                                                        height: 1.8,
-                                                        fontSize: 11,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
+                                                  Text('license'.tr,
+                                                      style: context
+                                                          .theme
+                                                          .textTheme
+                                                          .labelMedium),
                                                   Text(
                                                     data.license ?? 'N/A',
                                                     style: TextStyle(
@@ -141,9 +128,7 @@ class VehiclesScreen extends StatelessWidget {
                                               ),
                                             ],
                                           ),
-                                          const SizedBox(
-                                            height: 10,
-                                          ),
+                                          const SpaceHeight(height: 10),
                                         ],
                                       ),
                                     ),
@@ -177,7 +162,7 @@ class VehiclesScreen extends StatelessWidget {
         ));
   }
 
-  Container buildAbsModelHp(Datum data) {
+  Container buildAbsModelHp(Datum data, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       child: Column(
@@ -190,20 +175,10 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'ABS',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('ABS', style: context.theme.textTheme.labelMedium),
                     Text(
                       data.abs ?? 'N/A',
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -212,20 +187,11 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'model'.tr,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('model'.tr,
+                        style: context.theme.textTheme.labelMedium),
                     Text(
                       data.vehicleModel ?? 'N/A',
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -233,14 +199,7 @@ class VehiclesScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  const Text(
-                    'HP',
-                    style: TextStyle(
-                        color: Colors.grey,
-                        height: 1.8,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  Text('HP', style: context.theme.textTheme.headlineSmall),
                   Text(
                     data.horsePower ?? 'N/A',
                     style: const TextStyle(
@@ -259,7 +218,7 @@ class VehiclesScreen extends StatelessWidget {
     );
   }
 
-  Container buildBrandDisplacementEngine(Datum data) {
+  Container buildBrandDisplacementEngine(Datum data, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       child: Column(
@@ -271,21 +230,12 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'brand'.tr,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('brand'.tr,
+                        style: context.theme.textTheme.labelMedium),
                     Text(
                       '${data.vehicleName}',
                       maxLines: 1,
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -294,22 +244,13 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'displacement'.tr,
-                      textAlign: TextAlign.start,
-                      maxLines: 1,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('displacement'.tr,
+                        textAlign: TextAlign.start,
+                        maxLines: 1,
+                        style: context.theme.textTheme.labelMedium),
                     Text(
                       '${data.displacement}',
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -317,14 +258,8 @@ class VehiclesScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    'engine'.tr,
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        height: 1.8,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  Text('engine'.tr,
+                      style: context.theme.textTheme.headlineSmall),
                   Text(
                     data.engine ?? 'N/A',
                     style: const TextStyle(
@@ -343,7 +278,7 @@ class VehiclesScreen extends StatelessWidget {
     );
   }
 
-  Container buildMialeageMpgYear(Datum data) {
+  Container buildMialeageMpgYear(Datum data, BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 4),
       child: Column(
@@ -355,21 +290,12 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      'mileage'.tr,
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('mileage'.tr,
+                        style: context.theme.textTheme.labelMedium),
                     Text(
                       '${data.mileage}',
                       maxLines: 1,
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -378,21 +304,11 @@ class VehiclesScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'MPG',
-                      style: TextStyle(
-                          color: Colors.grey,
-                          height: 1.8,
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400),
-                    ),
+                    Text('MPG', style: context.theme.textTheme.labelMedium),
                     Text(
                       '${data.mpg}',
                       maxLines: 1,
-                      style: const TextStyle(
-                          height: 1.4,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400),
+                      style: context.theme.textTheme.headlineSmall,
                     ),
                   ],
                 ),
@@ -400,14 +316,7 @@ class VehiclesScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text(
-                    'year'.tr,
-                    style: const TextStyle(
-                        color: Colors.grey,
-                        height: 1.8,
-                        fontSize: 11,
-                        fontWeight: FontWeight.w400),
-                  ),
+                  Text('year'.tr, style: context.theme.textTheme.headlineSmall),
                   Text(
                     '${data.vehicleMakeYear}',
                     style: const TextStyle(
@@ -426,19 +335,13 @@ class VehiclesScreen extends StatelessWidget {
     );
   }
 
-  Column buildColumn(Datum data) {
+  Column buildColumn(Datum data, BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'route_permit'.tr,
-          textAlign: TextAlign.start,
-          style: const TextStyle(
-              color: Colors.grey,
-              height: 1.8,
-              fontSize: 11,
-              fontWeight: FontWeight.w400),
-        ),
+        Text('route_permit'.tr,
+            textAlign: TextAlign.start,
+            style: context.theme.textTheme.headlineSmall),
         Text(
           data.routePermit ?? 'N/A',
           style: TextStyle(

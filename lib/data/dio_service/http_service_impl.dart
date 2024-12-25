@@ -28,9 +28,9 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  Future<Response> posRequest(String url,dynamic data) async {
+  Future<Response> posRequest(String url, dynamic data) async {
     if (kDebugMode) {
-      print(url);
+      print("url $url");
       print(data);
       print('bearer ${_authController.getUser()?.accessToken}');
     }
@@ -48,14 +48,17 @@ class HttpServiceImpl implements HttpService {
         }),
       );
       if (kDebugMode) {
-        print('post response $response');
+        print('post response ${response.data}');
+        print('post statusCode ${response.statusCode}');
+        print('post message ${response.statusMessage}');
       }
       if (response.statusCode == 200) {
         return response;
       }
     } on DioException catch (e) {
       if (kDebugMode) {
-        print(e.message);
+        print("${e.message} MESSAGE");
+        print("${e.response?.statusMessage} MESSAGE");
       }
       throw Exception(e.response?.statusMessage);
     }

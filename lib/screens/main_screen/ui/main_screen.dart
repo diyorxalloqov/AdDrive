@@ -96,7 +96,7 @@ class _InitState extends State<Init> {
                 widget.firebaseLocationService.getUserProfile(widget.user.id),
             builder: (context, snapshot) {
               if (!snapshot.hasData || snapshot.data == null) {
-                return const Loading();
+                return const Scaffold(body: Loading());
               }
               if (snapshot.hasData) {
                 bool isDriving = snapshot.data?.isDriving == 1 ? true : false;
@@ -164,7 +164,7 @@ class _InitState extends State<Init> {
                                       decoration: decoration(context),
                                       child: SvgPicture.asset(
                                           Assets.iconsNotification,
-                                          width: 20,
+                                          width: 24,
                                           height: 24)),
                                 )
                               ],
@@ -281,6 +281,10 @@ class _InitState extends State<Init> {
                                                       vertical: 18,
                                                       horizontal: 20),
                                               decoration: ShapeDecoration(
+                                                  color: _currentScreen == 0
+                                                      ? CustomColors()
+                                                          .mainColor(0.2)
+                                                      : null,
                                                   shape: OvalBorder(
                                                       side: BorderSide(
                                                           width: 0.4,
@@ -349,6 +353,10 @@ class _InitState extends State<Init> {
                                                       vertical: 18,
                                                       horizontal: 20),
                                               decoration: ShapeDecoration(
+                                                  color: _currentScreen == 2
+                                                      ? CustomColors()
+                                                          .mainColor(0.2)
+                                                      : null,
                                                   shape: OvalBorder(
                                                       side: BorderSide(
                                                           width: 0.4,

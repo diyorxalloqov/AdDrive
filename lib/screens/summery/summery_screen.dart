@@ -1,33 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/summery_controller.dart';
+import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
 import 'package:get/get.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class SummeryScreen extends StatelessWidget {
   final summeryList = {};
 
-   SummeryScreen({Key? key}) : super(key: key);
+  SummeryScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(SummeryController());
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        iconTheme: const IconThemeData(color: Colors.black, size: 25.0),
-        title: Text(
-          'summery'.tr,
-          style: const TextStyle(color: Colors.black),
-        ),
+        iconTheme: IconThemeData(
+            color: context.isDarkMode ? Colors.white : Colors.black,
+            size: 25.0),
+        title: Text('summery'.tr,
+            style: context.theme.textTheme.bodyLarge?.copyWith(fontSize: 16)),
       ),
       body: Obx(() {
         return Stack(
           children: [
             controller.isLoading.isTrue
-                ? const Center(child: CircularProgressIndicator())
+                ? const Center(child: Loading())
                 : const SizedBox(),
             controller.driverSummeryData?.value != null
                 ? SingleChildScrollView(
@@ -36,15 +37,16 @@ class SummeryScreen extends StatelessWidget {
                         Container(
                             margin: const EdgeInsets.all(12),
                             height: Get.size.height / 3,
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                            decoration: decoration(context),
                             child: SfCartesianChart(
-                                primaryXAxis: CategoryAxis(),
+                                primaryXAxis: const CategoryAxis(),
                                 series: <LineSeries<SalesData, String>>[
                                   LineSeries<SalesData, String>(
-                                    dataSource: controller.summeryList,
-                                    xValueMapper: (SalesData sales, _) => sales.year,
-                                    yValueMapper: (SalesData sales, _) => double.parse(sales.sales),
-                                  )
+                                      dataSource: controller.summeryList,
+                                      xValueMapper: (SalesData sales, _) =>
+                                          sales.year,
+                                      yValueMapper: (SalesData sales, _) =>
+                                          double.parse(sales.sales))
                                 ])),
                         Padding(
                           padding: const EdgeInsets.all(12.0),
@@ -53,44 +55,82 @@ class SummeryScreen extends StatelessWidget {
                               Expanded(
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: Colors.white),
+                                  decoration: decoration(context),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset('asset/icons/drawer_icon/vehicles.svg', height: 23, width: 30, color: Colors.red,),
-                                      Text('car'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: 1.6),),
-                                      Text('${controller.driverSummeryData?.value?.totalCar}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, height: 1.3),),
+                                      SvgPicture.asset(
+                                          Assets.drawerIconVehicles,
+                                          height: 23,
+                                          width: 30,
+                                          color: CustomColors().mainColor(1)),
+                                      const SpaceHeight(height: 4),
+                                      Text('car'.tr,
+                                          style: context
+                                              .theme.textTheme.bodyLarge
+                                              ?.copyWith(fontSize: 16)),
+                                      const SpaceHeight(height: 4),
+                                      Text(
+                                          controller.driverSummeryData?.value
+                                                  ?.totalCar
+                                                  .toString() ??
+                                              '',
+                                          style: context
+                                              .theme.textTheme.headlineSmall),
                                     ],
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8),
+                              const SpaceWidth(width: 12),
                               Expanded(
                                 child: Container(
                                   padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                                  decoration: decoration(context),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset('asset/icons/distance-summery.svg', height: 23, width: 30, color: Colors.red,),
-                                      Text('distance'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: 1.6),),
-                                      Text('${controller.driverSummeryData?.value?.totalDistance}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, height: 1.3),),
+                                      SvgPicture.asset(
+                                          Assets.iconsDistanceSummery,
+                                          height: 23,
+                                          width: 30,
+                                          color: CustomColors().mainColor(1)),
+                                      Text('distance'.tr,
+                                          style: context
+                                              .theme.textTheme.bodyLarge
+                                              ?.copyWith(fontSize: 16)),
+                                      Text(
+                                          '${controller.driverSummeryData?.value?.totalDistance}',
+                                          style: context
+                                              .theme.textTheme.headlineSmall),
                                     ],
                                   ),
                                 ),
                               ),
-                              const SizedBox(width: 8,),
+                              const SpaceWidth(width: 12),
                               Expanded(
-                                child: Container(padding: const EdgeInsets.all(12),
-                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
-                                  child: Column(crossAxisAlignment: CrossAxisAlignment.center,
+                                child: Container(
+                                  padding: const EdgeInsets.all(12),
+                                  decoration: decoration(context),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
-                                      SvgPicture.asset('asset/icons/earn2.svg', height: 23, width: 30, color: Colors.red,),
-                                      Text('earn'.tr, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: 1.6),),
-                                      Text('${controller.driverSummeryData?.value?.amount} ${controller.currency ?? ''}', style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, height: 1.3),
+                                      SvgPicture.asset(
+                                        Assets.iconsEarn2,
+                                        height: 23,
+                                        width: 30,
+                                        color: CustomColors().mainColor(1),
                                       ),
+                                      Text('earn'.tr,
+                                          style: context
+                                              .theme.textTheme.bodyLarge
+                                              ?.copyWith(fontSize: 16)),
+                                      Text(
+                                          '${controller.driverSummeryData?.value?.amount} ${controller.currency ?? ''}',
+                                          style: context
+                                              .theme.textTheme.headlineSmall),
                                     ],
                                   ),
                                 ),
@@ -99,114 +139,114 @@ class SummeryScreen extends StatelessWidget {
                           ),
                         ),
                         Visibility(
-                          visible: controller.driverSummeryData?.value?.summary?.isNotEmpty == true ?  true : false,
-                          child: Container(margin: const EdgeInsets.all(12), padding: const EdgeInsets.all(18),
-                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: Colors.white),
+                          visible: controller.driverSummeryData?.value?.summary
+                                      ?.isNotEmpty !=
+                                  true
+                              ? true
+                              : false,
+                          child: Container(
+                            margin: const EdgeInsets.all(12),
+                            padding: const EdgeInsets.all(18),
+                            decoration: decoration(context),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('summery'.tr, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w500, height: 1),),
-                                const SizedBox(height: 6,),
+                                Text('summery'.tr,
+                                    style: context.theme.textTheme.bodyLarge
+                                        ?.copyWith(fontSize: 16)),
+                                const SpaceHeight(height: 6),
                                 const Divider(),
-                                if(controller.driverSummeryData != null)
-                                Column(
-                                  children: controller.driverSummeryData!.value!.summary!.map(
-                                        (e) => Column(
-                                          children: [
-                                            Row(
-                                              children: [
-                                                Expanded(
-                                                  child: Text(
-                                                    '${e.month}',
-                                                    style: const TextStyle(
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        height: 1.16),
+                                if (controller.driverSummeryData != null)
+                                  Column(
+                                    children: controller
+                                        .driverSummeryData!.value!.summary!
+                                        .map(
+                                          (e) => Column(
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  Expanded(
+                                                    child: Text('${e.month}',
+                                                        style: context
+                                                            .theme
+                                                            .textTheme
+                                                            .headlineSmall),
                                                   ),
-                                                ),
-                                                Expanded(
-                                                  flex: 2,
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 12.0),
-                                                    child: Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Wrap(
-                                                          spacing: 8,
-                                                          crossAxisAlignment:
-                                                              WrapCrossAlignment
-                                                                  .center,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'asset/icons/point-arrow.svg',
-                                                              height: 22,
-                                                              width: 22,
-                                                            ),
-                                                            Text(
-                                                              '${e.distance} KM',
-                                                              style: const TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  height: 1.16),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                        const SizedBox(
-                                                          height: 6,
-                                                        ),
-                                                        Wrap(
-                                                          spacing: 8,
-                                                          crossAxisAlignment:
-                                                              WrapCrossAlignment
-                                                                  .center,
-                                                          children: [
-                                                            SvgPicture.asset(
-                                                              'asset/icons/point-arrow-mark.svg',
-                                                              height: 22,
-                                                              width: 22,
-                                                            ),
-                                                            Text(
-                                                              '${e.agreement} KM',
-                                                              style: const TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  height: 1.16),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
+                                                  Expanded(
+                                                    flex: 2,
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 12.0),
+                                                      child: Column(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Wrap(
+                                                            spacing: 8,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .center,
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                  Assets
+                                                                      .iconsPointArrow,
+                                                                  height: 22,
+                                                                  width: 22),
+                                                              Text(
+                                                                  '${e.distance} KM',
+                                                                  style: context
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .headlineSmall),
+                                                            ],
+                                                          ),
+                                                          const SpaceHeight(
+                                                              height: 6),
+                                                          Wrap(
+                                                            spacing: 8,
+                                                            crossAxisAlignment:
+                                                                WrapCrossAlignment
+                                                                    .center,
+                                                            children: [
+                                                              SvgPicture.asset(
+                                                                  Assets
+                                                                      .iconsPointArrowMark,
+                                                                  height: 22,
+                                                                  width: 22),
+                                                              Text(
+                                                                  '${e.agreement} KM',
+                                                                  style: context
+                                                                      .theme
+                                                                      .textTheme
+                                                                      .headlineSmall),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                                Align(
-                                                  alignment: Alignment.topRight,
-                                                  child: SvgPicture.asset(
-                                                    'asset/icons/done.svg',
-                                                    height: 23,
-                                                    width: 30,
-                                                    color: const Color(0xFF009254),
+                                                  Align(
+                                                    alignment:
+                                                        Alignment.topRight,
+                                                    child: SvgPicture.asset(
+                                                      Assets.iconsDone,
+                                                      height: 23,
+                                                      width: 30,
+                                                      color: const Color(
+                                                          0xFF009254),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                            const SizedBox(
-                                              height: 6,
-                                            ),
-                                            const Divider()
-                                          ],
-                                        ),
-                                      )
-                                      .toList(),
-                                )
+                                                ],
+                                              ),
+                                              const SpaceHeight(height: 6),
+                                              const Divider()
+                                            ],
+                                          ),
+                                        )
+                                        .toList(),
+                                  )
                               ],
                             ),
                           ),

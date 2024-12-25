@@ -1,4 +1,5 @@
 import 'package:flutter_texi_tracker/language/language_screen.dart';
+import 'package:flutter_texi_tracker/screens/add_vehicle/ui/add_vehicle_screen.dart';
 import 'package:flutter_texi_tracker/screens/auth/sign_up.dart';
 import 'package:flutter_texi_tracker/screens/campaigns/campaigns_fav_list_screen.dart';
 import 'package:flutter_texi_tracker/screens/campaigns/campaigns_screen.dart';
@@ -40,6 +41,10 @@ class AppPages {
     GetPage(
         name: AppRoutes.vehicleScreen,
         page: () => VehiclesScreen(),
+        transition: Transition.cupertino),
+    GetPage(
+        name: AppRoutes.addVehicle,
+        page: () => const AddVehicleScreenMain(),
         transition: Transition.cupertino),
     GetPage(
         name: AppRoutes.driverInfoPage,
