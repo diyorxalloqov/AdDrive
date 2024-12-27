@@ -6,6 +6,13 @@
  */
 
 export 'package:flutter/material.dart';
+export 'package:dotted_border/dotted_border.dart';
+export 'package:flutter_svg/flutter_svg.dart';
+export 'package:flutter_texi_tracker/global/widgets/image_pickers.dart';
+export 'package:flutter_texi_tracker/screens/add_vehicle/ui/vehicle_adding_example_page.dart';
+export 'package:image_picker/image_picker.dart';
+export 'package:flutter_texi_tracker/screens/add_vehicle/ui/add_vehicle_data_screen.dart';
+export 'package:flutter_texi_tracker/global/widgets/custom_app_bar.dart';
 export 'package:cloud_firestore/cloud_firestore.dart';
 export 'package:flutter_texi_tracker/controller/location_controller.dart';
 export 'package:flutter_texi_tracker/model/hive_model/user_model.dart';

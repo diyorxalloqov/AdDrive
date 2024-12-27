@@ -36,6 +36,7 @@ class TextFormFieldWidget2 extends StatelessWidget {
   final EdgeInsets? contentPadding;
   final TextStyle? style;
   final String? errorText;
+  final TextCapitalization? textCapitalization;
   final List<TextInputFormatter>? inputFormatters;
 
   const TextFormFieldWidget2(
@@ -56,6 +57,7 @@ class TextFormFieldWidget2 extends StatelessWidget {
       this.keyboardType,
       this.constraints,
       this.errorText,
+        this.textCapitalization,
       this.onTap,
       this.readOnly,
       this.validator,
@@ -78,6 +80,8 @@ class TextFormFieldWidget2 extends StatelessWidget {
       readOnly: readOnly ?? false,
       keyboardType: keyboardType,
       validator: validator,
+      cursorColor: context.theme.canvasColor,
+      textCapitalization: textCapitalization ?? TextCapitalization.none,
       inputFormatters: inputFormatters,
       decoration: InputDecoration(
         counterText: '',

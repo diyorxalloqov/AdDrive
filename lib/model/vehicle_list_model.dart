@@ -63,7 +63,7 @@ class Datum {
   String? displacement;
   String? vehicleName;
   String? vehicleModel;
-  int? vehicleMakeYear;
+  String? vehicleMakeYear;
   String? vehicleColor;
   String? status;
 

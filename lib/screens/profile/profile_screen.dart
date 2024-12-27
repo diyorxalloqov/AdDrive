@@ -1,4 +1,3 @@
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/driver_profile_controller.dart';
 import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
 import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
@@ -93,14 +92,15 @@ class ProfileScreen extends StatelessWidget {
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
-                                                        Icon(Icons.camera,
-                                                            color: context
-                                                                .theme
-                                                                .colorScheme
-                                                                .onPrimary),
+                                                        SvgPicture.asset(
+                                                          Assets.iconsCameraAdd,
+                                                          width: 30,
+                                                          color: CustomColors()
+                                                              .greyColor(0.5),
+                                                        ),
                                                         const SpaceHeight(
                                                             height: 10),
-                                                        Text('camera',
+                                                        Text('camera'.tr,
                                                             style: context
                                                                 .theme
                                                                 .textTheme
@@ -119,14 +119,15 @@ class ProfileScreen extends StatelessWidget {
                                                       mainAxisSize:
                                                           MainAxisSize.min,
                                                       children: [
-                                                        Icon(Icons.image,
-                                                            color: context
-                                                                .theme
-                                                                .colorScheme
-                                                                .onPrimary),
+                                                        SvgPicture.asset(
+                                                          Assets.iconsGallery,
+                                                          width: 30,
+                                                          color: CustomColors()
+                                                              .greyColor(0.5),
+                                                        ),
                                                         const SpaceHeight(
                                                             height: 10),
-                                                        Text('gallery',
+                                                        Text('gallery'.tr,
                                                             style: context
                                                                 .theme
                                                                 .textTheme

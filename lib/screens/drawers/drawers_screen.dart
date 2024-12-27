@@ -1,12 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
 import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
 import 'package:flutter_texi_tracker/global/language_dialog.dart';
 import 'package:flutter_texi_tracker/routes/app_routes.dart';
-import 'package:flutter_texi_tracker/widgets/space_widget.dart';
-import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -193,14 +190,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                     },
                                     child: Column(
                                       children: [
-                                        const Icon(
-                                          Icons.phone,
-                                          size: 30,
-                                          color: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          height: 6,
-                                        ),
+                                        const Icon(Icons.phone,
+                                            size: 30, color: Colors.white),
+                                        const SpaceHeight(height: 6),
                                         Text('Phone',
                                             style: Get.textTheme.titleMedium
                                                 ?.copyWith(
@@ -216,12 +208,11 @@ class _DrawerScreenState extends State<DrawerScreen> {
                         elevation: 20.0,
                         enableDrag: true,
                         isScrollControlled: true,
-                        backgroundColor: Get.theme.primaryColorLight,
+                        backgroundColor: CustomColors().mainColor(0.8),
                         shape: const RoundedRectangleBorder(
                             borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(12.0),
-                          topRight: Radius.circular(12.0),
-                        )),
+                                topLeft: Radius.circular(12.0),
+                                topRight: Radius.circular(12.0))),
                       ),
                   dense: true,
                   title: Text('emergency_call'.tr,

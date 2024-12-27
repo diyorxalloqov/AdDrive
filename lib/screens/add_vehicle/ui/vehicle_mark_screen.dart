@@ -11,7 +11,7 @@ import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
 import 'package:flutter_texi_tracker/global/widgets/text_form_field_widget_2.dart';
 import 'package:flutter_texi_tracker/screens/add_vehicle/bloc/car_bloc.dart';
 import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_details_model.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_model.dart';
+import 'package:flutter_texi_tracker/screens/add_vehicle/ui/choice_vehicle_year.dart';
 import 'package:flutter_texi_tracker/utils/enums/status.dart';
 
 class AddVehicleMarkScreenMain extends StatefulWidget {
@@ -31,18 +31,7 @@ class _AddVehicleScreenMainState extends State<AddVehicleMarkScreenMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('choice_model'.tr,
-              style: context.theme.textTheme.labelMedium),
-          leading: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Platform.isIOS ? Icons.arrow_back_ios_new : Icons.arrow_back,
-                color: context.isDarkMode ? Colors.white : Colors.black,
-                size: 20,
-              )),
-        ),
+        appBar: AppBarWidget(centerTitle: true, titleText: 'choice_model'.tr),
         body: BlocBuilder<CarBloc, CarState>(
           builder: (context, state) {
             if (state.carDetailsStatus == ActionStatus.isLoading) {
@@ -74,6 +63,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
   String? selectedMark;
   List<CarDetailsModel> filteredMarks = [];
   late TextEditingController _searchController;
+  int indexs = 0;
 
   @override
   void initState() {
@@ -118,6 +108,8 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
               onChanged: _filterMarks,
               hintText: 'search'.tr),
           const SpaceHeight(height: 20),
+          Text('popular'.tr, style: context.theme.textTheme.displayMedium),
+          const SpaceHeight(height: 20),
           Expanded(
             child: filteredMarks.isEmpty
                 ? SingleChildScrollView(
@@ -138,6 +130,7 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
                               onTap: () {
                                 setState(() {
                                   selectedMark = filteredMarks[index].id;
+                                  indexs = index;
                                 });
                               },
                               leading: const CircleAvatar(
@@ -164,14 +157,11 @@ class _AddVehicleScreenState extends State<AddVehicleScreen> {
           CustomButton(
               onPressed: (selectedMark != null && filteredMarks.isNotEmpty)
                   ? () {
-                      // context
-                      //     .read<CarBloc>()
-                      //     .add(GetCarDetailsEvent(id: selectedMark!));
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: (context) =>
-                      //         const AddVehicleMarkScreen()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChoiceVehicleYear(
+                                  carDetailsModel: filteredMarks[indexs])));
                     }
                   : null,
               title: 'confirm'.tr,

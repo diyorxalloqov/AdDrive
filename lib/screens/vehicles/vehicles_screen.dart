@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/controller/vehicles_list_controller.dart';
+import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
 import 'package:flutter_texi_tracker/model/vehicle_list_model.dart';
 import 'package:flutter_texi_tracker/widgets/error_screen.dart';
 import 'package:flutter_texi_tracker/widgets/no_data_found_widget.dart';
-import 'package:flutter_texi_tracker/widgets/space_widget.dart';
-import 'package:get/get.dart';
 
 class VehiclesScreen extends StatelessWidget {
   final controller = Get.put(VehicleListController());
@@ -12,142 +11,106 @@ class VehiclesScreen extends StatelessWidget {
   VehiclesScreen({super.key, this.isBottomNavbar});
   @override
   Widget build(BuildContext context) {
+    TextStyle? textStyle =
+        context.theme.textTheme.labelMedium?.copyWith(fontSize: 14);
     return Scaffold(
         appBar: isBottomNavbar != null
             ? null
-            : AppBar(
-                title: Text('vehicles'.tr,
-                    style: context.theme.textTheme.labelMedium),
-                leading: InkWell(
-                    onTap: () => Navigator.pop(context),
-                    child: Icon(
-                      Icons.arrow_back_ios_new,
-                      color: context.isDarkMode ? Colors.white : Colors.black,
-                      size: 20,
-                    )),
-              ),
+            : AppBarWidget(titleText: 'vehicles'.tr, centerTitle: true),
         body: controller.obx(
           (state) => state?.data?.isNotEmpty == true
               ? ListView.builder(
                   itemCount: state?.data?.length ?? 0,
+                  padding: const EdgeInsets.all(20),
                   itemBuilder: (BuildContext context, int index) {
                     final data = state?.data?[index];
-                    return Container(
-                      margin:
-                          const EdgeInsets.only(top: 20, left: 20, right: 20),
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          Container(
-                            margin: const EdgeInsets.only(top: 40),
-                            child: Card(
-                              child: Container(
-                                margin: const EdgeInsets.only(
-                                    top: 80, left: 20, right: 20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
+                    return Stack(
+                      alignment: Alignment.topCenter,
+                      children: [
+                        Container(
+                          decoration: decoration(context),
+                          margin: const EdgeInsets.only(top: 40),
+                          child: Container(
+                            margin: const EdgeInsets.only(
+                                top: 80, left: 20, right: 20),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('${data?.vehicleName}',
+                                    style: context.theme.textTheme.labelMedium),
+                                const SpaceHeight(height: 24),
+
+                                /// Mileage mpg and year
+                                buildMialeageMpgYear(data!, context),
+
+                                /// Brand, displacement and engine
+                                buildBrandDisplacementEngine(data, context),
+
+                                /// Abs, Model, HP
+                                buildAbsModelHp(data, context),
+
+                                /// All permission status
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Text('${data?.vehicleName}',
+                                    Text('fitness'.tr, style: textStyle),
+                                    const SpaceWidth(width: 10),
+                                    Flexible(
+                                      child: Text(
+                                        '${data.fitness}',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
                                         style: context
-                                            .theme.textTheme.labelMedium),
-                                    const SpaceHeight(height: 17),
-
-                                    /// Mileage mpg and year
-                                    buildMialeageMpgYear(data!, context),
-
-                                    /// Brand, displacement and engine
-                                    buildBrandDisplacementEngine(data, context),
-
-                                    /// Abs, Model, HP
-                                    buildAbsModelHp(data, context),
-
-                                    /// All permission status
-                                    Container(
-                                      margin: const EdgeInsets.only(bottom: 4),
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 100,
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text('fitness'.tr,
-                                                        style: context
-                                                            .theme
-                                                            .textTheme
-                                                            .labelMedium),
-                                                    Text(
-                                                      '${data.fitness}',
-                                                      style: TextStyle(
-                                                          color: data.fitness
-                                                                      ?.contains(
-                                                                          'Yes') ==
-                                                                  true
-                                                              ? Colors.green
-                                                              : Colors.red,
-                                                          height: 1.4,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w400),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: Container(
-                                                  child: buildColumn(
-                                                      data, context),
-                                                ),
-                                              ),
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text('license'.tr,
-                                                      style: context
-                                                          .theme
-                                                          .textTheme
-                                                          .labelMedium),
-                                                  Text(
-                                                    data.license ?? 'N/A',
-                                                    style: TextStyle(
-                                                        color: data.license!
-                                                                .contains('Yes')
-                                                            ? Colors.green
-                                                            : Colors.red,
-                                                        height: 1.4,
-                                                        fontSize: 16,
-                                                        fontWeight:
-                                                            FontWeight.w400),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          const SpaceHeight(height: 10),
-                                        ],
+                                            .theme.textTheme.headlineSmall
+                                            ?.copyWith(
+                                                color: data.fitness
+                                                            ?.contains('Yes') ==
+                                                        true
+                                                    ? Colors.green
+                                                    : Colors.red),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
+                                const SpaceHeight(height: 8),
+                                buildColumn(data, context),
+                                const SpaceHeight(height: 8),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text('license'.tr, style: textStyle),
+                                    const SpaceWidth(width: 16),
+                                    Flexible(
+                                      child: Text(
+                                        data.license ?? 'N/A',
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: context
+                                            .theme.textTheme.headlineSmall
+                                            ?.copyWith(
+                                                color: data.license!
+                                                        .contains('Yes')
+                                                    ? Colors.green
+                                                    : Colors.red),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SpaceHeight(height: 20),
+                              ],
                             ),
                           ),
-                          Positioned(
+                        ),
+                        Positioned(
                             top: 0,
-                            child: Image.network(
-                              '${data.carImage}',
-                              fit: BoxFit.contain,
-                              height: 100,
-                              width: 200,
-                            ),
-                          )
-                        ],
-                      ),
+                            child: CircleAvatar(
+                                radius: 40,
+                                backgroundImage:
+                                    NetworkImage('${data.carImage}')))
+                      ],
                     );
                   })
               : const NoDataFoundWidget(),
@@ -162,194 +125,197 @@ class VehiclesScreen extends StatelessWidget {
         ));
   }
 
-  Container buildAbsModelHp(Datum data, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(
-                width: 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('ABS', style: context.theme.textTheme.labelMedium),
-                    Text(
-                      data.abs ?? 'N/A',
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('model'.tr,
-                        style: context.theme.textTheme.labelMedium),
-                    Text(
-                      data.vehicleModel ?? 'N/A',
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('HP', style: context.theme.textTheme.headlineSmall),
-                  Text(
-                    data.horsePower ?? 'N/A',
-                    style: const TextStyle(
-                        height: 1.4, fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          const Divider()
-        ],
-      ),
-    );
-  }
-
-  Container buildBrandDisplacementEngine(Datum data, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('brand'.tr,
-                        style: context.theme.textTheme.labelMedium),
-                    Text(
-                      '${data.vehicleName}',
-                      maxLines: 1,
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('displacement'.tr,
-                        textAlign: TextAlign.start,
-                        maxLines: 1,
-                        style: context.theme.textTheme.labelMedium),
-                    Text(
-                      '${data.displacement}',
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('engine'.tr,
-                      style: context.theme.textTheme.headlineSmall),
-                  Text(
-                    data.engine ?? 'N/A',
-                    style: const TextStyle(
-                        height: 1.4, fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          const Divider()
-        ],
-      ),
-    );
-  }
-
-  Container buildMialeageMpgYear(Datum data, BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 4),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              SizedBox(
-                width: 100,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('mileage'.tr,
-                        style: context.theme.textTheme.labelMedium),
-                    Text(
-                      '${data.mileage}',
-                      maxLines: 1,
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('MPG', style: context.theme.textTheme.labelMedium),
-                    Text(
-                      '${data.mpg}',
-                      maxLines: 1,
-                      style: context.theme.textTheme.headlineSmall,
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text('year'.tr, style: context.theme.textTheme.headlineSmall),
-                  Text(
-                    '${data.vehicleMakeYear}',
-                    style: const TextStyle(
-                        height: 1.4, fontSize: 16, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          const Divider()
-        ],
-      ),
-    );
-  }
-
-  Column buildColumn(Datum data, BuildContext context) {
+  Column buildAbsModelHp(Datum data, BuildContext context) {
+    TextStyle? textStyle =
+        context.theme.textTheme.labelMedium?.copyWith(fontSize: 14);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('ABS', style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                data.abs ?? 'N/A',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('model'.tr, style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                data.vehicleModel ?? 'N/A',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('HP', style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                data.horsePower ?? 'N/A',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 6),
+        Divider(color: context.theme.colorScheme.onPrimary.withOpacity(0.2)),
+        const SpaceHeight(height: 10)
+      ],
+    );
+  }
+
+  Column buildBrandDisplacementEngine(Datum data, BuildContext context) {
+    TextStyle? textStyle =
+        context.theme.textTheme.labelMedium?.copyWith(fontSize: 14);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('brand'.tr, style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                '${data.vehicleName}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('displacement'.tr,
+                textAlign: TextAlign.start, maxLines: 1, style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                '${data.displacement}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('engine'.tr, style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(data.engine ?? 'N/A',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: context.theme.textTheme.headlineSmall),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 6),
+        Divider(color: context.theme.colorScheme.onPrimary.withOpacity(0.2)),
+        const SpaceHeight(height: 10)
+      ],
+    );
+  }
+
+  Column buildMialeageMpgYear(Datum data, BuildContext context) {
+    TextStyle? textStyle =
+        context.theme.textTheme.labelMedium?.copyWith(fontSize: 14);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('mileage'.tr, style: textStyle),
+            const SpaceWidth(width: 16),
+            Flexible(
+              child: Text(
+                '${data.mileage}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall,
+              ),
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('MPG', style: textStyle),
+            const SpaceWidth(width: 10),
+            Text(
+              '${data.mpg}',
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: context.theme.textTheme.headlineSmall,
+            ),
+          ],
+        ),
+        const SpaceHeight(height: 8),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('year'.tr, style: textStyle),
+            const SpaceWidth(width: 10),
+            Text('${data.vehicleMakeYear}',
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: context.theme.textTheme.headlineSmall),
+          ],
+        ),
+        const SpaceHeight(height: 6),
+        Divider(color: context.theme.colorScheme.onPrimary.withOpacity(0.2)),
+        const SpaceHeight(height: 10)
+      ],
+    );
+  }
+
+  Row buildColumn(Datum data, BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
         Text('route_permit'.tr,
             textAlign: TextAlign.start,
-            style: context.theme.textTheme.headlineSmall),
-        Text(
-          data.routePermit ?? 'N/A',
-          style: TextStyle(
+            style: context.theme.textTheme.labelMedium?.copyWith(fontSize: 14)),
+        const SpaceWidth(width: 10),
+        Flexible(
+          child: Text(
+            data.routePermit ?? 'N/A',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: context.theme.textTheme.headlineSmall?.copyWith(
               color:
                   data.routePermit!.contains('Yes') ? Colors.green : Colors.red,
-              height: 1.4,
-              fontSize: 16,
-              fontWeight: FontWeight.w400),
+            ),
+          ),
         ),
       ],
     );

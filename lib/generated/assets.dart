@@ -35,6 +35,8 @@ class Assets {
   static const String driverIconsDate = 'asset/icons/driver_icons/date.png';
   static const String driverIconsLocation = 'asset/icons/driver_icons/location.svg';
   static const String iconsBilling = 'asset/v_1/icons/billing.svg';
+  static const String iconsCamera = 'asset/v_1/icons/camera.svg';
+  static const String iconsCameraAdd = 'asset/v_1/icons/camera_add.svg';
   static const String iconsCilLocationPin = 'asset/icons/cil_location-pin.svg';
   static const String iconsDistanceSummery = 'asset/icons/distance-summery.svg';
   static const String iconsDone = 'asset/icons/done.svg';
@@ -42,6 +44,7 @@ class Assets {
   static const String iconsEarn = 'asset/icons/earn.png';
   static const String iconsEarn2 = 'asset/icons/earn2.svg';
   static const String iconsEmail = 'asset/v_1/icons/email.svg';
+  static const String iconsGallery = 'asset/v_1/icons/gallery.svg';
   static const String iconsHome = 'asset/v_1/icons/home.svg';
   static const String iconsLanguageIcon = 'asset/icons/language_icon.png';
   static const String iconsLocation = 'asset/v_1/icons/location.svg';

@@ -31,18 +31,7 @@ class _AddVehicleScreenMainState extends State<AddVehicleScreenMain> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text('add_vehicle'.tr,
-              style: context.theme.textTheme.labelMedium),
-          leading: InkWell(
-              onTap: () => Navigator.pop(context),
-              child: Icon(
-                Platform.isIOS ? Icons.arrow_back_ios_new : Icons.arrow_back,
-                color: context.isDarkMode ? Colors.white : Colors.black,
-                size: 20,
-              )),
-        ),
+        appBar: AppBarWidget(centerTitle: true, titleText: 'add_vehicle'.tr),
         body: BlocBuilder<CarBloc, CarState>(
           builder: (context, state) {
             if (state.carStatus == ActionStatus.isLoading) {

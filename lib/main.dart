@@ -21,6 +21,7 @@ import 'package:flutter_texi_tracker/screens/add_vehicle/db/car_db.dart';
 import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/geolocator_service.dart';
+import 'package:flutter_texi_tracker/utils/custom_error_widget.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -94,6 +95,12 @@ class MyApp extends StatelessWidget {
                 debugShowFloatingThemeButton: kDebugMode,
                 builder: (theme, darkTheme) {
                   return GetMaterialApp(
+                    builder: (context, child) {
+                      ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+                        return CustomErrorWidget(errorDetails: errorDetails);
+                      };
+                      return child!;
+                    },
                     debugShowCheckedModeBanner: false,
                     initialRoute: AppRoutes.splashScreen,
                     getPages: AppPages.list,
