@@ -7,8 +7,9 @@ import 'package:flutter_texi_tracker/controller/owner_profile_controller.dart';
 import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
 import 'package:flutter_texi_tracker/utils/enums/status.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class DriverHomeScreen extends StatelessWidget {
   final OwnerProfileController historyController;
@@ -42,31 +43,42 @@ class DriverHomeScreen extends StatelessWidget {
             //   controller.deleteDataAndSendToServer(uid: user.id);
             // }
 
-            return GoogleMap(
-              onMapCreated: controller.onMapCreated,
-              initialCameraPosition: CameraPosition(
-                  target: controller.initialCameraPosition, zoom: 16.0),
-              mapType: MapType.terrain,
-              myLocationEnabled: false,
-              indoorViewEnabled: true,
+            return Padding(
               padding: EdgeInsets.only(bottom: ScreenUtil().screenHeight / 3),
-              onTap: (place) {
-                if (isDriving) {
-                  controller.onDrivingModeCameraPosition();
-                } else {
-                  controller.onStopModeCameraPosition();
-                }
-              },
-              markers: controller.marker.value != null
-                  ? {
-                      controller.marker.value!,
-                      controller.startPointMarker.value!
-                    }
-                  : {},
-              circles: controller.circle.value != null
-                  ? {controller.circle.value!}
-                  : {},
-              polylines: controller.polylineSet,
+              child: YandexMap(
+                onMapCreated: controller.onMapCreated,
+                zoomGesturesEnabled: true,
+                // initialCameraPosition: CameraPosition(
+                //     target: controller.initialCameraPosition, zoom: 16.0),
+                mapType: MapType.hybrid,
+                // myLocationEnabled: false,
+                // indoorViewEnabled: true,
+                fastTapEnabled: true,
+                mode2DEnabled: true,
+                scrollGesturesEnabled: true,
+                rotateGesturesEnabled: true,
+                tiltGesturesEnabled: true,
+
+                onMapTap: (place) {
+                  if (isDriving) {
+                    controller.onDrivingModeCameraPosition();
+                  } else {
+                    controller.onStopModeCameraPosition();
+                  }
+                },
+
+                // markers: controller.marker.value != null
+                //     ? {
+                //         controller.marker.value!,
+                //         controller.startPointMarker.value!
+                //       }
+                //     : {},
+                // circles: controller.circle.value != null
+                //     ? {controller.circle.value!}
+                //     : {},
+                //
+                // polylines: controller.polylineSet,
+              ),
             );
           },
         ),

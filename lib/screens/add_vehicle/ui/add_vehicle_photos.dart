@@ -75,9 +75,9 @@ class _AddVehiclePhotosState extends State<AddVehiclePhotos> {
             CustomButton(
               title: 'confirm'.tr,
               padding: EdgeInsets.zero,
-              onPressed: !rigthImage.isNotEmpty &&
-                      !leftImage.isNotEmpty &&
-                     !backImage.isNotEmpty
+              onPressed: rigthImage.isNotEmpty &&
+                      leftImage.isNotEmpty &&
+                     backImage.isNotEmpty
                   ? () => Navigator.push(
                       context,
                       MaterialPageRoute(

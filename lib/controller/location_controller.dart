@@ -1,13 +1,11 @@
 import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_texi_tracker/app_config/app_config.dart';
-import 'package:flutter_texi_tracker/app_config/common_method.dart';
 import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
+import 'package:flutter_texi_tracker/generated/assets.dart';
 import 'package:flutter_texi_tracker/hive/hive_location_provider.dart';
 import 'package:flutter_texi_tracker/map_style/util.dart';
 import 'package:flutter_texi_tracker/model/driver_location_model.dart';
@@ -19,9 +17,9 @@ import 'package:flutter_texi_tracker/services/geolocator_service.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class LocationController extends GetxController {
   /// if driver is not true
@@ -31,13 +29,14 @@ class LocationController extends GetxController {
 
   Rx<Position?> positionStream = Rx<Position?>(null);
   Rx<geocoding.Placemark?> placeMarkStream = Rx<geocoding.Placemark?>(null);
-  Rx<Marker?> marker = Rx(null);
-  Rx<Marker?> startPointMarker = Rx(null);
+  Rx<PlacemarkMapObject?> marker = Rx(null);
+  Rx<PlacemarkMapObject?> startPointMarker = Rx(null);
   Rx<Circle?> circle = Rx(null);
-  Rx<GoogleMapController?> mapController = Rx<GoogleMapController?>(null);
+  Rx<YandexMapController?> mapController = Rx<YandexMapController?>(null);
   Rx<Position?> lastKnownPosition = Rx<Position?>(null);
   Rx<Position?> position = Rx<Position?>(null);
-  LatLng initialCameraPosition = const LatLng(23.256555, 90.157965);
+  Point initialCameraPosition =
+      const Point(latitude: 23.256555, longitude: 90.157965);
   Rx<LocationData?> userLocation = Rx<LocationData?>(null);
   RxBool canStoreLocation = RxBool(false);
   RxDouble distance = RxDouble(0.0);
@@ -68,7 +67,7 @@ class LocationController extends GetxController {
   List<PolylineWayPoint> polylineWayPoints = [];
 
   ///this will hold each polyline coordinate as Lat and Lng pairs
-  List<LatLng> polylineCoordinates = [];
+  List<Point> polylineCoordinates = [];
 
   ///when start driving api call
   ///after that it's given us trackingId
@@ -157,10 +156,12 @@ class LocationController extends GetxController {
           ///check last position and first position
           ///if not null the try to get distance
           distance = await geoService.getDistance(
-              LatLng(firstPosition?.latitude ?? 0.0,
-                  firstPosition?.longitude ?? 0.0),
-              LatLng(lastPosition?.latitude ?? 0.0,
-                  lastPosition?.longitude ?? 0.0));
+              Point(
+                  latitude: firstPosition?.latitude ?? 0.0,
+                  longitude: firstPosition?.longitude ?? 0.0),
+              Point(
+                  latitude: lastPosition?.latitude ?? 0.0,
+                  longitude: lastPosition?.longitude ?? 0.0));
 
           driverLocationModel = DriverLocationModel(
               latitude: positionStream.value?.latitude,
@@ -189,7 +190,7 @@ class LocationController extends GetxController {
   }
 
   ///calculate distance between two points
-  getDistance({required LatLng origin, required LatLng destination}) async {
+  getDistance({required Point origin, required Point destination}) async {
     distance.value = await geoService.getDistance(origin, destination);
   }
 
@@ -218,7 +219,7 @@ class LocationController extends GetxController {
     Timer.periodic(const Duration(minutes: 3), (timer) async {
       ///get recent trackingId from local
       final trackingIdFromLocal = await getLocalData(key: 'tracking_id');
-      if(trackingIdFromLocal != 'null'){
+      if (trackingIdFromLocal != 'null') {
         ///checkCondition
         if (canStoreLocation.isTrue) {
           ///storeDataToFirebase
@@ -269,8 +270,9 @@ class LocationController extends GetxController {
   ///return last known location
   getLastKnownLocation() async {
     Position? lastKnownPosition = await geoService.getLastKnownPosition();
-    initialCameraPosition = LatLng(lastKnownPosition?.latitude ?? 0.0,
-        lastKnownPosition?.longitude ?? 0.0);
+    initialCameraPosition = Point(
+        latitude: lastKnownPosition?.latitude ?? 0.0,
+        longitude: lastKnownPosition?.longitude ?? 0.0);
   }
 
   ///return last stored location from hive database
@@ -300,41 +302,50 @@ class LocationController extends GetxController {
   ///update marker and circle on map
   ///based on driver location
   updateMarkerAndCircle() async {
-    final icon = await Common.setCustomMapPin('asset/car_icon/car_white.png');
+    final icon = PlacemarkIcon.single(PlacemarkIconStyle(
+        image: BitmapDescriptor.fromAssetImage(Assets.carIconCarWhite)));
     final originLat = await getLocalData(key: 'last_lat');
     final originLng = await getLocalData(key: 'last_lng');
-    final origin = LatLng(
-        double.parse(originLat ?? '0.0'), double.parse(originLng ?? '0.0'));
+    final origin = Point(
+        latitude: double.parse(originLat ?? '0.0'),
+        longitude: double.parse(originLng ?? '0.0'));
 
-    marker.value = Marker(
-        markerId: const MarkerId('current'),
-        position: LatLng(userLocation.value?.latitude ?? 0.0,
-            userLocation.value?.longitude ?? 0.0),
-        icon: icon,
-        flat: true,
-        zIndex: 2,
-        draggable: false,
-        anchor: const Offset(0.5, 0.5),
-        rotation: userLocation.value?.heading ?? 0.0,
-        infoWindow: const InfoWindow(title: 'Current position'));
+    marker.value = PlacemarkMapObject(
+      mapId: const MapObjectId('current'),
+      point: Point(
+          latitude: userLocation.value?.latitude ?? 0.0,
+          longitude: userLocation.value?.longitude ?? 0.0),
+      icon: icon,
+      // flat: true,
+      zIndex: 2,
+      isVisible: true,
+      isDraggable: false,
+      // anchor: const Offset(0.5, 0.5),
+      direction: userLocation.value?.heading ?? 0.0,
+      // infoWindow: const InfoWindow(title: 'Current position')
+    );
 
-    startPointMarker.value = Marker(
-        markerId: const MarkerId('origin'),
-        position: origin,
-        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
-        flat: true,
-        visible: isDriving.isTrue,
-        zIndex: 2,
-        draggable: false,
-        infoWindow: const InfoWindow(title: 'start position'));
+    startPointMarker.value = PlacemarkMapObject(
+      mapId: const MapObjectId('origin'),
+      point: origin,
+      // icon: PlacemarkIcon.single(PlacemarkIconStyle(image: BitmapDescriptor.fromAssetImage(Assets.iconsDone))),
+
+      // icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed),
+      // flat: true,
+      isVisible: isDriving.isTrue,
+      zIndex: 2,
+      isDraggable: false,
+      // infoWindow: const InfoWindow(title: 'start position')
+    );
 
     circle.value = Circle(
-      circleId: const CircleId('car'),
+      // circleId: const CircleId('car'),
       radius: userLocation.value?.accuracy ?? 0.0,
-      zIndex: 1,
-      strokeColor: CustomColors().mainColor(0.1),
-      center: LatLng(userLocation.value?.latitude ?? 0.0,
-          userLocation.value?.longitude ?? 0.0),
+      // zIndex: 1,
+      // strokeColor: CustomColors().mainColor(0.1),
+      center: Point(
+          latitude: userLocation.value?.latitude ?? 0.0,
+          longitude: userLocation.value?.longitude ?? 0.0),
     );
   }
 
@@ -368,8 +379,8 @@ class LocationController extends GetxController {
       getAddressByPosition();
 
       ///initial camera position
-      initialCameraPosition =
-          LatLng(event.latitude ?? 0.0, event.longitude ?? 0.0);
+      initialCameraPosition = Point(
+          latitude: event.latitude ?? 0.0, longitude: event.longitude ?? 0.0);
 
       ///update initial position and move camera position to
       ///center and it will call every time when we listen location
@@ -377,8 +388,9 @@ class LocationController extends GetxController {
       if (mapController.value != null) {
         mapController.value?.moveCamera(CameraUpdate.newCameraPosition(
             CameraPosition(
-                target: LatLng(positionStream.value?.latitude ?? 0.0,
-                    positionStream.value?.longitude ?? 0.0),
+                target: Point(
+                    latitude: positionStream.value?.latitude ?? 0.0,
+                    longitude: positionStream.value?.longitude ?? 0.0),
                 zoom: 16.0)));
       }
 
@@ -390,7 +402,7 @@ class LocationController extends GetxController {
   }
 
   ///onMapCreated to initialize map controller
-  onMapCreated(GoogleMapController controller) {
+  onMapCreated(YandexMapController controller) {
     mapController.value = controller;
     mapController.value?.setMapStyle(Utils.mapStyles);
     getLastKnownLocation();
@@ -406,8 +418,9 @@ class LocationController extends GetxController {
   onDrivingModeCameraPosition() {
     mapController.value!
         .moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-      target: LatLng(userLocation.value?.latitude ?? 0.0,
-          userLocation.value?.longitude ?? 0.0),
+      target: Point(
+          latitude: userLocation.value?.latitude ?? 0.0,
+          longitude: userLocation.value?.longitude ?? 0.0),
       zoom: 16.0,
     )));
   }
@@ -415,8 +428,9 @@ class LocationController extends GetxController {
   onStopModeCameraPosition() {
     mapController.value!.moveCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
-            target: LatLng(userLocation.value?.latitude ?? 0.0,
-                userLocation.value?.longitude ?? 0.0),
+            target: Point(
+                latitude: userLocation.value?.latitude ?? 0.0,
+                longitude: userLocation.value?.longitude ?? 0.0),
             zoom: 16.0)));
   }
 
@@ -432,9 +446,10 @@ class LocationController extends GetxController {
   getDriverStartMoving(userId) async {
     ///get recent trackingId from local
     final trackingIdFromLocal = await getLocalData(key: 'tracking_id');
-    if(trackingIdFromLocal == 'null'){
+    if (trackingIdFromLocal == 'null') {
       await locationProvider.deleteAllLocation();
     }
+
     ///requestData
     final data = {"is_stop": 0, "driver_id": userId, "tracking_id": null};
 
@@ -443,19 +458,22 @@ class LocationController extends GetxController {
 
     ///trackingId
     trackingId = response['tracking_id'];
+    debugPrint("${response['tracking_id']} tracking ID");
 
     ///store recent trackingId to local
     storeLocalData(key: 'tracking_id', value: '$trackingId');
 
     ///toast
     Fluttertoast.showToast(msg: '${response['message']}');
+    debugPrint("${response['message']} Message");
 
     ///updateMarker
     updateMarkerAndCircle();
 
     ///storeLastKnownLocationToLocal
     storeLocalData(key: 'last_lat', value: '${positionStream.value!.latitude}');
-    storeLocalData(key: 'last_lng', value: '${positionStream.value!.longitude}');
+    storeLocalData(
+        key: 'last_lng', value: '${positionStream.value!.longitude}');
 
     ///if response success false
     ///firebase driving status will
@@ -508,7 +526,7 @@ class LocationController extends GetxController {
 
   ///set realtime polyline on map(when driving)
   ///it will draw route based on driver position
-  setPolyline(LatLng source, LatLng destination) async {
+  setPolyline(Point source, Point destination) async {
     if (kDebugMode) {
       print('source ${source.toString()}');
       print('destination ${destination.toString()}');
@@ -522,15 +540,16 @@ class LocationController extends GetxController {
         optimizeWaypoints: true);
 
     for (var point in result.points) {
-      polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      polylineCoordinates
+          .add(Point(latitude: point.latitude, longitude: point.longitude));
     }
 
     // create a Polyline instance
     // with an id, an RGB color and the list of LatLng pairs
     Polyline polyline = Polyline(
-        polylineId: const PolylineId("poly"),
-        color: Colors.red,
-        width: 4,
+        // polylineId: const PolylineId("poly"),
+        // color: Colors.red,
+        // width: 4,
         points: polylineCoordinates);
 
     // add the constructed polyline as a set of points

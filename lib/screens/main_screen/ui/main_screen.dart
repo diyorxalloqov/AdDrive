@@ -18,9 +18,9 @@ import 'package:flutter_texi_tracker/screens/main_screen/ui/widgets/show_start_d
 import 'package:flutter_texi_tracker/screens/profile/profile_screen.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/utils/enums/status.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_texi_tracker/model/user_profile.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

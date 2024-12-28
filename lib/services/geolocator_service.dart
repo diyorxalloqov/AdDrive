@@ -3,8 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 ValueNotifier<List<geocoding.Placemark>?> addressNotifier = ValueNotifier(null);
 
@@ -37,7 +37,7 @@ class GeoLocatorService {
   }
 
   ///calculate distance
-  Future<double> getDistance(LatLng origin, LatLng destination) async {
+  Future<double> getDistance(Point origin, Point destination) async {
     return Geolocator.distanceBetween(origin.latitude, origin.longitude,
         destination.latitude, destination.longitude);
   }

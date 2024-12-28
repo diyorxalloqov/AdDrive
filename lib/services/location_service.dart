@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
 import 'package:flutter_texi_tracker/hive/hive_location_provider.dart';
 import 'package:flutter_texi_tracker/model/driver_location_model.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'firebase_location_service.dart';
 import 'geolocator_service.dart';
 import 'dart:io' as platform;
@@ -54,7 +54,7 @@ class LocationService {
       required HiveLocationProvider locationProvider}) async {
     ///get recent trackingId from local
     final trackingIdFromLocal = await getLocalData(key: 'tracking_id');
-    if(trackingIdFromLocal != 'null'){
+    if (trackingIdFromLocal != 'null') {
       final geoService = GeoLocatorService();
       final lastLocationFromLocal = locationProvider.getUserLastPosition();
       double distance = 0.0;
@@ -62,9 +62,12 @@ class LocationService {
       locationStream.listen((location) async {
         if (lastLocationFromLocal != null) {
           distance = await geoService.getDistance(
-              LatLng(location.latitude ?? 0.0, location.longitude ?? 0.0),
-              LatLng(lastLocationFromLocal.latitude ?? 0.0,
-                  lastLocationFromLocal.longitude ?? 0.0));
+              Point(
+                  latitude: location.latitude ?? 0.0,
+                  longitude: location.longitude ?? 0.0),
+              Point(
+                  latitude: lastLocationFromLocal.latitude ?? 0.0,
+                  longitude: lastLocationFromLocal.longitude ?? 0.0));
         }
 
         model.latitude = location.latitude;

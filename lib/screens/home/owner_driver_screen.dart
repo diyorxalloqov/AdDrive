@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_texi_tracker/app_config/custom_styles.dart';
 import 'package:flutter_texi_tracker/map_style/util.dart';
@@ -10,8 +9,8 @@ import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/geolocator_service.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart' as geocoding;
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class OwnerDriverScreen extends StatefulWidget {
   final UserProfile driverProfile;
@@ -23,7 +22,7 @@ class OwnerDriverScreen extends StatefulWidget {
 }
 
 class OwnerDriverScreenState extends State<OwnerDriverScreen> {
-  GoogleMapController? _controller;
+  YandexMapController? _controller;
   BitmapDescriptor? carIcon;
 
   @override
@@ -54,7 +53,7 @@ class OwnerDriverScreenState extends State<OwnerDriverScreen> {
             Timer(const Duration(seconds: 2), () {
               _controller?.moveCamera(CameraUpdate.newCameraPosition(
                   CameraPosition(
-                      target: LatLng(model?.latitude ?? 0.0, model?.longitude ?? 0.0),
+                      target: Point(latitude:  model?.latitude ?? 0.0,longitude:  model?.longitude ?? 0.0),
                       zoom: 18.0)));
             });
 
@@ -64,22 +63,22 @@ class OwnerDriverScreenState extends State<OwnerDriverScreen> {
                 FractionallySizedBox(
                   heightFactor: 0.90,
                   alignment: Alignment.topCenter,
-                  child: GoogleMap(
+                  child: YandexMap(
                     onMapCreated: (controller) => _onMapCreated(controller, model!),
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(model?.latitude ?? 0.0, model?.longitude ?? 0.0),
-                        zoom: 18.0),
-                    mapType: MapType.normal,
-                    markers: {
-                      Marker(
-                        markerId: const MarkerId('marker_id'),
-                        position: LatLng(model?.latitude ?? 0.0, model?.longitude ?? 0.0),
-                        icon: carIcon!,
-                        rotation: model?.heading != null ?  model?.heading ?? 0.0 * cos(60.0):0.0,
-                        infoWindow: InfoWindow(title: model?.address),
-                      ),
-                    },
-                    myLocationEnabled: true,
+                    // initialCameraPosition: CameraPosition(
+                    //     target: LatLng(model?.latitude ?? 0.0, model?.longitude ?? 0.0),
+                    //     zoom: 18.0),
+                    mapType: MapType.satellite,
+                    // markers: {
+                    //   Marker(
+                    //     markerId: const MarkerId('marker_id'),
+                    //     position: LatLng(model?.latitude ?? 0.0, model?.longitude ?? 0.0),
+                    //     icon: carIcon!,
+                    //     rotation: model?.heading != null ?  model?.heading ?? 0.0 * cos(60.0):0.0,
+                    //     infoWindow: InfoWindow(title: model?.address),
+                    //   ),
+                    // },
+                    // myLocationEnabled: true,
                   ),
                 ),
                 DraggableScrollableSheet(
@@ -180,7 +179,7 @@ class OwnerDriverScreenState extends State<OwnerDriverScreen> {
     );
   }
 
-  _onMapCreated(GoogleMapController controller, DriverLocationModel model) {
+  _onMapCreated(YandexMapController controller, DriverLocationModel model) {
     _controller = controller;
     _controller?.setMapStyle(Utils.mapStyles);
   }

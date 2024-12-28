@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.impex.adgari">
+    package="com.adDrive">
     <!-- io.flutter.app.FlutterApplication is an android.app.Application that
          calls FlutterMain.startInitialization(this); in its onCreate method.
          In most cases you can leave this as-is, but you if you want to provide
@@ -51,7 +51,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDqis34l3OudHBfSdHEkQY1_erRXub9vLE"/>
+<!--        <meta-data android:name="com.google.android.geo.API_KEY"-->
+<!--            android:value="AIzaSyCTKuVMoOo7RsTzILlK4yyn2atBK3v5AM8"/>&lt;!&ndash;AIzaSyDqis34l3OudHBfSdHEkQY1_erRXub9vLE&ndash;&gt;-->
     </application>
 </manifest>

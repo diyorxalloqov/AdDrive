@@ -5,22 +5,22 @@ import 'package:flutter_texi_tracker/model/user_location.dart';
 import 'package:flutter_texi_tracker/model/user_profile.dart';
 import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
 import 'package:flutter_texi_tracker/services/marker_service.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class ShowAllDriversInMapScreen extends StatefulWidget {
   ///list of driver profile
   final List<UserProfile>? driverProfiles;
 
   ///icon for map
-  final BitmapDescriptor? iconDescriptor;
+  final PlacemarkIcon? iconDescriptor;
 
   ///firebase location service for
   ///getting driver data
   final FirebaseLocationService? firebaseLocationService;
 
   const ShowAllDriversInMapScreen(
-      {Key? key, this.driverProfiles, this.iconDescriptor, this.firebaseLocationService}) : super(key: key);
+      {super.key, this.driverProfiles, this.iconDescriptor, this.firebaseLocationService});
 
   @override
   ShowAllDriversInMapScreenState createState() =>
@@ -28,7 +28,7 @@ class ShowAllDriversInMapScreen extends StatefulWidget {
 }
 
 class ShowAllDriversInMapScreenState extends State<ShowAllDriversInMapScreen> {
-  late GoogleMapController _controller;
+  late YandexMapController _controller;
   List<DriverLocationModel> driversInfo = [];
 
   @override
@@ -61,7 +61,7 @@ class ShowAllDriversInMapScreenState extends State<ShowAllDriversInMapScreen> {
               driversInfo = drivers;
             });
     return SafeArea(
-      child: FutureBuilder<List<Marker>>(
+      child: FutureBuilder<List<PlacemarkMapObject>>(
         future: markers,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -72,15 +72,16 @@ class ShowAllDriversInMapScreenState extends State<ShowAllDriversInMapScreen> {
                 FractionallySizedBox(
                   heightFactor: 0.90,
                   alignment: Alignment.topCenter,
-                  child: GoogleMap(
+                  child: YandexMap(
                     onMapCreated: (controller) => _onMapCreated(controller),
-                    initialCameraPosition: CameraPosition(
-                        target: LatLng(
-                            userLocation.latitude, userLocation.longitude),
-                        zoom: 18.0),
-                    mapType: MapType.normal,
-                    markers: Set<Marker>.of(snapshot.data!),
-                    myLocationEnabled: true,
+                    // initialCameraPosition: CameraPosition(
+                    //     target: Point(
+                    //        latitude:  userLocation.latitude,longitude:  userLocation.longitude),
+                    //     zoom: 18.0),
+                    mapType: MapType.satellite,
+                    // markers: Set<Marker>.of(snapshot.data!),
+                    // myLocationEnabled: true,
+                    //
                   ),
                 ),
                 DraggableScrollableSheet(
@@ -106,9 +107,9 @@ class ShowAllDriversInMapScreenState extends State<ShowAllDriversInMapScreen> {
                                 _controller.moveCamera(
                                     CameraUpdate.newCameraPosition(
                                         CameraPosition(
-                                            target: LatLng(
-                                                driversInfo.elementAt(index).latitude ?? 0.0,
-                                                driversInfo.elementAt(index).longitude ?? 0.0) ,
+                                            target: Point(
+                                               latitude:  driversInfo.elementAt(index).latitude ?? 0.0,
+                                                longitude:  driversInfo.elementAt(index).longitude ?? 0.0) ,
                                             zoom: 18.0)));
                               },
                               title: Text(
@@ -132,7 +133,7 @@ class ShowAllDriversInMapScreenState extends State<ShowAllDriversInMapScreen> {
     );
   }
 
-  _onMapCreated(GoogleMapController controller) {
+  _onMapCreated(YandexMapController controller) {
     _controller = controller;
     _controller.setMapStyle(Utils.mapStyles);
   }

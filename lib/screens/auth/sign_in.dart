@@ -28,10 +28,10 @@ class UserSignInState extends State<UserSignIn> {
   Widget build(BuildContext context) {
     return GetBuilder<SignInUpController>(
       builder: (signInController) {
-        return signInController.loading.value
-            ? const Loading()
-            : Scaffold(
-                body: SafeArea(
+        return Scaffold(
+          body: signInController.loading.value
+              ? const Loading()
+              : SafeArea(
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 22, right: 22, top: 40),
@@ -176,7 +176,7 @@ class UserSignInState extends State<UserSignIn> {
                     ),
                   ),
                 ),
-              );
+        );
       },
     );
   }

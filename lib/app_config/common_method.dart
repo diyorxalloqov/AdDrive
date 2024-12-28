@@ -1,7 +1,7 @@
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 class Common{
 

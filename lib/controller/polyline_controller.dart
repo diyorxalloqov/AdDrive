@@ -3,13 +3,13 @@ import 'package:flutter_texi_tracker/controller/auth_controller.dart';
 import 'package:flutter_texi_tracker/data/repository/repository.dart';
 import 'package:flutter_texi_tracker/model/daily_tracking_model.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 import '../screens/google_map_polynie/google_map_poly_line.dart';
 
 class PolylineController extends GetxController {
   final Repository _repository = Get.find();
   AuthController authController = Get.find();
-  CameraPosition? initialLocation ;
+  CameraPosition? initialLocation;
   Rx<DailyTrackingDetails?> dailyTackingDetails = Rx(null);
   RxList<DailyTrackingList> latLongData = <DailyTrackingList>[].obs;
   final trackingId = Get.arguments;
@@ -27,15 +27,17 @@ class PolylineController extends GetxController {
     isLoading.value = !isLoading.value;
     final response = await _repository.drivingDailyTracking(data);
     dailyTackingDetails.value = response;
-    if(response != null) {
+    if (response != null) {
       latLongData.value = response.data!;
     }
     if (latLongData.isNotEmpty) {
       initialLocation = CameraPosition(
         zoom: cameraZoom,
-        bearing: cameraBearing,
+        azimuth: cameraBearing,
         tilt: cameraTilt,
-        target: LatLng(latLongData.first.latitude ?? 0.0, latLongData.first.longitude ?? 0.0),
+        target: Point(
+            latitude: latLongData.first.latitude ?? 0.0,
+            longitude: latLongData.first.longitude ?? 0.0),
       );
     }
 

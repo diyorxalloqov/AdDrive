@@ -7,16 +7,16 @@ import 'package:flutter_texi_tracker/map_style/util.dart';
 import 'package:flutter_texi_tracker/model/daily_tracking_model.dart';
 import 'package:flutter_texi_tracker/controller/polyline_controller.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 
 const double cameraZoom = 16;
 const double cameraTilt = 0;
 const double cameraBearing = 30;
-const LatLng sourceLocation = LatLng(23.779394, 90.376844);
-const LatLng destLocation = LatLng(23.749394, 90.356844);
+const Point sourceLocation = Point( latitude: 23.779394,longitude:  90.376844);
+const Point destLocation = Point(latitude: 23.749394,longitude:  90.356844);
 
 class MapPolylinePage extends StatefulWidget {
-  const MapPolylinePage({Key? key}) : super(key: key);
+  const MapPolylinePage({super.key});
 
   // final LatLng source;
   // final LatLng destination;
@@ -28,16 +28,17 @@ class MapPolylinePage extends StatefulWidget {
 }
 
 class MapPageState extends State<MapPolylinePage> {
-  final Completer<GoogleMapController> _controller = Completer();
+  final Completer<YandexMapController> _controller = Completer();
 
   // this set will hold my markers
-  final Set<Marker> _markers = {};
+
+  // final Set<Marker> _markers = {};
 
   // this will hold the generated polylines
   final Set<Polyline> _polyLines = {};
 
   // this will hold each polyline coordinate as Lat and Lng pairs
-  List<LatLng> polylineCoordinates = [];
+  List<Point> polylineCoordinates = [];
 
   //list of way
   List<PolylineWayPoint> polylineWayPoints = [];
@@ -62,12 +63,12 @@ class MapPageState extends State<MapPolylinePage> {
     setSourceAndDestinationIcons();
   }
 
-  void setSourceAndDestinationIcons() async {
-    sourceIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.0),
+  void setSourceAndDestinationIcons()  {
+    sourceIcon =  BitmapDescriptor.fromAssetImage(
+        // const ImageConfiguration(devicePixelRatio: 2.0),
         'asset/icons/markers/location_marker.png');
-    destinationIcon = await BitmapDescriptor.fromAssetImage(
-        const ImageConfiguration(devicePixelRatio: 2.0),
+    destinationIcon =  BitmapDescriptor.fromAssetImage(
+        // const ImageConfiguration(devicePixelRatio: 2.0),
         'asset/icons/markers/location_marker.png');
   }
 
@@ -78,11 +79,11 @@ class MapPageState extends State<MapPolylinePage> {
 
     CameraPosition initialLocation = CameraPosition(
         zoom: cameraZoom,
-        bearing: cameraBearing,
+        // bearing: cameraBearing,
         tilt: cameraTilt,
-        target: LatLng(
-            locationServiceController.userLocation.value?.latitude ?? 0.0,
-            locationServiceController.userLocation.value?.longitude ?? 0.0));
+        target: Point(
+            latitude:  locationServiceController.userLocation.value?.latitude ?? 0.0,
+           longitude:  locationServiceController.userLocation.value?.longitude ?? 0.0));
 
     return Obx(
       () => Scaffold(
@@ -93,14 +94,14 @@ class MapPageState extends State<MapPolylinePage> {
         body: locationDataController.isLoading.isFalse
             ? Stack(
                 children: [
-                  GoogleMap(
-                    myLocationEnabled: true,
-                    compassEnabled: true,
+                  YandexMap(
+                    // myLocationEnabled: true,
+                    // compassEnabled: true,
                     tiltGesturesEnabled: false,
-                    markers: _markers,
-                    polylines: _polyLines,
-                    mapType: MapType.normal,
-                    initialCameraPosition: locationDataController.initialLocation ?? initialLocation,
+                    // markers: _markers,
+                    // polylines: _polyLines,
+                    mapType: MapType.satellite,
+                    // initialCameraPosition: locationDataController.initialLocation ?? initialLocation,
                     onMapCreated: (controller) => onMapCreated(
                         controller, locationDataController.latLongData),
                   ),
@@ -210,17 +211,17 @@ class MapPageState extends State<MapPolylinePage> {
   }
 
   void onMapCreated(
-      GoogleMapController controller, List<DailyTrackingList> list) {
+      YandexMapController controller, List<DailyTrackingList> list) {
     controller.setMapStyle(Utils.mapStyles);
     _controller.complete(controller);
     if (list.length > 1) {
       ///first point as origin
       final first =
-          LatLng(list.first.latitude ?? 0.0, list.first.longitude ?? 0.0);
+      Point(latitude:  list.first.latitude ?? 0.0,longitude:  list.first.longitude ?? 0.0);
 
       ///last point as destination
       final last =
-          LatLng(list.last.latitude ?? 0.0, list.last.longitude ?? 0.0);
+      Point(latitude:  list.last.latitude ?? 0.0,longitude:  list.last.longitude ?? 0.0);
 
       setMapPins(first, last);
       // setPolylines(middle, last);
@@ -240,22 +241,22 @@ class MapPageState extends State<MapPolylinePage> {
     }
   }
 
-  void setMapPins(LatLng source, LatLng destination) {
+  void setMapPins(Point source, Point destination) {
     setState(() {
       // source pin
-      _markers.add(Marker(
-          markerId: const MarkerId('sourcePin'),
-          position: source,
-          icon: sourceIcon!));
-      // destination pin
-      _markers.add(Marker(
-          markerId: const MarkerId('destPin'),
-          position: destination,
-          icon: destinationIcon!));
+      // _markers.add(Marker(
+      //     markerId: const MarkerId('sourcePin'),
+      //     position: source,
+      //     icon: sourceIcon!));
+      // // destination pin
+      // _markers.add(Marker(
+      //     markerId: const MarkerId('destPin'),
+      //     position: destination,
+      //     icon: destinationIcon!));
     });
   }
 
-  setPolyLines(LatLng? source, LatLng? destination) async {
+  setPolyLines(Point? source, Point? destination) async {
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
         googleAPIKey,
         PointLatLng(source?.latitude ?? 0.0, source?.longitude ?? 0),
@@ -265,16 +266,16 @@ class MapPageState extends State<MapPolylinePage> {
         travelMode: TravelMode.driving);
 
     for (var point in result.points) {
-      polylineCoordinates.add(LatLng(point.latitude, point.longitude));
+      polylineCoordinates.add(Point(latitude:  point.latitude,longitude:  point.longitude));
     }
 
     setState(() {
       // create a Polyline instance
       // with an id, an RGB color and the list of LatLng pairs
       Polyline polyline = Polyline(
-          polylineId: const PolylineId("poly"),
-          color: Colors.red,
-          width: 4,
+          // polylineId: const PolylineId("poly"),
+          // color: Colors.red,
+          // width: 4,
           points: polylineCoordinates);
 
       // add the constructed polyline as a set of points

@@ -39,10 +39,10 @@ class UserSignUpState extends State<UserSignUp> {
       init: SignInUpController(),
       initState: (_) => SignInUpController(),
       builder: (controller) {
-        return controller.loading.value
-            ? const Loading()
-            : Scaffold(
-                body: SafeArea(
+        return Scaffold(
+                body: controller.loading.value
+                    ? const Loading()
+                    : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
                       key: _formKey,
