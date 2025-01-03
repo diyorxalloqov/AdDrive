@@ -10,11 +10,11 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/db/car_db.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_details_model.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_model.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/service/car_service.dart';
-import 'package:flutter_texi_tracker/utils/enums/status.dart';
+import 'package:addrive/screens/add_vehicle/db/car_db.dart';
+import 'package:addrive/screens/add_vehicle/model/car_details_model.dart';
+import 'package:addrive/screens/add_vehicle/model/car_model.dart';
+import 'package:addrive/screens/add_vehicle/service/car_service.dart';
+import 'package:addrive/utils/enums/status.dart';
 
 import '../../../global/imports/app_imports.dart';
 

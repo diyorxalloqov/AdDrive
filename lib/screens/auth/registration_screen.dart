@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/app_config/utils.dart';
-import 'package:flutter_texi_tracker/controller/registration_controller.dart';
-import 'package:flutter_texi_tracker/generated/assets.dart';
-import 'package:flutter_texi_tracker/language/language_screen.dart';
-import 'package:flutter_texi_tracker/screens/auth/content/auth_form_field.dart';
+import 'package:addrive/app_config/utils.dart';
+import 'package:addrive/controller/registration_controller.dart';
+import 'package:addrive/generated/assets.dart';
+import 'package:addrive/language/language_screen.dart';
+import 'package:addrive/screens/auth/content/auth_form_field.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';

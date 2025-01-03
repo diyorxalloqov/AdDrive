@@ -1,6 +1,6 @@
-import 'package:flutter_texi_tracker/controller/driver_profile_controller.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
+import 'package:addrive/controller/driver_profile_controller.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/decoration_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   final controller = Get.put(DriverProfileController());

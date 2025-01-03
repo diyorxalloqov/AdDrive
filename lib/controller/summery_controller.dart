@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/model/summery/summery_model.dart';
+import 'package:addrive/data/local_data/shared_preference.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/model/summery/summery_model.dart';
 import 'package:get/get.dart';
 
 import 'auth_controller.dart';

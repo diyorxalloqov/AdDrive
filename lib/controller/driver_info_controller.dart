@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/api/api_provider.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/api/api_provider.dart';
+import 'package:addrive/screens/main_screen/ui/main_screen.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';

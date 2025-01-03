@@ -1,11 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/app_config/app_config.dart';
-import 'package:flutter_texi_tracker/core/keys.dart';
-import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-import 'package:flutter_texi_tracker/generated/assets.dart';
-import 'package:flutter_texi_tracker/screens/onboarding/onboarding_page.dart';
-import 'package:flutter_texi_tracker/screens/wrapper/location_wrapper.dart';
+import 'package:addrive/app_config/app_config.dart';
+import 'package:addrive/core/keys.dart';
+import 'package:addrive/data/local_data/shared_preference.dart';
+import 'package:addrive/generated/assets.dart';
+import 'package:addrive/screens/onboarding/onboarding_page.dart';
+import 'package:addrive/screens/wrapper/location_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

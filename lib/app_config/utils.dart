@@ -1,4 +1,4 @@
-import 'package:flutter_texi_tracker/generated/assets.dart';
+import 'package:addrive/generated/assets.dart';
 
 var type = ['Owner','Driver'];
 

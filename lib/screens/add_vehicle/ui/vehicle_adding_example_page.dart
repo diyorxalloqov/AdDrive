@@ -6,7 +6,7 @@
  */
 
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class VehicleAddingExamplePage extends StatefulWidget {

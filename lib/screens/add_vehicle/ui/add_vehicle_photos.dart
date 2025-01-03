@@ -7,8 +7,8 @@
 
 import 'dart:io';
 
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/ui/vehicle_country_screen.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/screens/add_vehicle/ui/vehicle_country_screen.dart';
 
 class AddVehiclePhotos extends StatefulWidget {
   const AddVehiclePhotos({super.key});

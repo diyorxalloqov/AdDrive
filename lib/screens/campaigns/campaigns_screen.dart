@@ -3,10 +3,10 @@ import 'package:dio/dio.dart' as dio; // Alias the dio package
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:flutter_texi_tracker/screens/campaigns/content/campaign_car_widget.dart';
-import 'package:flutter_texi_tracker/widgets/no_data_found_widget.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/model/campaignListModel.dart';
+import 'package:addrive/screens/campaigns/content/campaign_car_widget.dart';
+import 'package:addrive/widgets/no_data_found_widget.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/model/campaignListModel.dart';
 import '../../model/hive_model/user_model.dart';
 
 class CampaignsScreen extends StatefulWidget {

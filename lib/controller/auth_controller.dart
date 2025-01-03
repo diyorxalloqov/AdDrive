@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
+import 'package:addrive/model/hive_model/user_model.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 

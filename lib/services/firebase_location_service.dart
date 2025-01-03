@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_texi_tracker/model/driver_location_model.dart';
-import 'package:flutter_texi_tracker/model/user_profile.dart';
+import 'package:addrive/model/driver_location_model.dart';
+import 'package:addrive/model/user_profile.dart';
 
 class FirebaseLocationService {
 

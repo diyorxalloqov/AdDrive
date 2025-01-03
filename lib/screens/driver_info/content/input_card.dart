@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/custom_card_decoration.dart';
+import 'package:addrive/screens/driver_info/content/custom_card_decoration.dart';
 
 class InputCard extends StatelessWidget {
   final Widget child;

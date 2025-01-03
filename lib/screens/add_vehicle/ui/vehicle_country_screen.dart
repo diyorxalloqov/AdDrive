@@ -5,10 +5,10 @@
  *  Telegram: https://t.me/Flutter_dart_developer
  */
 
-import 'package:flutter_texi_tracker/controller/language_controller.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/drop_down_widget.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/ui/vehicle_confirm_screen.dart';
+import 'package:addrive/controller/language_controller.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/drop_down_widget.dart';
+import 'package:addrive/screens/add_vehicle/ui/vehicle_confirm_screen.dart';
 
 class VehicleCountryScreen extends StatefulWidget {
   const VehicleCountryScreen({super.key});

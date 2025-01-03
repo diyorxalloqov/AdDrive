@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_texi_tracker/model/firebase_custom_user.dart';
+import 'package:addrive/model/firebase_custom_user.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;

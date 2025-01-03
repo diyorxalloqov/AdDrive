@@ -7,11 +7,11 @@
 
 import 'dart:io';
 
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_details_model.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_model.dart';
+import 'package:addrive/screens/add_vehicle/model/car_details_model.dart';
+import 'package:addrive/screens/add_vehicle/model/car_model.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 
 class CarDb {
   Box<CarModel>? carBox;

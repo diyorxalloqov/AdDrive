@@ -1,8 +1,8 @@
 // import 'package:flutter/foundation.dart';
-// import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-// import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-// import 'package:flutter_texi_tracker/data/repository/repository.dart';
-// import 'package:flutter_texi_tracker/model/driver_payment/driver_payment_model.dart';
+// import 'package:addrive/controller/auth_controller.dart';
+// import 'package:addrive/data/local_data/shared_preference.dart';
+// import 'package:addrive/data/repository/repository.dart';
+// import 'package:addrive/model/driver_payment/driver_payment_model.dart';
 // import 'package:get/get.dart';
 //
 // class PaymentController extends GetxController with StateMixin<DriverPayment> {

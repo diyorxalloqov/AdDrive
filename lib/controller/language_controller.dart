@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-import 'package:flutter_texi_tracker/language/language.dart';
+import 'package:addrive/data/local_data/shared_preference.dart';
+import 'package:addrive/language/language.dart';
 import 'package:get/get.dart';
 
 class LanguageController extends GetxController {

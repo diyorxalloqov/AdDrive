@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/controller/location_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
-import 'package:flutter_texi_tracker/model/sign_up_model.dart';
-import 'package:flutter_texi_tracker/screens/auth/widgets/succes_dialog.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/controller/location_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/model/hive_model/user_model.dart';
+import 'package:addrive/model/sign_up_model.dart';
+import 'package:addrive/screens/auth/widgets/succes_dialog.dart';
+import 'package:addrive/screens/main_screen/ui/main_screen.dart';
 import 'package:get/get.dart';
 
 class SignInUpController extends GetxController {

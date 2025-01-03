@@ -14,9 +14,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_texi_tracker/app_config/app_config.dart';
-import 'package:flutter_texi_tracker/generated/assets.dart';
-import 'package:flutter_texi_tracker/utils/extensions/theme.dart';
+import 'package:addrive/app_config/app_config.dart';
+import 'package:addrive/generated/assets.dart';
+import 'package:addrive/utils/extensions/theme.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController controller;

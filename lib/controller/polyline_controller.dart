@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/model/daily_tracking_model.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/model/daily_tracking_model.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../screens/google_map_polynie/google_map_poly_line.dart';

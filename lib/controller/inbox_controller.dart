@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
+import 'package:addrive/controller/auth_controller.dart';
 import 'package:get/get.dart';
 
 class InboxController extends GetxController{

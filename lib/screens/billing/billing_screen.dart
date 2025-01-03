@@ -5,8 +5,8 @@
  *  Telegram: https://t.me/Flutter_dart_developer
  */
 
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/decoration_widget.dart';
 
 class BillingScreen extends StatelessWidget {
   const BillingScreen({super.key});

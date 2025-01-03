@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-import 'package:flutter_texi_tracker/hive/hive_location_provider.dart';
-import 'package:flutter_texi_tracker/model/driver_location_model.dart';
+import 'package:addrive/data/local_data/shared_preference.dart';
+import 'package:addrive/hive/hive_location_provider.dart';
+import 'package:addrive/model/driver_location_model.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'firebase_location_service.dart';

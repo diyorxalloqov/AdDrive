@@ -7,8 +7,8 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/controller/language_controller.dart';
-import 'package:flutter_texi_tracker/widgets/space_widget.dart';
+import 'package:addrive/controller/language_controller.dart';
+import 'package:addrive/widgets/space_widget.dart';
 import 'package:get/get.dart';
 
 void showLanguageDialog(BuildContext context) {

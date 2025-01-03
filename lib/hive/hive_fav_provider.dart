@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/model/hive_model/fav/favourite_car_model.dart';
+import 'package:addrive/model/hive_model/fav/favourite_car_model.dart';
 import 'package:hive/hive.dart';
 
 const String favBoxName = "favBox";

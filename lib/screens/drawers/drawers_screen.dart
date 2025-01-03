@@ -1,9 +1,9 @@
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/language_dialog.dart';
-import 'package:flutter_texi_tracker/routes/app_routes.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/language_dialog.dart';
+import 'package:addrive/routes/app_routes.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DrawerScreen extends StatefulWidget {

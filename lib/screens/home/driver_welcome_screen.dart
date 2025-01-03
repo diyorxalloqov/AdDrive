@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_texi_tracker/controller/location_controller.dart';
-import 'package:flutter_texi_tracker/generated/assets.dart';
-import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
-import 'package:flutter_texi_tracker/controller/owner_profile_controller.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
-import 'package:flutter_texi_tracker/utils/enums/status.dart';
+import 'package:addrive/controller/location_controller.dart';
+import 'package:addrive/generated/assets.dart';
+import 'package:addrive/model/hive_model/user_model.dart';
+import 'package:addrive/controller/owner_profile_controller.dart';
+import 'package:addrive/screens/main_screen/cubit/location_cubit.dart';
+import 'package:addrive/utils/enums/status.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

@@ -2,10 +2,10 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:flutter_texi_tracker/controller/location_controller.dart';
-import 'package:flutter_texi_tracker/map_style/util.dart';
-import 'package:flutter_texi_tracker/model/daily_tracking_model.dart';
-import 'package:flutter_texi_tracker/controller/polyline_controller.dart';
+import 'package:addrive/controller/location_controller.dart';
+import 'package:addrive/map_style/util.dart';
+import 'package:addrive/model/daily_tracking_model.dart';
+import 'package:addrive/controller/polyline_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

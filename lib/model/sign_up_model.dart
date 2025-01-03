@@ -1,4 +1,4 @@
-import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
+import 'package:addrive/model/hive_model/user_model.dart';
 
 SignupModel signupResponseFromJson(json) => SignupModel.fromJson(json);
 

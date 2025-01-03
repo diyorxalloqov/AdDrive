@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/screens/auth/sign_in.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/ui/main_screen.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/screens/auth/sign_in.dart';
+import 'package:addrive/screens/main_screen/ui/main_screen.dart';
 import 'package:get/get.dart';
 
 // LocationService locationServiceProvider = LocationService();

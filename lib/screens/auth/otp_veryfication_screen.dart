@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/app_config/utils.dart';
+import 'package:addrive/app_config/utils.dart';
 import 'package:get/get.dart';
 
 class OtpScreen extends StatelessWidget {

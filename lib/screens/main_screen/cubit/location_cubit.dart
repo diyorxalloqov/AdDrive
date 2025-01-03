@@ -9,7 +9,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_texi_tracker/utils/enums/status.dart';
+import 'package:addrive/utils/enums/status.dart';
 import 'package:location/location.dart';
 import 'package:permission_handler/permission_handler.dart'
     hide PermissionStatus;

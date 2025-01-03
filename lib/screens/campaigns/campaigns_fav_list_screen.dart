@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/hive/hive_fav_provider.dart';
+import 'package:addrive/hive/hive_fav_provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter_texi_tracker/widgets/no_data_found_widget.dart';
+import 'package:addrive/widgets/no_data_found_widget.dart';
 import 'package:provider/provider.dart';
 import '../../model/hive_model/fav/favourite_car_model.dart';
 

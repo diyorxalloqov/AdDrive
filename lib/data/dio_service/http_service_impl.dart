@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
+import 'package:addrive/controller/auth_controller.dart';
 import 'http_service.dart';
 
 class HttpServiceImpl implements HttpService {

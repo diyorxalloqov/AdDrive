@@ -1,5 +1,5 @@
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/screens/auth/sign_up.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/screens/auth/sign_up.dart';
 
 class UserSignIn extends StatefulWidget {
   const UserSignIn({super.key});
@@ -28,10 +28,10 @@ class UserSignInState extends State<UserSignIn> {
   Widget build(BuildContext context) {
     return GetBuilder<SignInUpController>(
       builder: (signInController) {
-        return signInController.loading.value
-            ? const Loading()
-            : Scaffold(
-                body: SafeArea(
+        return Scaffold(
+          body: signInController.loading.value
+              ? const Loading()
+              : SafeArea(
                   child: Padding(
                     padding:
                         const EdgeInsets.only(left: 22, right: 22, top: 40),
@@ -176,7 +176,7 @@ class UserSignInState extends State<UserSignIn> {
                     ),
                   ),
                 ),
-              );
+        );
       },
     );
   }

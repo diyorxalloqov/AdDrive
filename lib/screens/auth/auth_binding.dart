@@ -1,6 +1,6 @@
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/controller/sign_in_controller.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/controller/sign_in_controller.dart';
 import 'package:get/get.dart';
 
 class AuthBinding extends Bindings{

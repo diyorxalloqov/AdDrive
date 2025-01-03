@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 
 class UserSignUp extends StatefulWidget {
   const UserSignUp({super.key});
@@ -39,10 +39,10 @@ class UserSignUpState extends State<UserSignUp> {
       init: SignInUpController(),
       initState: (_) => SignInUpController(),
       builder: (controller) {
-        return controller.loading.value
-            ? const Loading()
-            : Scaffold(
-                body: SafeArea(
+        return  Scaffold(
+                body: controller.loading.value
+                    ? const Loading()
+                    : SafeArea(
                   child: SingleChildScrollView(
                     child: Form(
                       key: _formKey,

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/controller/driver_info_controller.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/custom_from_field.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/date_input_field.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/driver_declaration_content.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/input_card.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/picture_content.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/signature_content.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/vehicle_inspection_radio_theme.dart';
+import 'package:addrive/controller/driver_info_controller.dart';
+import 'package:addrive/screens/driver_info/content/custom_from_field.dart';
+import 'package:addrive/screens/driver_info/content/date_input_field.dart';
+import 'package:addrive/screens/driver_info/content/driver_declaration_content.dart';
+import 'package:addrive/screens/driver_info/content/input_card.dart';
+import 'package:addrive/screens/driver_info/content/picture_content.dart';
+import 'package:addrive/screens/driver_info/content/signature_content.dart';
+import 'package:addrive/screens/driver_info/content/vehicle_inspection_radio_theme.dart';
 import 'package:get/get.dart';
 
 class DriverInfoPage extends StatelessWidget {

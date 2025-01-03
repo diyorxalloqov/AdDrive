@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/model/register_response_model.dart';
+import 'package:addrive/model/register_response_model.dart';
 import 'dart:io';
 import 'package:dio/dio.dart' as dio;
-import 'package:flutter_texi_tracker/data/api/api_provider.dart';
-import 'package:flutter_texi_tracker/screens/splash_screen/splash_screen.dart';
-import 'package:flutter_texi_tracker/widgets/custom_dialog_image_picker.dart';
+import 'package:addrive/data/api/api_provider.dart';
+import 'package:addrive/screens/splash_screen/splash_screen.dart';
+import 'package:addrive/widgets/custom_dialog_image_picker.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 

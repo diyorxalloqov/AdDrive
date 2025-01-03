@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/model/driver_report_model.dart';
-import 'package:flutter_texi_tracker/routes/app_routes.dart';
+import 'package:addrive/model/driver_report_model.dart';
+import 'package:addrive/routes/app_routes.dart';
 import 'package:get/get.dart';
 
 class DriverProfileReportItem extends StatelessWidget {

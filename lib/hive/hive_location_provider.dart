@@ -1,4 +1,4 @@
-import 'package:flutter_texi_tracker/model/driver_location_model.dart';
+import 'package:addrive/model/driver_location_model.dart';
 import 'package:hive/hive.dart';
 
 String location = 'location';

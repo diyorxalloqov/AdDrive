@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_texi_tracker/controller/payment_controller.dart';
-// import 'package:flutter_texi_tracker/widgets/error_screen.dart';
-// import 'package:flutter_texi_tracker/widgets/history_and_payment_cart.dart';
+// import 'package:addrive/controller/payment_controller.dart';
+// import 'package:addrive/widgets/error_screen.dart';
+// import 'package:addrive/widgets/history_and_payment_cart.dart';
 // import 'package:get/get.dart';
 //
 // class PaymentScreen extends StatelessWidget {

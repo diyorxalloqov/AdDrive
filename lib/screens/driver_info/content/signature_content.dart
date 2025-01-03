@@ -1,7 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/input_card.dart';
+import 'package:addrive/screens/driver_info/content/input_card.dart';
 import 'package:signature/signature.dart';
 
 class SignatureContent extends StatefulWidget {

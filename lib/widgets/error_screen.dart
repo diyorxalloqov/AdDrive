@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/animation/staggered_animation.dart';
+import 'package:addrive/animation/staggered_animation.dart';
 
 class ErrorScreen extends StatefulWidget {
 

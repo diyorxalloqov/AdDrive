@@ -5,11 +5,11 @@
  *  Telegram: https://t.me/Flutter_dart_developer
  */
 
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/drop_down_widget.dart';
-import 'package:flutter_texi_tracker/global/widgets/text_form_field_widget_2.dart';
-import 'package:flutter_texi_tracker/global/widgets/uppercase_formatter.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/ui/add_vehicle_photos.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/drop_down_widget.dart';
+import 'package:addrive/global/widgets/text_form_field_widget_2.dart';
+import 'package:addrive/global/widgets/uppercase_formatter.dart';
+import 'package:addrive/screens/add_vehicle/ui/add_vehicle_photos.dart';
 
 class AddVehicleDataScreen extends StatefulWidget {
   const AddVehicleDataScreen({super.key});

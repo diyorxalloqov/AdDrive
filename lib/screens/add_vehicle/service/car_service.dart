@@ -7,10 +7,10 @@
 
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter_texi_tracker/data/api/api_provider.dart';
-import 'package:flutter_texi_tracker/global/services/request_service.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_details_model.dart';
-import 'package:flutter_texi_tracker/screens/add_vehicle/model/car_model.dart';
+import 'package:addrive/data/api/api_provider.dart';
+import 'package:addrive/global/services/request_service.dart';
+import 'package:addrive/screens/add_vehicle/model/car_details_model.dart';
+import 'package:addrive/screens/add_vehicle/model/car_model.dart';
 
 class CarsService {
   Future<Either<String, List<CarModel>>> getAllCars() async {

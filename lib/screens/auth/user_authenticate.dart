@@ -1,7 +1,7 @@
 // import 'package:flutter/material.dart';
-// import 'package:flutter_texi_tracker/screens/auth/sign_in.dart';
-// import 'package:flutter_texi_tracker/controller/sign_in_controller.dart';
-// import 'package:flutter_texi_tracker/screens/auth/sign_up.dart';
+// import 'package:addrive/screens/auth/sign_in.dart';
+// import 'package:addrive/controller/sign_in_controller.dart';
+// import 'package:addrive/screens/auth/sign_up.dart';
 // import 'package:get/get.dart';
 //
 // class UserAuthenticate extends StatefulWidget {

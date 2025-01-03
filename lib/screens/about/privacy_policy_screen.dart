@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 import 'package:get/get.dart';
 
 class PrivacyPolicy extends StatefulWidget {

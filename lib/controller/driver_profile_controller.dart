@@ -1,8 +1,8 @@
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/local_data/shared_preference.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/model/driver_profile.dart';
-import 'package:flutter_texi_tracker/model/hive_model/user_model.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/local_data/shared_preference.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/model/driver_profile.dart';
+import 'package:addrive/model/hive_model/user_model.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:dio/dio.dart' as dio;

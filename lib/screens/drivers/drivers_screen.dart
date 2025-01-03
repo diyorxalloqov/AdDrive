@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_texi_tracker/controller/driver_list_controller.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
-import 'package:flutter_texi_tracker/screens/profile/profile_screen.dart';
+import 'package:addrive/controller/driver_list_controller.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/decoration_widget.dart';
+import 'package:addrive/screens/profile/profile_screen.dart';
 import 'package:get/get.dart';
 
 class DriversScreen extends StatelessWidget {

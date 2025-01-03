@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/app_config/utils.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/app_config/utils.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   final VoidCallback? leadingTap;

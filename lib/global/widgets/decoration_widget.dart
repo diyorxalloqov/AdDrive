@@ -5,7 +5,7 @@
  *  Telegram: https://t.me/Flutter_dart_developer
  */
 
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
+import 'package:addrive/global/imports/app_imports.dart';
 
 BoxDecoration decoration(BuildContext context) {
   return BoxDecoration(

@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCSOb5Q2SzNor91sYl_11ExpcTU_vYyI60',
-    appId: '1:526039409607:android:22bb442482e6dfa4d4afe2',
+    appId: '1:526039409607:android:eb7931fbdd7f2ee9d4afe2',
     messagingSenderId: '526039409607',
     projectId: 'addrive-35217',
     storageBucket: 'addrive-35217.firebasestorage.app',
@@ -59,10 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCVNVOgEVkJiqVqwkjaWEDoKc5Hj1cv6Sk',
-    appId: '1:526039409607:ios:a237dd1126245a50d4afe2',
+    appId: '1:526039409607:ios:efecd934fc7ffeead4afe2',
     messagingSenderId: '526039409607',
     projectId: 'addrive-35217',
     storageBucket: 'addrive-35217.firebasestorage.app',
-    iosBundleId: 'com.adDrive',
+    iosBundleId: 'com.addrive',
   );
+
 }

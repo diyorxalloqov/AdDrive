@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/model/driving_history_model.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/model/driving_history_model.dart';
 import 'package:get/get.dart';
 
 class OwnerProfileController extends GetxController{

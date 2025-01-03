@@ -5,22 +5,22 @@
  *  Telegram: https://t.me/Flutter_dart_developer
  */
 
+import 'package:addrive/screens/home/traccar_flutter/traccar_page.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_texi_tracker/controller/auth_controller.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
-import 'package:flutter_texi_tracker/screens/billing/billing_screen.dart';
-import 'package:flutter_texi_tracker/screens/drawers/drawers_screen.dart';
-import 'package:flutter_texi_tracker/screens/home/driver_welcome_screen.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/cubit/location_cubit.dart';
-import 'package:flutter_texi_tracker/screens/main_screen/ui/widgets/show_start_driving_dialog.dart';
-import 'package:flutter_texi_tracker/screens/profile/profile_screen.dart';
-import 'package:flutter_texi_tracker/services/firebase_location_service.dart';
-import 'package:flutter_texi_tracker/utils/enums/status.dart';
+import 'package:addrive/controller/auth_controller.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/decoration_widget.dart';
+import 'package:addrive/screens/billing/billing_screen.dart';
+import 'package:addrive/screens/drawers/drawers_screen.dart';
+import 'package:addrive/screens/home/driver_welcome_screen.dart';
+import 'package:addrive/screens/main_screen/cubit/location_cubit.dart';
+import 'package:addrive/screens/main_screen/ui/widgets/show_start_driving_dialog.dart';
+import 'package:addrive/screens/profile/profile_screen.dart';
+import 'package:addrive/services/firebase_location_service.dart';
+import 'package:addrive/utils/enums/status.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_texi_tracker/model/user_profile.dart';
+import 'package:addrive/model/user_profile.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -158,7 +158,7 @@ class _InitState extends State<Init> {
                                                 ?.copyWith(fontSize: 20)),
                                 GestureDetector(
                                   behavior: HitTestBehavior.opaque,
-                                  // onTap: () => ,
+                                  onTap: () => Get.to(const TraccarPage()),
                                   child: Container(
                                       padding: const EdgeInsets.all(12),
                                       decoration: decoration(context),

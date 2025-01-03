@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_texi_tracker/screens/driver_info/content/input_card.dart';
+import 'package:addrive/screens/driver_info/content/input_card.dart';
 
 class CustomFromFiled extends StatelessWidget {
   final String? title;

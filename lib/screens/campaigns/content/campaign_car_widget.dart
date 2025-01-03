@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_texi_tracker/hive/hive_fav_provider.dart';
-import 'package:flutter_texi_tracker/model/campaignListModel.dart';
-import 'package:flutter_texi_tracker/model/hive_model/fav/favourite_car_model.dart';
+import 'package:addrive/hive/hive_fav_provider.dart';
+import 'package:addrive/model/campaignListModel.dart';
+import 'package:addrive/model/hive_model/fav/favourite_car_model.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:provider/provider.dart';
 

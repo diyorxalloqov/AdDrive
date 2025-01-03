@@ -1,9 +1,9 @@
-import 'package:flutter_texi_tracker/controller/vehicles_list_controller.dart';
-import 'package:flutter_texi_tracker/global/imports/app_imports.dart';
-import 'package:flutter_texi_tracker/global/widgets/decoration_widget.dart';
-import 'package:flutter_texi_tracker/model/vehicle_list_model.dart';
-import 'package:flutter_texi_tracker/widgets/error_screen.dart';
-import 'package:flutter_texi_tracker/widgets/no_data_found_widget.dart';
+import 'package:addrive/controller/vehicles_list_controller.dart';
+import 'package:addrive/global/imports/app_imports.dart';
+import 'package:addrive/global/widgets/decoration_widget.dart';
+import 'package:addrive/model/vehicle_list_model.dart';
+import 'package:addrive/widgets/error_screen.dart';
+import 'package:addrive/widgets/no_data_found_widget.dart';
 
 class VehiclesScreen extends StatelessWidget {
   final controller = Get.put(VehicleListController());

@@ -1,8 +1,8 @@
-import 'package:flutter_texi_tracker/controller/inbox_controller.dart';
-import 'package:flutter_texi_tracker/controller/location_controller.dart';
-// import 'package:flutter_texi_tracker/controller/payment_controller.dart';
-import 'package:flutter_texi_tracker/data/repository/repository.dart';
-import 'package:flutter_texi_tracker/controller/owner_profile_controller.dart';
+import 'package:addrive/controller/inbox_controller.dart';
+import 'package:addrive/controller/location_controller.dart';
+// import 'package:addrive/controller/payment_controller.dart';
+import 'package:addrive/data/repository/repository.dart';
+import 'package:addrive/controller/owner_profile_controller.dart';
 import 'package:get/instance_manager.dart';
 
 class InitialBinding extends Bindings{
